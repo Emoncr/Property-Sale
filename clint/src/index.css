@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=KoHo:wght@700&family=Open+Sans:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.search {
+  @apply input w-full h-10  mx-auto  border-2 rounded-md border-brand-blue max-w-[150px]  sm:max-w-sm focus:outline-0 text-sm font-semibold bg-transparent text-brand-blue placeholder:text-brand-blue placeholder:font-semibold px-3;
+}
+.search_btn {
+  @apply absolute  right-0 bg-brand-blue h-full w-10 sm:w-14 sm:max-w-[56px] rounded-e-md max-w-[40px] flex items-center justify-center hover:bg-brand-blue/[.90] duration-300;
+}
