@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import "dotenv/config";
-
+const app = express();
 main().catch(err => console.log(err));
 
 async function main() {
@@ -19,7 +19,7 @@ async function main() {
 //   console.log(er);
 // })
 
-const app = express();
+
 
 app.listen(3000, () => {
   console.log("server running at port 3000!");
