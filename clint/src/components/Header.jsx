@@ -49,7 +49,7 @@ const Header = () => {
             </div> */}
 
             <div className="">
-                <ul className=" hidden sm:flex items-center justify-end  pr-4 font-bold text-brand-blue font-content ">
+                <ul className=" hidden sm:flex items-center justify-end  pr-4 font-semibold text-brand-blue font-content ">
 
                     <li className='mr-6 capitalize'>
                         <Link to='/home'>Home</Link>
