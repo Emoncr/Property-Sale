@@ -1,14 +1,18 @@
 import express from "express";
 import mongoose from "mongoose";
 import "dotenv/config";
+import userRouter from "./routes/user.route.js";
+import signup from "./routes/auth.route.js";
+
 const app = express();
-main().catch(err => console.log(err));
+app.use(express.json());
+
+main().catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect(process.env.MONGO);
-  console.log('database connected');
+  console.log("database connected");
 }
-
 
 // ===========secound way ==========
 
@@ -19,8 +23,9 @@ async function main() {
 //   console.log(er);
 // })
 
-
-
 app.listen(3000, () => {
   console.log("server running at port 3000!");
 });
+
+app.use("/api/users", userRouter);
+app.use("/api/user", signup);
