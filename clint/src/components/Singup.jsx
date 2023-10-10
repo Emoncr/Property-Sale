@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
-const Singup = () => {
+
+const Singup = ({ userState }) => {
+    const { setResponseData, setIsformSubmit } = userState;
+
     const [loading, setLoading] = useState(false)
     const {
         register,
@@ -26,8 +27,8 @@ const Singup = () => {
         });
         const data = await res.json();
 
-        //========== Totify showing function here ========//
-        toast(data.message)
+        setIsformSubmit(true)
+        setResponseData(data)
         setLoading(false)
     };
 
@@ -58,7 +59,7 @@ const Singup = () => {
                     }
                 </button>
             </form>
-            <ToastContainer />
+
         </>
     )
 }

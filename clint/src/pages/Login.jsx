@@ -1,10 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Singup from '../components/Singup'
 import SingIn from '../components/SingIn'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Login = () => {
 
-    const [isNewUser, setisNewUser] = useState(false)
+    const [isNewUser, setIsNewUser] = useState(true)
+    const [isFormSubmit, setIsformSubmit] = useState(false);
+    const [responseData, setResponseData] = useState();
+
+
+    //======handlign Notification for user =====//
+    const handleTostify = async () => {
+        await responseData.success && setIsNewUser(!isNewUser)
+        toast(responseData.message, {
+            autoClose: 2000,
+        })
+    }
+    useEffect(() => {
+        isFormSubmit && handleTostify();
+        setIsformSubmit(false)
+    }, [responseData])        
+
+
 
 
 
@@ -18,19 +39,23 @@ const Login = () => {
                         }
                     </h1>
                     {
-                        isNewUser ? <SingIn /> : <Singup />
+                        isNewUser ?
+                            <SingIn userState={{ setResponseData, setIsformSubmit }} />
+                            :
+                            <Singup userState={{ setResponseData, setIsformSubmit }} />
                     }
+
                     <p className="content text-center font-heading text-black mt-4">
                         {
                             isNewUser ? "Don’t have an account?" : 'Already have an account?'
                         }
                         <u className='ml-1 border-brand-blue text-brand-blue cursor-pointer'
-                            onClick={() => setisNewUser(!isNewUser)}
+                            onClick={() => setIsNewUser(!isNewUser)}
                         >
                             {isNewUser ? 'Create an account' : 'Login'}
                         </u>
                     </p>
-
+                    <ToastContainer limit={0}/>
                 </div>
             </div>
         </section>
