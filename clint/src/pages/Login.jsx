@@ -40,7 +40,7 @@ const Login = () => {
                     </h1>
                     {
                         isNewUser ?
-                            <SingIn userState={{ setResponseData, setIsformSubmit }} />
+                            <SingIn />
                             :
                             <Singup userState={{ setResponseData, setIsformSubmit }} />
                     }

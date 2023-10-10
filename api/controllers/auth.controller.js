@@ -19,29 +19,26 @@ export const singup = async (req, res, next) => {
   }
 };
 
-
-
-
 // ========sing in route handling here =====//
 
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    const isValidUser = await User.findOne({ email });
-    if (!isValidUser) return next(throwError(404, "Worng Credentials!"));
-    const isValidPassword = bcrypt.compareSync(password, isValidUser.password);
+    const validUser = await User.findOne({ email });
+    if (!validUser) return next(throwError(404, "Worng Credentials!"));
+    const isValidPassword = bcrypt.compareSync(password, validUser.password);
     if (!isValidPassword) return next(throwError(401, "Worng Credentials!"));
 
-    const tooken = jwt.sign({ id: isValidUser._id }, process.env.JWT_SECRET, {
+    const { password: pass, ...rest } = validUser._doc;
+    const tooken = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
 
     res
-      .cookie("access_token", tooken, { httpOnly: true , secure: true})
+      .cookie("access_token", tooken, { httpOnly: true, secure: true })
       .status(200)
-      .json(isValidUser);
+      .json(rest);
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
