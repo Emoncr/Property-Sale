@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 import "dotenv/config";
 import userRouter from "./routes/user.route.js";
 import signup from "./routes/auth.route.js";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 main().catch((err) => console.log(err));
 

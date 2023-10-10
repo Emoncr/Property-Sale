@@ -17,6 +17,9 @@ export default {
         "brand-blue": `#${themeColor}`,
         "ui-bg": "#f1f5f1",
       },
+      boxShadow:{
+        "brand":"0 2px 5px"
+      }
     },
   },
   plugins: [require("daisyui")],
