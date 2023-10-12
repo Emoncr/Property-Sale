@@ -1,35 +1,65 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
-
+import { useSelector, useDispatch } from "react-redux";
+import { loddingStart, signinSuccess, signinFailed } from '../redux/user/userSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const SingIn = () => {
-    const [loading, setLoading] = useState(false)
-    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const { loading, signinError, currentUser } = useSelector((state) => state.user)
+
+    console.log(signinError);
+
+    console.log(currentUser);
+
+
 
 
 
     //======handling form submting function =====//
     const onSubmit = async (formData) => {
-        setLoading(true)
-        const res = await fetch('/api/user/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-        const data = await res.json();
-        // console.log(data);
-        navigate('/home')
-        setLoading(false)
+        try {
+            dispatch(loddingStart())
+            const res = await fetch('/api/user/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            const userData = await res.json();
+            console.log(userData);
+
+            //===checking reqest success or not ===//
+            if (userData.success === false) {
+                dispatch(signinFailed(userData.message))
+
+                //===showing error in tostify====//
+                toast(userData.message, {
+                    autoClose: 2000,
+                })
+            }
+            else {
+                dispatch(signinSuccess(userData))
+                navigate('/home')
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
+
+
+
 
 
     return (
@@ -54,7 +84,7 @@ const SingIn = () => {
                     }
                 </button>
             </form>
-
+            <ToastContainer limit={0} />
         </>
     )
 }
