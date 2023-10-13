@@ -6,7 +6,7 @@
 
 
 body{
-  @apply bg-[#f1f5f1]  
+  @apply bg-[#f1f5f1]  min-h-screen
 }
 
 #root{
@@ -17,7 +17,7 @@ body{
   @apply max-w-7xl mx-auto px-3 sm:px-6 xl:px-0;
 }
 .search {
-  @apply input w-full h-10  mx-auto  border-2 rounded-md border-brand-blue max-w-[150px]  sm:max-w-sm focus:outline-0 text-sm font-semibold bg-transparent text-brand-blue placeholder:text-brand-blue placeholder:font-semibold px-3;
+  @apply input w-full h-10  mx-auto  border-2 rounded-md border-brand-blue max-w-full  sm:max-w-sm focus:outline-0 text-sm font-semibold bg-transparent text-brand-blue placeholder:text-brand-blue placeholder:font-semibold px-3;
 }
 .search_btn {
   @apply absolute  right-0 bg-brand-blue h-full w-10 sm:w-14 sm:max-w-[56px] rounded-e-md max-w-[40px] flex items-center justify-center hover:bg-brand-blue/[.90] duration-300;

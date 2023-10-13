@@ -32,8 +32,6 @@ const OAuth = () => {
                 })
             })
             const userData = await res.json();
-            console.log(userData);
-            console.log(userData);
             if (userData.success === false) {
                 dispatch(signinFailed(userData.message));
                 toast(userData.message);
