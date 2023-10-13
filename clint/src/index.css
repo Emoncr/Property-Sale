@@ -4,9 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-[#f1f5f1] h-screen;
+
+body{
+  @apply bg-[#f1f5f1]  
 }
+
+#root{
+  @apply bg-[#f1f5f1]  h-full
+}
+
 .container {
   @apply max-w-7xl mx-auto px-3 sm:px-6 xl:px-0;
 }

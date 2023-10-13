@@ -1,7 +1,8 @@
-import bcrypt, { compareSync } from "bcrypt";
+import bcrypt from "bcrypt";
 import User from "../models/user.models.js";
 import { throwError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import { passwordGenarator, usernameGenarator } from "../utils/helper.js";
 
 //======handle singup route ===========//
 export const singup = async (req, res, next) => {
@@ -20,7 +21,6 @@ export const singup = async (req, res, next) => {
 };
 
 // ========sing in route handling here =====//
-
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
@@ -33,12 +33,54 @@ export const signin = async (req, res, next) => {
     const tooken = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
-
     res
       .cookie("access_token", tooken, { httpOnly: true, secure: true })
       .status(200)
       .json(rest);
   } catch (error) {
     next(error);
+  }
+};
+
+//=====Handle Google Singin Here ======//
+export const googleSignIn = async (req, res, next) => {
+  const { email, name, photo } = req.body;
+  try {
+    const user = await User.findOne({ email });
+
+    //====IF user exist in DB====//
+    if (user) {
+      const tooken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "24h",
+      });
+
+      const { pass: password, ...rest } = user._doc;
+      res
+        .cookie("access_token", tooken, { httpOnly: true, secure: true })
+        .status(200)
+        .json(rest);
+    }
+    //====IF user not exist in DB====//
+    else {
+      const hashedPassword = bcrypt.hashSync(passwordGenarator(), 10);
+      const newUser = new User({
+        username: usernameGenarator(name),
+        email,
+        password: hashedPassword,
+        avatar: photo,
+      });
+      const user = await newUser.save();
+      const tooken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "24h",
+      });
+      const { pass: password, ...rest } = user._doc;
+      res
+        .cookie("access_token", tooken, { httpOnly: true, secure: true })
+        .status(200)
+        .json(rest);
+    }
+  } catch (error) {
+    //======Handling Error Here =====//
+    next(throwError(error));
   }
 };

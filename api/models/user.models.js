@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    avatar: {
+      type: String,
+      default:
+        "https://thinksport.com.au/wp-content/uploads/2020/01/avatar-.jpg",
+    },
   },
   { timestamps: true }
 );

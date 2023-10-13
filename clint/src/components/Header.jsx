@@ -19,7 +19,7 @@ const Header = () => {
                     </h1>
                 </div>
                 <div className="form_contaienr w-full">
-                    <div className="form-control w-full max-w-[170px]  sm:max-w-sm  flex flex-row mx-auto items-center justify-center relative">
+                    <div className="form-control w-full max-w-[170px]   sm:max-w-sm  flex flex-row mx-auto items-center justify-center relative">
                         <input type="text" placeholder="Search..." className="search" />
                         <button className='search_btn'>
                             <i className='text-center text-white font-bold'><BsSearch /></i>
@@ -50,7 +50,7 @@ const Header = () => {
             </div> */}
 
                 <div className="">
-                    <ul className=" hidden sm:flex items-center justify-end  pr-4 font-semibold text-brand-blue font-content ">
+                    <ul className=" hidden sm:ml-5 sm:flex items-center justify-end  pr-4 font-semibold text-brand-blue font-content ">
 
                         <li className='mr-6 capitalize'>
                             <Link to='/home'>Home</Link>
@@ -59,15 +59,13 @@ const Header = () => {
                             <Link to='/about'>About</Link>
                         </li>
                         <li className='mr-6 capitalize'>
-                            <Link to='/sign-in'>Login</Link>
+                            <Link to='/login'>Login</Link>
                         </li>
-
                     </ul>
                     <div className="nav_mobile sm:hidden">
                         <button
                             className="btn btn-ghost p-1 hover:bg-transparent text-lg"
                             onClick={() => setisActiveMoblie(!isActiveMoblie)}
-
                         >
                             <BsJustifyRight className='text-brand-blue' />
                         </button>

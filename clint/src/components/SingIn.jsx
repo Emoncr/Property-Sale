@@ -15,11 +15,7 @@ const SingIn = () => {
     } = useForm();
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const { loading, signinError, currentUser } = useSelector((state) => state.user)
-
-    console.log(signinError);
-
-    console.log(currentUser);
+    const { loading} = useSelector((state) => state.user)
 
 
 
@@ -29,7 +25,7 @@ const SingIn = () => {
     const onSubmit = async (formData) => {
         try {
             dispatch(loddingStart())
-            const res = await fetch('/api/user/signin', {
+            const res = await fetch('/api/auth/signin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -37,7 +33,6 @@ const SingIn = () => {
                 body: JSON.stringify(formData)
             });
             const userData = await res.json();
-            console.log(userData);
 
             //===checking reqest success or not ===//
             if (userData.success === false) {

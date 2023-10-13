@@ -3,6 +3,7 @@ import Singup from '../components/Singup'
 import SingIn from '../components/SingIn'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import OAuth from '../components/OAuth';
 
 
 
@@ -55,6 +56,8 @@ const Login = () => {
                             {isNewUser ? 'Create an account' : 'Login'}
                         </u>
                     </p>
+
+                    <OAuth/>
                     <ToastContainer limit={0}/>
                 </div>
             </div>

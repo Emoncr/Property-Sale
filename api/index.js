@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import "dotenv/config";
 import userRouter from "./routes/user.route.js";
-import signup from "./routes/auth.route.js";
+import auth from "./routes/auth.route.js";
 import cors from "cors";
 
 const app = express();
@@ -16,7 +16,7 @@ async function main() {
   console.log("database connected");
 }
 
-// ===========secound way ==========
+// ===========Another way ==========
 
 // mongoose.connect(process.env.MONGO).then(() => {
 //   console.log("connected to Db");
@@ -30,7 +30,7 @@ app.listen(3000, () => {
 });
 
 app.use("/api/users", userRouter);
-app.use("/api/user", signup);
+app.use("/api/auth", auth);
 
 // ======app middleware ========//
 app.use((err, req, res, next) => {
