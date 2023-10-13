@@ -3,7 +3,7 @@ import { BsJustifyRight, BsSearch } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import MobileMenu from './mobileMenu'
 import { useSelector } from 'react-redux'
-import Profile from './Profile'
+import Profile from './ProfileOption'
 
 
 
@@ -17,9 +17,11 @@ const Header = () => {
         <div className="navbar pt-3 pb-3 bg-slate-300 flex items-center justify-between shadow-md">
             <div className="contaier w-full max-w-7xl mx-auto flex items-center justify-between">
                 <div className="w-full mr-2 max-w-[100px] sm:max-w-[200px]">
-                    <h1 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-heading ">
-                        <span>Property Sell</span>
-                    </h1>
+                    <Link to={'/home'}>
+                        <h1 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-heading ">
+                            <span>Property Sell</span>
+                        </h1>
+                    </Link>
                 </div>
                 <div className="form_contaienr max-w-[50%]  w-full  sm:max-w-full">
                     <div className="form-control w-full max-w-full   sm:max-w-sm  flex flex-row mx-auto items-center justify-center relative">
@@ -33,7 +35,6 @@ const Header = () => {
                 {/*========= when user login ======== */}
                 <div className="">
                     <ul className=" hidden sm:ml-5 sm:flex items-center justify-end  pr-4 font-semibold text-brand-blue font-content ">
-
                         <li className='mr-6 capitalize'>
                             <Link to='/home'>Home</Link>
                         </li>

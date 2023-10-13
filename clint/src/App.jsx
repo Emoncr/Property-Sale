@@ -4,6 +4,9 @@ import About from './pages/About'
 import Login from './pages/Login'
 import Header from './components/Header'
 import Theme from './components/Theme'
+import Profile from './pages/Profile'
+import PrivateRoute from './components/PrivateRoute'
+
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
 
+        <Route element={<PrivateRoute />}>
+          <Route path='/profile' element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )

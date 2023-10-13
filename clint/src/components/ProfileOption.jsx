@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Profile = ({ user }) => {
+const ProfileOption = ({ user }) => {
 
 
     return (
@@ -14,7 +14,7 @@ const Profile = ({ user }) => {
                 </label>
                 <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-md w-52 ">
                     <li>
-                        <Link className="justify-between">
+                        <Link to={'profile'} className="justify-between">
                             Profile
                         </Link>
                     </li>
@@ -24,6 +24,6 @@ const Profile = ({ user }) => {
             </div>
         </div>
     )
-}
+};
 
-export default Profile
+export default ProfileOption;
