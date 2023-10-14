@@ -64,6 +64,7 @@ export const googleSignIn = async (req, res, next) => {
     else {
       const hashedPassword = bcrypt.hashSync(passwordGenarator(), 10);
       const newUser = new User({
+        name,
         username: usernameGenarator(name),
         email,
         password: hashedPassword,

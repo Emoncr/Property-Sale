@@ -4,17 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body{
-  @apply bg-[#f1f5f1]  min-h-screen
+body {
+  @apply bg-[#f1f5f1]  min-h-screen;
 }
 
-#root{
-  @apply bg-[#f1f5f1]  h-full
+#root {
+  @apply bg-[#f1f5f1]  h-full;
 }
 
 .container {
-  @apply max-w-7xl mx-auto px-3 sm:px-6 xl:px-0;
+  @apply max-w-[1400px] mx-auto px-4 sm:px-10;
 }
 .search {
   @apply input w-full h-10  mx-auto  border-2 rounded-md border-brand-blue max-w-full  sm:max-w-sm focus:outline-0 text-sm font-semibold bg-transparent text-brand-blue placeholder:text-brand-blue placeholder:font-semibold px-3;
@@ -29,14 +28,12 @@ body{
 }
 
 /*========tostify design==========*/
-.Toastify__toast  {
+.Toastify__toast {
   @apply bg-brand-blue;
 }
-.Toastify__toast-body{
-@apply text-white
+.Toastify__toast-body {
+  @apply text-white;
 }
 .Toastify__close-button > svg {
-  @apply text-white
+  @apply text-white;
 }
-
-

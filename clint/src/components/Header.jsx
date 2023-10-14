@@ -14,8 +14,8 @@ const Header = () => {
     const { currentUser } = useSelector((state) => state.user)
 
     return (
-        <div className="navbar pt-3 pb-3 bg-slate-300 flex items-center justify-between shadow-md">
-            <div className="contaier w-full max-w-7xl mx-auto flex items-center justify-between">
+        <div className="navbar pl-0 pr-0 pt-3 pb-3 bg-slate-300 flex items-center justify-between shadow-md">
+            <div className="container flex items-center justify-between">
                 <div className="w-full mr-2 max-w-[100px] sm:max-w-[200px]">
                     <Link to={'/home'}>
                         <h1 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-heading ">
