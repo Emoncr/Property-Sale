@@ -4,10 +4,14 @@ import "dotenv/config";
 import userRouter from "./routes/user.route.js";
 import auth from "./routes/auth.route.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
+
+
 
 main().catch((err) => console.log(err));
 
@@ -16,7 +20,7 @@ async function main() {
   console.log("database connected");
 }
 
-// ===========Another way ==========
+// ===========Another way ==========//
 
 // mongoose.connect(process.env.MONGO).then(() => {
 //   console.log("connected to Db");
