@@ -8,11 +8,15 @@ export const userController = (req, res) => {
 
 //=======update user api=======//
 export const updateUser = async (req, res, next) => {
-  if (req.user.id !== req.params.id) return throwError(401, "User Invalid");
-  // const checkEmail = await User.findOne({ email });
-  // if (checkEmail) return throwError(500, "Internal Server Error");
-  // const checkUserName = await User.findOne({ username });
-  // if (checkUserName) return throwError(500, "Internal Server Error");
+  const { email, username } = req.body;
+  if (req.user.id !== req.params.id)
+    return next(throwError(401, "User Invalid"));
+
+  const checkEmail = await User.findOne({ email });
+  if (checkEmail) return next(throwError(500, "Invalid Information"));
+
+  const checkUserName = await User.findOne({ username });
+  if (checkUserName) return next(throwError(500, "Invalid Information"));
   try {
     if (req.body.password) {
       req.body.password = bcrypt.hashSync(req.body.password, 10);
@@ -29,10 +33,10 @@ export const updateUser = async (req, res, next) => {
       },
       { new: true }
     );
-
+    console.log("success two");
     const { password, ...rest } = updateUser._doc;
     res.status(200).json(rest);
   } catch (error) {
-    throwError(error);
+    next(throwError(error));
   }
 };
