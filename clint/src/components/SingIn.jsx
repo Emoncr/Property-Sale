@@ -15,7 +15,7 @@ const SingIn = () => {
     } = useForm();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
+
     const { loading } = useSelector((state) => state.user)
 
 
@@ -39,7 +39,7 @@ const SingIn = () => {
                 dispatch(signinFailed(userData.message))
 
                 //===showing error in tostify====//
-                toast(userData.message, {
+                toast.error(userData.message, {
                     autoClose: 2000,
                 })
             }
@@ -50,9 +50,7 @@ const SingIn = () => {
         }
         catch (error) {
             dispatch(signinFailed(error.message))
-
-            //===showing error in tostify====//
-            toast(userData.message, {
+            toast.error(userData.message, {
                 autoClose: 2000,
             })
         }

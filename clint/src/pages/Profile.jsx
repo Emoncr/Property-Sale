@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEdit } from "react-icons/ai";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { firebaseApp } from '../firebase.js'
-import { loddingStart, userDeleteFail, userDeleteSuccess, userUpdateFailed, userUpdateSuccess } from '../redux/user/userSlice.js';
+import { loddingStart, signoutFailed, signoutSuccess, userDeleteFail, userDeleteSuccess, userUpdateFailed, userUpdateSuccess } from '../redux/user/userSlice.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
@@ -125,7 +125,26 @@ const Profile = () => {
     }
   }
 
-
+  const handleLogOut = async () => {
+    try {
+      const res = await fetch('api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signoutFailed(data.message))
+        toast.error(data.message, {
+          autoClose: 2000,
+        })
+      }
+      else {
+        dispatch(signoutSuccess())
+      }
+    } catch (error) {
+      dispatch(signoutFailed(error.message))
+      toast.error(error.message, {
+        autoClose: 2000,
+      })
+    }
+  }
 
 
   return (
@@ -199,8 +218,12 @@ const Profile = () => {
 
           </form>
           <div className="btn_container">
-            <div className=" flex justify-between items-center md:flex-col xl:flex-row">
-              <button className='md:w-full xl:w-auto py-2 px-5 bg-brand-blue text-white rounded-md font-content  mt-2 hover:opacity-90 text-sm'>Create Post</button>
+            <button type='submit' className='py-2 px-5 bg-brand-blue text-white rounded-md w-full mt-1 hover:opacity-90'>
+              Sell Property
+            </button>
+            <div className=" flex justify-between items-center md:flex-col xl:flex-row mt-2">
+
+              <button onClick={handleLogOut} className='md:w-full xl:w-auto py-2 px-5 bg-red-800 text-white rounded-md font-content  mt-2 hover:opacity-90 text-sm'>Log Out</button>
 
               <button onClick={handleDelete} className='md:w-full xl:w-auto py-2 px-5 bg-red-800  text-white font-content rounded-md mt-2 hover:opacity-90 text-sm'>Delete
               </button>
