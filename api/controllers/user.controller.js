@@ -17,6 +17,7 @@ export const updateUser = async (req, res, next) => {
 
   const checkUserName = await User.findOne({ username });
   if (checkUserName) return next(throwError(500, "Invalid Information"));
+
   try {
     if (req.body.password) {
       req.body.password = bcrypt.hashSync(req.body.password, 10);
@@ -33,10 +34,23 @@ export const updateUser = async (req, res, next) => {
       },
       { new: true }
     );
-    console.log("success two");
     const { password, ...rest } = updateUser._doc;
     res.status(200).json(rest);
   } catch (error) {
     next(throwError(error));
+  }
+};
+
+//=====Handle User Delete=====//
+
+export const deleteUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(throwError(401, "User Invalid"));
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.clearCookie("access_token");
+    res.status(200).json("User Deleted Successfully!");
+  } catch (error) {
+    next(error);
   }
 };

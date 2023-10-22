@@ -1,9 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux'
+import { React, useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEdit } from "react-icons/ai";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { firebaseApp } from '../firebase.js'
+import { loddingStart, userDeleteFail, userDeleteSuccess, userUpdateFailed, userUpdateSuccess } from '../redux/user/userSlice.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 const Profile = () => {
@@ -13,8 +18,16 @@ const Profile = () => {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const fileRef = useRef(null);
+  // const [loading, setLoading] = useState(false)
 
-  console.log(formData);
+
+  const { loading } = useSelector((state => state.user))
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+
+
   const handleFileUpload = (file) => {
     if (file) {
       const fireBaseStorage = getStorage(firebaseApp);
@@ -46,17 +59,74 @@ const Profile = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
-  const handleSubmit = async(e) => {
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // setLoading(true)
     try {
-      const res = await fetch('');
-      const data = res.json();
-      console.log(data);
-       
+      dispatch(loddingStart())
+      const res = await fetch(`api/users/update/${currentUser._id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const userData = await res.json();
+
+
+      //===checking reqest success or not ===//
+      if (userData.success === false) {
+        dispatch(userUpdateFailed(userData.message))
+
+        //===showing error in tostify====//
+        toast.error(userData.message, {
+          autoClose: 2000,
+        })
+      }
+      else {
+        dispatch(userUpdateSuccess(userData))
+        toast.success('Profile updated successfully', {
+          autoClose: 2000,
+        })
+      }
     } catch (error) {
-      console.log(error);
+      dispatch(userUpdateFailed(error.message))
+      toast.error(error.message, {
+        autoClose: 2000,
+      })
     }
   }
+
+  const handleDelete = async () => {
+    try {
+      dispatch(loddingStart())
+      const res = await fetch(`api/users/delete/${currentUser._id}`, {
+        method: 'DELETE'
+      })
+      const resData = await res.json();
+      //===checking reqest success or not ===//
+      if (resData.success === false) {
+        dispatch(userDeleteFail(resData.message))
+
+        //===showing error in tostify====//
+        toast.error(resData.message, {
+          autoClose: 2000,
+        })
+      }
+      else {
+        dispatch(userDeleteSuccess())
+      }
+
+    } catch (error) {
+      dispatch(userDeleteFail(error.message))
+      toast.error(error.message, {
+        autoClose: 2000,
+      })
+    }
+  }
+
+
+
 
   return (
     <section className='py-10 sm:py-20'>
@@ -121,13 +191,19 @@ const Profile = () => {
               onChange={handleChange}
             />
 
-            <button type='submit' className='py-2 px-5 bg-brand-blue text-white rounded-md w-full mt-4 hover:opacity-90'>Save Changes</button>
+            <button disabled={loading} type='submit' className='py-2 px-5 bg-brand-blue text-white rounded-md w-full mt-4 hover:opacity-90'>
+              {
+                loading ? 'Loading...' : 'Save Changes'
+              }
+            </button>
+
           </form>
           <div className="btn_container">
             <div className=" flex justify-between items-center md:flex-col xl:flex-row">
               <button className='md:w-full xl:w-auto py-2 px-5 bg-brand-blue text-white rounded-md font-content  mt-2 hover:opacity-90 text-sm'>Create Post</button>
 
-              <button className='md:w-full xl:w-auto py-2 px-5 bg-red-800  text-white font-content rounded-md mt-2 hover:opacity-90 text-sm'>Sign Out</button>
+              <button onClick={handleDelete} className='md:w-full xl:w-auto py-2 px-5 bg-red-800  text-white font-content rounded-md mt-2 hover:opacity-90 text-sm'>Delete
+              </button>
             </div>
           </div>
         </div>
@@ -138,6 +214,7 @@ const Profile = () => {
           <h1>post section</h1>
         </div>
       </div>
+      <ToastContainer />
     </section>
   )
 }

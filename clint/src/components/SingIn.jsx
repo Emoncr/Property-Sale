@@ -14,17 +14,17 @@ const SingIn = () => {
         formState: { errors },
     } = useForm();
     const navigate = useNavigate();
-    const dispatch = useDispatch()
-    const { loading} = useSelector((state) => state.user)
-
+    const dispatch = useDispatch();
+    
+    const { loading } = useSelector((state) => state.user)
 
 
 
 
     //======handling form submting function =====//
     const onSubmit = async (formData) => {
+        dispatch(loddingStart())
         try {
-            dispatch(loddingStart())
             const res = await fetch('/api/auth/signin', {
                 method: 'POST',
                 headers: {
@@ -49,7 +49,12 @@ const SingIn = () => {
             }
         }
         catch (error) {
-            console.log(error);
+            dispatch(signinFailed(error.message))
+
+            //===showing error in tostify====//
+            toast(userData.message, {
+                autoClose: 2000,
+            })
         }
     };
 
