@@ -18,7 +18,7 @@ const Profile = () => {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const fileRef = useRef(null);
-  // const [loading, setLoading] = useState(false)
+
 
 
   const { loading } = useSelector((state => state.user))

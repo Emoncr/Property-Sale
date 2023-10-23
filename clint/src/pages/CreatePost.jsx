@@ -1,6 +1,51 @@
-import React from 'react'
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import React, { useState } from 'react'
+import { firebaseApp } from '../firebase';
 
 const CreatePost = () => {
+
+    const [imageFile, setImageFile] = useState([]);
+    const [error, setError] = useState(false)
+    const [imageURL, setImageURL] = useState([]);
+    const [formData, setFormData] = useState({})
+
+
+
+
+    const handleImageUpload = () => {
+        if (imageFile.length > 0 && imageFile.length < 7) {
+            for (let i = 0; i < imageFile.length; i++) {
+                uploadToFirebase(imageFile[i])
+            }
+        }
+        else {
+            console.log('error in condition');
+        }
+    }
+    const uploadToFirebase = (file) => {
+        const storage = getStorage(firebaseApp);
+        const fileName = new Date().getTime() + file.name;
+        const storageRef = ref(storage, fileName);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        //===Start Uploading===//
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+            },
+            (error) => {
+                setError(true);
+            },
+
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setImageURL((url) => [...url, downloadURL]);
+                });
+            }
+        )
+    }
+
     return (
         <main>
             <section>
@@ -30,7 +75,7 @@ const CreatePost = () => {
                                             <div className="form-control mt-2">
                                                 <label className="label cursor-pointer flex items-center justify-start gap-2
                                             ">
-                                                    <input type="radio" name="radio-10" className="radio w-5 h-5  checked:bg-brand-blue"  required />
+                                                    <input type="radio" name="radio-10" className="radio w-5 h-5  checked:bg-brand-blue" required />
                                                     <span className="label-text font-medium">For Sale</span>
                                                 </label>
                                             </div>
@@ -100,9 +145,15 @@ const CreatePost = () => {
                                     </div>
                                 </div>
                                 <div className="image_upload_container md:p-5 md:border-2 bg-transparent border-dashed rounded-sm md:flex items-center justify-center gap-2">
-                                    <input type="file" required
-                                    className="file-input file:bg-brand-blue bg-red-00 md:w-4/5 w-full " />
-                                    <button type='button' className='w-full text-green-600 text-sm py-2 border-2 border-green-600 rounded-md mt-2 uppercase font-heading md:w-1/5 md:h-[3rem] md:mt-0'>Upload</button>
+                                    <input
+                                        onChange={(e) => setImageFile(e.target.files)}
+                                        multiple accept='image/*' type="file" required
+                                        className="file-input file:bg-brand-blue bg-red-00 md:w-4/5 w-full " />
+                                    <button
+                                        onClick={handleImageUpload}
+                                        type='button' className='w-full text-green-600 text-sm py-2 border-2 border-green-600 rounded-md mt-2 uppercase font-heading md:w-1/5 md:h-[3rem] md:mt-0 duration-500 hover:shadow-lg'>
+                                        Upload
+                                    </button>
                                 </div>
                             </div>
                         </form>
