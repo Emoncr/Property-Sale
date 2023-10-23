@@ -218,8 +218,8 @@ const Profile = () => {
 
           </form>
           <div className="btn_container">
-            <button type='submit' className='py-2 px-5 bg-green-700 font-heading  text-white rounded-md w-full mt-1 hover:opacity-90'>
-              Sell Property
+            <button onClick={() => navigate('/create_post')} type='submit' className='py-2 px-5 bg-green-700 font-heading  text-white rounded-md w-full mt-1 hover:opacity-90'>
+              Create Post
             </button>
             <div className=" flex justify-between items-center md:flex-col xl:flex-row mt-2">
 

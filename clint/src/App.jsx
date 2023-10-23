@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Theme from './components/Theme'
 import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
+import CreatePost from './pages/CreatePost'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
+          <Route path='/create_post' element={<CreatePost/> } />
         </Route>
       </Routes>
     </BrowserRouter>
