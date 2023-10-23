@@ -210,7 +210,7 @@ const Profile = () => {
               onChange={handleChange}
             />
 
-            <button disabled={loading} type='submit' className='py-2 px-5 bg-brand-blue text-white rounded-md w-full mt-4 hover:opacity-90'>
+            <button disabled={loading} type='submit' className='py-2 px-5 bg-brand-blue text-white rounded-md w-full font-heading  mt-4 hover:opacity-90'>
               {
                 loading ? 'Loading...' : 'Save Changes'
               }
@@ -218,14 +218,14 @@ const Profile = () => {
 
           </form>
           <div className="btn_container">
-            <button type='submit' className='py-2 px-5 bg-brand-blue text-white rounded-md w-full mt-1 hover:opacity-90'>
+            <button type='submit' className='py-2 px-5 bg-green-700 font-heading  text-white rounded-md w-full mt-1 hover:opacity-90'>
               Sell Property
             </button>
             <div className=" flex justify-between items-center md:flex-col xl:flex-row mt-2">
 
-              <button onClick={handleLogOut} className='md:w-full xl:w-auto py-2 px-5 bg-red-800 text-white rounded-md font-content  mt-2 hover:opacity-90 text-sm'>Log Out</button>
+              <button onClick={handleLogOut} className='md:w-full font-heading  xl:w-auto py-2 px-5 bg-red-800 text-white rounded-md   mt-2 hover:opacity-90 text-sm'>Log Out</button>
 
-              <button onClick={handleDelete} className='md:w-full xl:w-auto py-2 px-5 bg-red-800  text-white font-content rounded-md mt-2 hover:opacity-90 text-sm'>Delete
+              <button onClick={handleDelete} className='md:w-full xl:w-auto py-2 px-5 bg-red-800  text-white font-heading rounded-md mt-2 hover:opacity-90 text-sm'>Delete
               </button>
             </div>
           </div>

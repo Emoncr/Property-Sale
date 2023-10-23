@@ -1,7 +1,34 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { signoutFailed, signoutSuccess } from '../redux/user/userSlice';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ProfileOption = ({ user }) => {
+    const dispatch = useDispatch();
+
+    const handleLogOut = async () => {
+        try {
+            const res = await fetch('api/auth/signout');
+            const data = await res.json();
+            if (data.success === false) {
+                useDispatch(signoutFailed(data.message))
+                toast.error(data.message, {
+                    autoClose: 2000,
+                })
+            }
+            else {
+                dispatch(signoutSuccess())
+            }
+        } catch (error) {
+            dispatch(signoutFailed(error.message))
+            toast.error(error.message, {
+                autoClose: 2000,
+            })
+        }
+    }
+
+
 
 
     return (
@@ -19,9 +46,10 @@ const ProfileOption = ({ user }) => {
                         </Link>
                     </li>
                     <li><Link>Settings</Link></li>
-                    <li><Link>Logout</Link></li>
+                    <li onClick={handleLogOut}><Link>Logout</Link></li>
                 </ul>
             </div>
+            <ToastContainer />
         </div>
     )
 };

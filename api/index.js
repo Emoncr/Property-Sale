@@ -5,13 +5,12 @@ import userRouter from "./routes/user.route.js";
 import auth from "./routes/auth.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import postRouter from "./routes/post.route.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
-
-
 
 main().catch((err) => console.log(err));
 
@@ -20,21 +19,15 @@ async function main() {
   console.log("database connected");
 }
 
-// ===========Another way ==========//
-
-// mongoose.connect(process.env.MONGO).then(() => {
-//   console.log("connected to Db");
-// })
-// .catch(er=>{
-//   console.log(er);
-// })
-
 app.listen(3000, () => {
   console.log("server running at port 3000!");
 });
 
 app.use("/api/users", userRouter);
 app.use("/api/auth", auth);
+app.use("/api/posts", postRouter);
+
+
 
 // ======app middleware ========//
 app.use((err, req, res, next) => {
