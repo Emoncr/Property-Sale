@@ -1,51 +1,88 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useState } from 'react'
 import { firebaseApp } from '../firebase';
+import { ToastContainer, toast } from 'react-toastify';
+
+
+
 
 const CreatePost = () => {
-
     const [imageFile, setImageFile] = useState([]);
-    const [error, setError] = useState(false)
-    const [imageURL, setImageURL] = useState([]);
-    const [formData, setFormData] = useState({})
+    const [uploadError, setUploadError] = useState({
+        isError: false,
+        message: ''
+    })
+    const [loading, setLoading] = useState(false)
+    const [formData, setFormData] = useState({
+        imageURL: [],
+    })
 
 
 
 
-    const handleImageUpload = () => {
-        if (imageFile.length > 0 && imageFile.length < 7) {
+    const handleImageUpload = async () => {
+
+        if (imageFile.length > 0 && imageFile.length + formData.imageURL.length < 7) {
+            setLoading(true)
+            const promises = [];
             for (let i = 0; i < imageFile.length; i++) {
-                uploadToFirebase(imageFile[i])
+                promises.push(uploadToFirebase(imageFile[i]))
+                Promise.all(promises).then((urls) => {
+                    setFormData({ ...formData, imageURL: formData.imageURL.concat(urls) })
+                    setLoading(false)
+                }).catch((error) => {
+                    setUploadError({ ...uploadError, isError: true, message: error.message })
+                    console.log(error);
+                    setLoading(false)
+                })
             }
         }
         else {
-            console.log('error in condition');
+            setUploadError({ ...uploadError, isError: true, message: 'Maximum 6 images are allowed' })
+            setLoading(false)
         }
+
     }
+
     const uploadToFirebase = (file) => {
-        const storage = getStorage(firebaseApp);
-        const fileName = new Date().getTime() + file.name;
-        const storageRef = ref(storage, fileName);
-        const uploadTask = uploadBytesResumable(storageRef, file);
+        return new Promise((resolve, reject) => {
+            const storage = getStorage(firebaseApp);
+            const fileName = new Date().getTime() + file.name;
+            const storageRef = ref(storage, fileName);
+            const uploadTask = uploadBytesResumable(storageRef, file);
 
-        //===Start Uploading===//
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-            },
-            (error) => {
-                setError(true);
-            },
+            //===Start Uploading===//
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                },
+                (error) => {
+                    reject('File uploaded Falied')
 
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    setImageURL((url) => [...url, downloadURL]);
-                });
-            }
-        )
+                },
+
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        resolve(downloadURL)
+                    });
+                }
+            )
+        })
     }
 
+    const handleDelete = (index) => {
+        setFormData({ ...formData, imageURL: formData.imageURL.filter((items) => items != formData.imageURL[index]) })
+    }
+
+
+
+    uploadError.isError && toast.error(uploadError.message, {
+        autoClose: 2000,
+    })
+
+
+    console.log(formData);
     return (
         <main>
             <section>
@@ -144,21 +181,50 @@ const CreatePost = () => {
 
                                     </div>
                                 </div>
-                                <div className="image_upload_container md:p-5 md:border-2 bg-transparent border-dashed rounded-sm md:flex items-center justify-center gap-2">
-                                    <input
-                                        onChange={(e) => setImageFile(e.target.files)}
-                                        multiple accept='image/*' type="file" required
-                                        className="file-input file:bg-brand-blue bg-red-00 md:w-4/5 w-full " />
-                                    <button
-                                        onClick={handleImageUpload}
-                                        type='button' className='w-full text-green-600 text-sm py-2 border-2 border-green-600 rounded-md mt-2 uppercase font-heading md:w-1/5 md:h-[3rem] md:mt-0 duration-500 hover:shadow-lg'>
-                                        Upload
-                                    </button>
+                                <div>
+                                    <p className='font-content text-[16px] mb-3 font-normal text-black'>
+                                        <span className='font-semibold mr-1'>Note:</span>
+                                        First image will be cover image (max:6)
+                                    </p>
+                                    <div className="image_upload_container md:p-5 md:border-2 bg-transparent border-dashed rounded-sm md:flex items-center justify-center gap-2">
+
+                                        <input
+                                            onChange={(e) => setImageFile(e.target.files)}
+                                            multiple accept='image/*' type="file" required
+                                            className={`file-input file:bg-brand-blue bg-red-00 ${loading ? "md:w-4/6" : 'md:w-4/5'} w-full`} />
+                                        <button
+                                            disabled={loading}
+                                            onClick={handleImageUpload}
+                                            type='button' className={`'w-full text-green-600 text-sm py-2 border-2 border-green-600 rounded-md mt-2 uppercase font-heading  ${loading ? "md:w-2/6" : 'md:w-1/5'} md:h-[3rem] md:mt-0 duration-500 hover:shadow-lg`}>
+                                            {
+                                                loading ? 'Uploading...' : 'Upload'
+                                            }
+                                        </button>
+                                    </div>
+                                    <div>
+                                        {
+                                            formData.imageURL.length > 0 && formData.imageURL.map((imgSrc, index) => {
+                                                return (
+                                                    <div key={index} className="uploaded_images p-2 pr-5 border-2 mt-4  rounded-md flex items-center justify-between">
+                                                        <img src={imgSrc} alt="property Image" className='w-24 h-20 object-cover rounded-md' />
+                                                        <button
+                                                            onClick={() => handleDelete(index)}
+                                                            type='button'
+                                                            className='font-medium text-lg text-red-700 flex items-center underline hover:opacity-75'>Delete</button>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                        <div className="post_btn mt-7">
+                                            <button className='w-full bg-brand-blue text-xl tracking-wider font-heading rounded-md hover:opacity-90 duration-300 text-white p-3 '>Create Post</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                <ToastContainer />
             </section>
         </main>
     )
