@@ -1,3 +1,4 @@
+import Listing from "../models/listing.models.js";
 import User from "../models/user.models.js";
 import { throwError } from "../utils/error.js";
 import bcrypt from "bcrypt";
@@ -52,5 +53,16 @@ export const deleteUser = async (req, res, next) => {
     res.status(200).json("User Deleted Successfully!");
   } catch (error) {
     next(error);
+  }
+};
+
+export const userPosts = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(throwError(401, "You can see only your posts"));
+  try {
+    const posts = await Listing.find({ userRef: req.params.id });
+    res.status(200).json(posts);
+  } catch (error) {
+    next(throwError(404, error.message));
   }
 };
