@@ -4,17 +4,17 @@ const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      require: true,
+      required: true,
       unique: [true, "Username should be unique"],
     },
     email: {
       type: String,
-      require: true,
+      required: true,
       unique: [true, "Email is already used"],
     },
     password: {
       type: String,
-      require: true,
+      required: true,
     },
     avatar: {
       type: String,
