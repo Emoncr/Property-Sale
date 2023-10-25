@@ -14,8 +14,9 @@ const CreatePost = () => {
     const [uploadError, setUploadError] = useState({
         isError: false,
         message: ''
-    })
-
+    });
+    const [formSubmitLoading, setFormSubmitLoading] = useState(false)
+    const [isOffer, setIsoffer] = useState(false);
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
         imageURL: [],
@@ -31,10 +32,12 @@ const CreatePost = () => {
         // offer: false,
         // furnished: false,
     })
+
+
     const navigate = useNavigate()
 
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm({
+    const { register, handleSubmit, getValues, setError, formState: { errors } } = useForm({
         mode: "onChange"
     });
 
@@ -103,6 +106,7 @@ const CreatePost = () => {
 
     const handleFormSubmit = async (data) => {
         try {
+            setFormSubmitLoading(true)
             const res = await fetch('api/posts/create', {
                 method: 'POST',
                 headers: {
@@ -119,14 +123,18 @@ const CreatePost = () => {
                 toast.error(serverRes.message, {
                     autoClose: 2000,
                 })
+                setFormSubmitLoading(false)
             }
             else {
                 navigate(`/listing/${serverRes._id}`)
+                setFormSubmitLoading(false)
             }
+
         } catch (error) {
             toast.error(error.message, {
                 autoClose: 2000,
             })
+            setFormSubmitLoading(false)
         }
     }
 
@@ -278,6 +286,7 @@ const CreatePost = () => {
                                                         type="checkbox"
                                                         className="checkbox w-5 h-5 border-gray-400 rounded-full checked:bg-brand-blue"
                                                         {...register('offer')}
+                                                        onChange={() => setIsoffer(!isOffer)}
                                                     />
                                                     <span className="label-text font-medium" >Do you have any discount?</span>
                                                 </label>
@@ -296,26 +305,39 @@ const CreatePost = () => {
                                                         type="number"
                                                         name="price"
                                                         className="bg-slate-100 p-2 rounded-md text-grey-darkest border-2 focus:border-brand-blue font-bold text-red-700 text-lg max-w-[200px]"
-                                                        {...register('price', { required: 'required*' })}
+                                                        {...register('price', { required: 'This feild is required*' })}
                                                     />
-                                                    {errors.price && <p className='text-red-700 text-xs font-semibold'>{errors.price.message}</p>}
+
                                                 </div>
+                                                {errors.price && <p className='text-red-700 text-xs font-semibold'>{errors.price.message}</p>}
                                             </div>
-                                            <div className="pricing_info flex flex-col">
-                                                <p className="mt-3  font-heading text-black">Discount Price </p>
-                                                <span className='text-sm font-content font-bold text-red-900'>($ /month)</span>
-                                                <div className="flex flex-row mt-2 ">
-                                                    <span className="flex items-center bg-grey-lighter rounded rounded-r-none px-2 font-bold text-grey-darker text-xl">$</span>
-                                                    <input
-                                                        id='discountPrice'
-                                                        type="number"
-                                                        name="discountPrice"
-                                                        className="bg-slate-100 p-2 rounded-md text-grey-darkest border-2 focus:border-brand-blue font-bold text-red-700 text-lg max-w-[200px]"
-                                                        {...register('discountPrice', { required: 'required*' })}
-                                                    />
+                                            {
+                                                isOffer &&
+                                                <div className="pricing_info flex flex-col">
+                                                    <p className="mt-3  font-heading text-black">Discount Price </p>
+                                                    <span className='text-sm font-content font-bold text-red-900'>($ /month)</span>
+                                                    <div className="flex flex-row mt-2 ">
+                                                        <span className="flex items-center bg-grey-lighter rounded rounded-r-none px-2 font-bold text-grey-darker text-xl">$</span>
+                                                        <input
+                                                            id='discountPrice'
+                                                            type="number"
+                                                            name="discountPrice"
+                                                            className="bg-slate-100 p-2 rounded-md text-grey-darkest border-2 focus:border-brand-blue font-bold text-red-700 text-lg max-w-[200px]"
+                                                            {...register('discountPrice', {
+                                                                required: 'This feild is required*',
+                                                                validate: (value) => {
+                                                                    const { price } = getValues();
+                                                                    if (+price < +value) {
+                                                                        return '*Discount price should be lower than regular price'
+                                                                    }
+                                                                }
+                                                            })}
+                                                        />
+
+                                                    </div>
                                                     {errors.discountPrice && <p className='text-red-700 text-xs font-semibold'>{errors.discountPrice.message}</p>}
                                                 </div>
-                                            </div>
+                                            }
                                         </div>
 
                                     </div>
@@ -362,10 +384,12 @@ const CreatePost = () => {
                                         <div className="post_btn mt-7">
                                             <button
 
-                                                disabled={formData.imageURL.length < 1 || loading}
+                                                disabled={formData.imageURL.length < 1 || loading || formSubmitLoading}
                                                 type='submit'
-                                                className='w-full bg-brand-blue text-xl tracking-wider font-heading rounded-md hover:opacity-90 disabled:opacity-70 duration-300 text-white p-3 '>
-                                                Create Post
+                                                className="w-full bg-brand-blue text-xl tracking-wider font-heading rounded-md hover:opacity-90 disabled:opacity-70 duration-300 text-white p-3">
+                                                {
+                                                    formSubmitLoading ? 'Creating...' : 'Create Post'
+                                                }
                                             </button>
                                         </div>
                                     </div>
