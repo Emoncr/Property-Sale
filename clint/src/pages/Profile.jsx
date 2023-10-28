@@ -23,6 +23,8 @@ const Profile = () => {
     isPostExist: false,
     posts: []
   })
+
+  const [userPostLoading, setUserPostLoading] = useState(false)
   const fileRef = useRef(null);
 
 
@@ -155,20 +157,30 @@ const Profile = () => {
 
   useEffect(() => {
     const loadPost = async () => {
-      const res = await fetch(`api/users/posts/${currentUser._id}`)
-      const data = await res.json();
-      if (data.success === false) {
-        toast.error(data.message, {
+      try {
+        setUserPostLoading(true)
+        const res = await fetch(`api/users/posts/${currentUser._id}`)
+        const data = await res.json();
+        if (data.success === false) {
+          toast.error(data.message, {
+            autoClose: 2000,
+          });
+          setUserPostLoading(false)
+        }
+        else {
+          setUserPost({
+            ...userPosts,
+            isPostExist: true,
+            posts: data,
+          });
+          setUserPostLoading(false)
+        };
+      } catch (error) {
+        toast.error(error.message, {
           autoClose: 2000,
         });
+        setUserPostLoading(false)
       }
-      else {
-        setUserPost({
-          ...userPosts,
-          isPostExist: true,
-          posts: data,
-        });
-      };
     }
     loadPost()
   }, [])
@@ -278,8 +290,6 @@ const Profile = () => {
                 userPosts.posts.map(postInfo => <PostCard key={postInfo._id} postInfo={postInfo} />)
                 : ' <h1>No post</h1>'
             }
-           
-
           </div>
         </div>
 

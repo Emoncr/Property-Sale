@@ -45,7 +45,7 @@ const PostCard = ({ postInfo }) => {
                 <div className="p-4 relative">
                     <h2 className="text-brand-blue font-heading truncate">{title}</h2>
                     <p className="mt-1 text-sm text-slate-500 font-content font-medium truncate"> {description}</p>
-                    <p className="mt-2 text-sm text-slate-600 font-content font-medium truncate"><span className='font-bold'>Address:</span> {address}</p>
+                    <p className="mt-2 text-sm text-slate-600 font-content font-bold truncate"><span className='font-medium'>Address:</span> {address}</p>
                     <div className='mt-3 flex items-end justify-start'>
                         <p className='text-slate-700 w-1/2 font-content font-semibold text-sm flex items-center '><span className='font-heading font-bold mr-1'>{bed}</span> Bed<FaBed className='ml-1' /></p>
                         <p className='text-slate-700 w-1/2 font-content font-semibold text-sm flex items-center '><span className='font-heading font-bold mr-1'>{bath}</span> Bath<FaBath className='ml-1' /></p>
@@ -83,7 +83,6 @@ const PostCard = ({ postInfo }) => {
                         <button className='bg-brand-blue py-2 px-7 rounded-sm  font-heading text-white hover:opacity-95 text-sm'>Edit</button>
                         <button className='bg-red-800 py-2 px-5 rounded-sm  font-heading text-white hover:opacity-95 text-sm'>Delete</button>
                     </div>
-
                 </div>
             </div>
 
