@@ -1,12 +1,14 @@
 import { React, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiFillEdit } from "react-icons/ai";
+import { BsFillPlusSquareFill } from 'react-icons/bs'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { firebaseApp } from '../firebase.js'
 import { loddingStart, signoutFailed, signoutSuccess, userDeleteFail, userDeleteSuccess, userUpdateFailed, userUpdateSuccess } from '../redux/user/userSlice.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import PostCard from '../components/PostCard.jsx';
 
 
 
@@ -17,6 +19,9 @@ const Profile = () => {
   const [uploadingPerc, setUploadingPerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+  const [userPosts, setUserPost] = useState({
+    
+  })
   const fileRef = useRef(null);
 
 
@@ -147,10 +152,20 @@ const Profile = () => {
   }
 
 
+  useEffect(() => {
+    const loadPost = async () => {
+      const res = await fetch(`api/users/posts/${currentUser._id}`)
+      const data = await res.json();
+      console.log(data);
+    }
+    loadPost()
+  }, [])
+
+
   return (
     <section className='py-10 sm:py-20'>
-      <div className="container !max-w-7xl mx-auto grid md:gap-8 temp lg:grid-cols-4  md:grid-cols-5 grid-cols-1 ">
-        <div className="profile_info p-5 bg-white border-[1px] w-full rounded-md shadow-brand md:col-span-2 lg:col-span-1 col-span-1 ">
+      <div className="container !max-w-7xl mx-auto grid md:gap-12 temp lg:grid-cols-4  md:grid-cols-5 grid-cols-1 items-start">
+        <div className="profile_info p-5 bg-white border-[1px] w-full rounded-md shadow-brand md:col-span-2 lg:col-span-1   col-span-1 ">
 
 
 
@@ -218,9 +233,6 @@ const Profile = () => {
 
           </form>
           <div className="btn_container">
-            <button onClick={() => navigate('/create_post')} type='submit' className='py-2 px-5 bg-green-700 font-heading  text-white rounded-md w-full mt-1 hover:opacity-90'>
-              Create Post
-            </button>
             <div className=" flex justify-between items-center md:flex-col xl:flex-row mt-2">
 
               <button onClick={handleLogOut} className='md:w-full font-heading  xl:w-auto py-2 px-5 bg-red-800 text-white rounded-md   mt-2 hover:opacity-90 text-sm'>Log Out</button>
@@ -233,9 +245,20 @@ const Profile = () => {
 
 
         {/*======== post section start here ========= */}
-        <div className=" mt-5 md:mt-0 col-span-3 post_section profile_info p-5 bg-white border-[1px] w-full rounded-md shadow-brand">
-          <h1>post section</h1>
+
+        <div className=" mt-5 md:mt-0 col-span-3 post_section profile_info p-2 flex flex-col   bg-transparent  w-full ">
+
+          <div className="grid post_card grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 md:h-full overflow-scroll pb-10 scrollbar-hide">
+
+            {/* ADD NEW POST BUTTON  */}
+            <button onClick={() => navigate('/create_post')} type='submit' className=' px-5 bg-brand-blue font-heading shadow-lg text-green-500 text-lg border-2 border-brand-blue rounded-md hover:opacity-95 flex justify-center items-center flex-col py-10 sm:py-10'>
+              <BsFillPlusSquareFill className='text-center md:mb-3 md:text-5xl text-green-500 text-sm sm:text-xl' />
+              Create New Post
+            </button>
+            <PostCard />
+          </div>
         </div>
+
       </div>
       <ToastContainer />
     </section>
