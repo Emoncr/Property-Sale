@@ -24,7 +24,7 @@ const Profile = () => {
     isPostExist: false,
     posts: []
   })
-
+  const [isPostDelete, SetIsPostDelete] = useState(false)
   const [userPostLoading, setUserPostLoading] = useState(false)
   const fileRef = useRef(null);
 
@@ -186,9 +186,42 @@ const Profile = () => {
     loadPost()
   }, [])
 
+  // ======Handling User Post DELETE  =====//
+  const handlePostDelete = async (postId) => {
+    try {
+      const res = await fetch(`/api/posts/delete/${postId}`, {
+        method: 'DELETE',
+      })
+      const data = await res.json();
+      console.log(data);
+      //===checking reqest success or not ===//
+      if (data.success === false) {
+        //===showing error in tostify====//
+        toast.error(data.message, {
+          autoClose: 2000,
+        })
+      }
+      else {
+        const restPost = userPosts.posts.filter(post => post._id !== postId)
+        setUserPost({
+          ...userPosts,
+          posts: restPost
+        })
+        toast.success(data, {
+          autoClose: 2000,
+        })
+      }
+    } catch (error) {
+      toast.error(error.message, {
+        autoClose: 2000,
+      })
+    }
+  }
+
+
 
   return (
-    <section className='py-10 sm:py-20'>
+    <section className='py-10'>
       <div className="container !max-w-7xl mx-auto grid md:gap-12 temp lg:grid-cols-4  md:grid-cols-5 grid-cols-1 items-start">
         <div className="profile_info p-5 bg-white border-[1px] w-full rounded-md shadow-brand md:col-span-2 lg:col-span-1   col-span-1 ">
 
@@ -275,7 +308,10 @@ const Profile = () => {
           {
             userPostLoading
               ?
-              <Loading/>
+              <div>
+                <Loading />
+                <p className='text-brand-blue text-center font-heading text-xl'>Loading your post…</p>
+              </div>
               :
               <div className="grid post_card grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 md:h-full overflow-scroll pb-10 scrollbar-hide ">
 
@@ -290,7 +326,7 @@ const Profile = () => {
                 {
                   userPosts.isPostExist
                     ?
-                    userPosts.posts.map(postInfo => <PostCard key={postInfo._id} postInfo={postInfo} />)
+                    userPosts.posts.map(post => <PostCard key={post._id} postInfo={{ post, handlePostDelete }} />)
                     : ''
                 }
               </div>

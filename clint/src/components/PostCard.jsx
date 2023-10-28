@@ -1,5 +1,11 @@
 import React from 'react'
+import { BsPinAngleFill } from 'react-icons/bs';
 import { FaBath, FaBed, FaCamera, FaCheck } from "react-icons/fa"
+
+
+
+
+
 const PostCard = ({ postInfo }) => {
     const {
         bed,
@@ -13,15 +19,22 @@ const PostCard = ({ postInfo }) => {
         parking,
         price,
         title,
-        type } = postInfo;
-    console.log(postInfo);
+        type,
+        _id } = postInfo.post;
+
+
+
 
 
     return (
+
         <>
+
             <div className="cursor-pointer rounded-md  bg-white  shadow-lg hover:shadow-xl">
                 <div className="relative flex items-end overflow-hidden rounded-md h-[200px] ">
                     <img className='hover:scale-105 object-cover h-full w-full duration-300' src={imgUrl[0]} alt="wallpaper" />
+
+
 
                     <div className="absolute bottom-3 left-3 inline-flex items-center rounded-sm bg-brand-blue px-2 py-1 shadow-md">
                         <span className=" text-xs text-white uppercase font-heading">
@@ -42,7 +55,10 @@ const PostCard = ({ postInfo }) => {
                     }
                 </div>
 
-                <div className="p-4 relative">
+
+
+                {/* CARD BODY START HERE  */}
+                <div className="p-4">
                     <h2 className="text-brand-blue font-heading truncate">{title}</h2>
                     <p className="mt-1 text-sm text-slate-500 font-content font-medium truncate"> {description}</p>
                     <p className="mt-2 text-sm text-slate-600 font-content font-bold truncate"><span className='font-medium'>Address:</span> {address}</p>
@@ -55,33 +71,42 @@ const PostCard = ({ postInfo }) => {
 
                         <p className='text-slate-700 w-1/2 font-content font-semibold text-sm flex items-center '><FaCheck className={`mr-1 mt-[2px] ${furnished ? 'text-green-600' : "text-gray-400"}`} />furnished</p>
                     </div>
+
+
+
                     <div className="mt-3 flex items-end justify-between">
                         {offer ?
-                            <p className='font-content'>
-                                <span className="text-2xl font-bold font-content text-brand-blue">${discountPrice}</span>
+                            <p className='font-content truncate'>
+                                <span className="text-2xl font-bold font-content text-brand-blue ">${discountPrice}</span>
                                 {
                                     type === 'rent' && <span className="text-sm text-slate-700">/m</span>
                                 }
-                                <s className='font-bold text-sm text-gray-600 ml-2'>${price}</s>
+                                <s className='font-bold text-sm text-gray-600 ml-2 truncate'>${price}</s>
                             </p>
 
-                            : <p className='font-content'>
-                                <span className="text-2xl font-bold font-content text-brand-blue">${price}</span>
+                            : <p className='font-content truncate'>
+                                <span className="text-2xl font-bold font-content text-brand-blue ">${price}</span>
                                 {
                                     type === 'rent' && <span className="text-sm text-slate-700">/m</span>
                                 }
                             </p>}
 
                         <div className="group inline-flex rounded-xl bg-brand-blue/10 p-2 hover:bg-brand-blue/25 duration-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-brand-blue group-hover:text-brand-blue" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
-                            </svg>
+                            <BsPinAngleFill />
                         </div>
                     </div>
 
                     <div className='mt-4 flex items-end justify-between'>
-                        <button className='bg-brand-blue py-2 px-7 rounded-sm  font-heading text-white hover:opacity-95 text-sm'>Edit</button>
-                        <button className='bg-red-800 py-2 px-5 rounded-sm  font-heading text-white hover:opacity-95 text-sm'>Delete</button>
+                        <button
+
+                            className='bg-brand-blue py-2 px-7 rounded-sm  font-heading text-white hover:opacity-95 text-sm'>
+                            Edit
+                        </button>
+                        <button
+                            onClick={() => postInfo.handlePostDelete(_id)}
+                            className='bg-red-800 py-2 px-5 rounded-sm  font-heading text-white hover:opacity-95 text-sm'>
+                            Delete
+                        </button>
                     </div>
                 </div>
             </div>
