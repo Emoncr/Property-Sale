@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import PostCard from '../components/PostCard.jsx';
+import Loading from '../components/Loading.jsx';
 
 
 
@@ -271,28 +272,30 @@ const Profile = () => {
         {/*======== post section start here ========= */}
 
         <div className=" mt-5 md:mt-0 col-span-3 post_section profile_info p-2 flex flex-col   bg-transparent  w-full ">
-          <div className="btn_container">
+          {
+            userPostLoading
+              ?
+              <Loading/>
+              :
+              <div className="grid post_card grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 md:h-full overflow-scroll pb-10 scrollbar-hide ">
 
-          </div>
-          <div className="grid post_card grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 md:h-full overflow-scroll pb-10 scrollbar-hide ">
+                {/* ADD NEW POST BUTTON  */}
+                <div className="cursor-pointer rounded-md  bg-white  shadow-lg hover:shadow-xl">
+                  <button onClick={() => navigate('/create_post')} type='submit' className=' px-5 bg-slate-300 font-heading shadow-lg text-black text-lg  rounded-sm hover:opacity-95 w-full h-full flex justify-center items-center flex-col py-10 sm:py-10'>
+                    <BsFillPlusSquareFill className='text-center md:mb-3 md:text-5xl text-black text-sm sm:text-xl' />
+                    Create New Post
+                  </button>
+                </div>
 
-            {/* ADD NEW POST BUTTON  */}
-            <div className="cursor-pointer rounded-md  bg-white  shadow-lg hover:shadow-xl">
-              <button onClick={() => navigate('/create_post')} type='submit' className=' px-5 bg-slate-300 font-heading shadow-lg text-black text-lg  rounded-sm hover:opacity-95 w-full h-full flex justify-center items-center flex-col py-10 sm:py-10'>
-                <BsFillPlusSquareFill className='text-center md:mb-3 md:text-5xl text-black text-sm sm:text-xl' />
-                Create New Post
-              </button>
-            </div>
-
-            {
-              userPosts.isPostExist
-                ?
-                userPosts.posts.map(postInfo => <PostCard key={postInfo._id} postInfo={postInfo} />)
-                : ' <h1>No post</h1>'
-            }
-          </div>
+                {
+                  userPosts.isPostExist
+                    ?
+                    userPosts.posts.map(postInfo => <PostCard key={postInfo._id} postInfo={postInfo} />)
+                    : ''
+                }
+              </div>
+          }
         </div>
-
       </div>
       <ToastContainer />
     </section>
