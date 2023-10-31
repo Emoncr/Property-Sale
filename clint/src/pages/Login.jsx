@@ -24,7 +24,7 @@ const Login = () => {
     useEffect(() => {
         isFormSubmit && handleTostify();
         setIsformSubmit(false)
-    }, [responseData])        
+    }, [responseData])
 
 
 
@@ -57,8 +57,8 @@ const Login = () => {
                         </u>
                     </p>
 
-                    <OAuth/>
-                    <ToastContainer limit={0}/>
+                    <OAuth />
+                    <ToastContainer limit={0} />
                 </div>
             </div>
         </section>

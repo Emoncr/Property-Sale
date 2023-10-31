@@ -24,14 +24,12 @@ const Profile = () => {
     isPostExist: false,
     posts: []
   })
-  const [isPostDelete, SetIsPostDelete] = useState(false)
+
   const [userPostLoading, setUserPostLoading] = useState(false)
+
+
   const fileRef = useRef(null);
-
-
-
   const { loading } = useSelector((state => state.user))
-
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
@@ -106,6 +104,7 @@ const Profile = () => {
     }
   }
 
+
   const handleDelete = async () => {
     try {
       dispatch(loddingStart())
@@ -155,7 +154,7 @@ const Profile = () => {
     }
   }
 
-
+  // ======Loading User Posts  =====//
   useEffect(() => {
     const loadPost = async () => {
       try {
@@ -325,9 +324,9 @@ const Profile = () => {
 
                 {
                   userPosts.isPostExist
-                    ?
-                    userPosts.posts.map(post => <PostCard key={post._id} postInfo={{ post, handlePostDelete }} />)
-                    : ''
+                  &&
+                  userPosts.posts.map(post => <PostCard key={post._id} postInfo={{ post, handlePostDelete }} />)
+
                 }
               </div>
           }

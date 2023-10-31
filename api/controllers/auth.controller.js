@@ -30,9 +30,8 @@ export const signin = async (req, res, next) => {
     if (!isValidPassword) return next(throwError(401, "Worng Credentials!"));
 
     const { password: pass, ...rest } = validUser._doc;
-    const tooken = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "24h",
-    });
+    const tooken = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+
     res
       .cookie("access_token", tooken, { httpOnly: true, secure: true })
       .status(200)

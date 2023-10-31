@@ -7,6 +7,7 @@ import Theme from './components/Theme'
 import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
 import CreatePost from './pages/CreatePost'
+import UpdatePost from './pages/UpdatePost'
 
 
 function App() {
@@ -19,10 +20,11 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
-        
+
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
-          <Route path='/create_post' element={<CreatePost/> } />
+          <Route path='/create_post' element={<CreatePost />} />
+          <Route path='/update_post/:id' element={<UpdatePost />} />
         </Route>
       </Routes>
     </BrowserRouter>
