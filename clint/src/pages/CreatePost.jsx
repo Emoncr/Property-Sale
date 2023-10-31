@@ -19,18 +19,7 @@ const CreatePost = () => {
     const [isOffer, setIsoffer] = useState(false);
     const [loading, setLoading] = useState(false)
     const [formData, setFormData] = useState({
-        imageURL: [],
-        // title: '',
-        // description: '',
-        // address: '',
-        // type: "",
-        // price: "",
-        // discountPrice: "",
-        // bed: '',
-        // bath: '',
-        // parking: false,
-        // offer: false,
-        // furnished: false,
+        imgUrl: [],
     })
 
 
@@ -48,13 +37,13 @@ const CreatePost = () => {
 
     const handleImageUpload = async () => {
 
-        if (imageFile.length > 0 && imageFile.length + formData.imageURL.length < 7) {
+        if (imageFile.length > 0 && imageFile.length + formData.imgUrl.length < 7) {
             setLoading(true)
             const promises = [];
             for (let i = 0; i < imageFile.length; i++) {
                 promises.push(uploadToFirebase(imageFile[i]))
                 Promise.all(promises).then((urls) => {
-                    setFormData({ ...formData, imageURL: formData.imageURL.concat(urls) })
+                    setFormData({ ...formData, imgUrl: formData.imgUrl.concat(urls) })
                     setLoading(false)
                 }).catch((error) => {
                     setUploadError({ ...uploadError, isError: true, message: error })
@@ -96,7 +85,7 @@ const CreatePost = () => {
     }
 
     const handleDelete = (index) => {
-        setFormData({ ...formData, imageURL: formData.imageURL.filter((items) => items != formData.imageURL[index]) })
+        setFormData({ ...formData, imgUrl: formData.imgUrl.filter((items) => items != formData.imgUrl[index]) })
     }
 
     uploadError.isError && toast.error(uploadError.message, {
@@ -114,7 +103,7 @@ const CreatePost = () => {
                 },
                 body: JSON.stringify({
                     ...data,
-                    imgUrl: formData.imageURL,
+                    imgUrl: formData.imgUrl,
                     userRef: currentUser._id
                 })
             })
@@ -369,7 +358,7 @@ const CreatePost = () => {
                                     </div>
                                     <div>
                                         {
-                                            formData.imageURL.length > 0 && formData.imageURL.map((imgSrc, index) => {
+                                            formData.imgUrl.length > 0 && formData.imgUrl.map((imgSrc, index) => {
                                                 return (
                                                     <div key={index} className="uploaded_images p-2 pr-5 border-2 mt-4  rounded-md flex items-center justify-between">
                                                         <img src={imgSrc} alt="property Image" className='w-24 h-20 object-cover rounded-md' />
@@ -384,7 +373,7 @@ const CreatePost = () => {
                                         <div className="post_btn mt-7">
                                             <button
 
-                                                disabled={formData.imageURL.length < 1 || loading || formSubmitLoading}
+                                                disabled={formData.imgUrl.length < 1 || loading || formSubmitLoading}
                                                 type='submit'
                                                 className="w-full bg-brand-blue text-xl tracking-wider font-heading rounded-md hover:opacity-90 disabled:opacity-70 duration-300 text-white p-3">
                                                 {
