@@ -216,31 +216,53 @@ const CreatePost = () => {
 
                                         <div className="property_info mt-3">
                                             <p className='font-heading text-black'>Genarel Information</p>
-                                            <div className="max-w-[150px] flex items-center justify-between gap-2 mt-2">
-                                                <span className='label-text font-medium'>Bedrooms</span>
-                                                <input
-                                                    defaultValue={1}
-                                                    className='border-2 focus:border-brand-blue rounded-md max-w-[50px] py-1 px-2 bg-transparent'
-                                                    min={1} max={10}
-                                                    type="number"
-                                                    name="beds"
-                                                    id="bed"
-                                                    {...register('bed', { required: 'required' })}
-                                                />
-                                                {errors.bed && <p className='text-red-700 text-xs font-semibold'>{errors.title.bed}</p>}
+                                            <div className="max-w-[200px] flex items-center justify-between gap-2 mt-2">
+                                                <span className='label-text font-medium'>Area <small>(sqft)</small></span>
+                                                <div>
+                                                    <input
+                                                        defaultValue={550}
+                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] py-1 px-2 bg-transparent'
+                                                        type="number"
+                                                        name="area"
+                                                        id="area"
+                                                        {...register('area', { required: 'required' })}
+                                                    />
+                                                    {errors.area && <p className='text-red-700 text-xs font-semibold'>{errors.area.message}</p>}
+                                                </div>
+
                                             </div>
-                                            <div className="max-w-[150px] flex items-center justify-between gap-2 mt-1">
+
+
+                                            <div className="max-w-[200px]  flex items-center justify-between gap-2 mt-2">
+                                                <span className='label-text font-medium'>Bedrooms</span>
+                                                <div>
+                                                    <input
+                                                        defaultValue={1}
+                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] min-w-[84px] py-1 px-2 bg-transparent'
+                                                        min={1} max={10}
+                                                        type="number"
+                                                        name="beds"
+                                                        id="bed"
+                                                        {...register('bed', { required: 'required' })}
+                                                    />
+                                                    {errors.bed && <p className='text-red-700 text-xs font-semibold'>{errors.bed.message}</p>}
+                                                </div>
+
+                                            </div>
+                                            <div className="max-w-[200px] flex items-center justify-between gap-2 mt-1">
                                                 <span className='label-text font-medium'>Bathrooms</span>
-                                                <input
-                                                    defaultValue={1}
-                                                    className='border-2 focus:border-brand-blue rounded-md max-w-[50px] py-1 px-2 bg-transparent'
-                                                    min={1} max={10}
-                                                    type="number"
-                                                    name="beds"
-                                                    id="bath"
-                                                    {...register('bath', { required: 'required' })}
-                                                />
-                                                {errors.bath && <p className='text-red-700 text-xs font-semibold'>{errors.bath.message}</p>}
+                                                <div>
+                                                    <input
+                                                        defaultValue={1}
+                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] py-1 px-2 bg-transparent'
+                                                        min={1} max={10}
+                                                        type="number"
+                                                        name="beds"
+                                                        id="bath"
+                                                        {...register('bath', { required: 'required' })}
+                                                    />
+                                                    {errors.bath && <p className='text-red-700 text-xs font-semibold'>{errors.bath.message}</p>}
+                                                </div>
                                             </div>
                                         </div>
 

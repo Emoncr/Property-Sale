@@ -1,7 +1,7 @@
 import React from 'react'
 import { BsPinAngleFill } from 'react-icons/bs';
 import { FaBath, FaBed, FaCamera, FaCheck } from "react-icons/fa"
-import { Link } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 
 
@@ -22,7 +22,7 @@ const PostCard = ({ postInfo }) => {
         title,
         type,
         _id } = postInfo.post;
-
+    const navigate = useNavigate();
 
     return (
         <>
@@ -59,8 +59,13 @@ const PostCard = ({ postInfo }) => {
                     <p className="mt-1 text-sm text-slate-500 font-content font-medium truncate"> {description}</p>
                     <p className="mt-2 text-sm text-slate-600 font-content font-bold truncate"><span className='font-medium'>Address:</span> {address}</p>
                     <div className='mt-3 flex items-end justify-start'>
-                        <p className='text-slate-700 w-1/2 font-content font-semibold text-sm flex items-center '><span className='font-heading font-bold mr-1'>{bed}</span> Bed<FaBed className='ml-1' /></p>
-                        <p className='text-slate-700 w-1/2 font-content font-semibold text-sm flex items-center '><span className='font-heading font-bold mr-1'>{bath}</span> Bath<FaBath className='ml-1' /></p>
+
+
+                        <p className='text-slate-700 w-1/2 font-content font-semibold text-sm flex items-center '><FaBed className='mr-1' /><span className='font-heading font-bold mr-1'>{bed}</span> Bed</p>
+
+
+
+                        <p className='text-slate-700 w-1/2 font-content font-semibold text-sm flex items-center '><FaBath className='mr-1' /><span className='font-heading font-bold mr-1'>{bath}</span> Bath</p>
                     </div>
                     <div className='mt-2 flex items-end justify-start'>
                         <p className='text-slate-700 w-1/2 font-content font-semibold text-sm flex items-center '><FaCheck className={` mr-1 mt-[2px] ${parking ? 'text-green-600' : "text-gray-400"}`} />parking</p>
@@ -87,17 +92,16 @@ const PostCard = ({ postInfo }) => {
                                 }
                             </p>}
 
-                        <div className="group inline-flex rounded-xl bg-brand-blue/10 p-2 hover:bg-brand-blue/25 duration-500">
-                            <BsPinAngleFill />
+                        <div className="inline-flex rounded-xl max-w-[150px]  duration-500">
+                            <p className='font-heading text-lg truncate'>{postInfo.post.area ? postInfo.post.area : 0} <span className='font-content'>/sqft</span> </p>
                         </div>
                     </div>
 
                     <div className='mt-4 flex items-end justify-between'>
                         <button
-                            className='bg-brand-blue py-2 px-7 rounded-sm  font-heading text-white hover:opacity-95 text-sm'>
-                            <Link to={`/update_post/${_id}`}>
-                                Edit
-                            </Link>
+                            onClick={() => navigate(`/update_post/${_id}`)}
+                            className='bg-brand-blue rounded-sm py-2 px-7 font-heading text-white hover:opacity-95 text-sm'>
+                            Edit
                         </button>
                         <button
                             onClick={() => postInfo.handlePostDelete(_id)}

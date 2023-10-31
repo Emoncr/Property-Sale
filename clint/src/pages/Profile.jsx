@@ -168,6 +168,7 @@ const Profile = () => {
           setUserPostLoading(false)
         }
         else {
+          console.log(data);
           setUserPost({
             ...userPosts,
             isPostExist: true,
