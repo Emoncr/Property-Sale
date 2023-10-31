@@ -79,7 +79,7 @@ const UpdatePost = () => {
 
     const handleImageUpload = async () => {
 
-        if (Filimagee.length > 0 && imageFile.length + formData.imgUrl.length < 7) {
+        if (imageFile.length > 0 && imageFile.length + formData.imgUrl.length < 7) {
             setLoading(true)
             const promises = [];
             for (let i = 0; i < imageFile.length; i++) {
@@ -138,7 +138,7 @@ const UpdatePost = () => {
     const handleFormSubmit = async (data) => {
         try {
             setFormSubmitLoading(true)
-            const res = await fetch(`api/posts/${params.id}`, {
+            const res = await fetch(`/api/posts/update/${params.id}`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
@@ -305,7 +305,7 @@ const UpdatePost = () => {
                                                                 type="checkbox"
                                                                 name='parking'
                                                                 className="checkbox w-5 h-5 border-gray-400 rounded-full checked:bg-brand-blue"
-                                                                {...register('parking', { required: true })}
+                                                                {...register('parking')}
                                                             />
 
                                                             <span className="label-text font-medium" >Parking</span>
@@ -315,7 +315,7 @@ const UpdatePost = () => {
                                                                 id='furnished'
                                                                 type="checkbox"
                                                                 className="checkbox w-5 h-5 border-gray-400 rounded-full checked:bg-brand-blue"
-                                                                {...register('furnished', { required: true })}
+                                                                {...register('furnished')}
                                                             />
                                                             <span className="label-text font-medium" >Furnished</span>
                                                         </label>
@@ -364,7 +364,6 @@ const UpdatePost = () => {
                                                                     name="discountPrice"
                                                                     className="bg-slate-100 p-2 rounded-md text-grey-darkest border-2 focus:border-brand-blue font-bold text-red-700 text-lg max-w-[200px]"
                                                                     {...register('discountPrice', {
-                                                                        required: 'This feild is required*',
                                                                         validate: (value) => {
                                                                             const { price } = getValues();
                                                                             if (+price < +value) {
@@ -395,7 +394,7 @@ const UpdatePost = () => {
 
                                                 <input
                                                     onChange={(e) => setImageFile(e.target.files)}
-                                                    required
+                                                    required={formData.imgUrl < 1}
                                                     multiple accept='image/*' type="file"
                                                     className={`file-input file:bg-brand-blue bg-red-00 ${loading ? "md:w-4/6" : 'md:w-4/5'} w-full`} />
                                                 <button
@@ -423,8 +422,7 @@ const UpdatePost = () => {
                                                 }
                                                 <div className="post_btn mt-7">
                                                     <button
-
-                                                        // disabled={formData.imgUrl.length < 1 || loading || formSubmitLoading}
+                                                        disabled={formData.imgUrl.length < 1 || loading || formSubmitLoading}
                                                         type='submit'
                                                         className="w-full bg-brand-blue text-xl tracking-wider font-heading rounded-md hover:opacity-90 disabled:opacity-70 duration-300 text-white p-3">
                                                         {
