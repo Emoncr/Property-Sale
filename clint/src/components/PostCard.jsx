@@ -1,7 +1,7 @@
 import React from 'react'
 import { BsPinAngleFill } from 'react-icons/bs';
 import { FaBath, FaBed, FaCamera, FaCheck } from "react-icons/fa"
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -26,7 +26,10 @@ const PostCard = ({ postInfo }) => {
 
     return (
         <>
-            <div className="cursor-pointer rounded-md  bg-white  shadow-lg hover:shadow-xl">
+            <div
+                onClick={() => navigate(`/listing/${_id}`)}
+                className="rounded-md  bg-white  shadow-lg hover:shadow-xl"
+            >
                 <div className="relative flex items-end overflow-hidden rounded-md h-[200px] ">
                     <img className='hover:scale-105 object-cover h-full w-full duration-300' src={imgUrl[0]} alt="wallpaper" />
 

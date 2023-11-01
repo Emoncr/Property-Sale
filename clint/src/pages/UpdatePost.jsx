@@ -272,7 +272,7 @@ const UpdatePost = () => {
                                                         <div>
                                                             <input
                                                                 defaultValue={550}
-                                                                className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] min-w-[84px] py-1 px-2 bg-transparent'
+                                                                className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] py-1 px-2 bg-transparent'
                                                                 type="number"
                                                                 name="area"
                                                                 id="area"
@@ -286,7 +286,7 @@ const UpdatePost = () => {
                                                         <span className='label-text font-medium'>Bedrooms</span>
                                                         <div>
                                                             <input
-                                                                className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] min-w-[84px] py-1 px-2 bg-transparent'
+                                                                className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] py-1 px-2 bg-transparent'
                                                                 min={1} max={10}
                                                                 type="number"
                                                                 name="beds"
@@ -300,7 +300,7 @@ const UpdatePost = () => {
                                                         <span className='label-text font-medium'>Bathrooms</span>
                                                         <div>
                                                             <input
-                                                                className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] min-w-[84px] py-1 px-2 bg-transparent'
+                                                                className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px]  py-1 px-2 bg-transparent'
                                                                 min={1} max={10}
                                                                 type="number"
                                                                 name="bath"

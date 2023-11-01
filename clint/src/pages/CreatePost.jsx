@@ -238,7 +238,7 @@ const CreatePost = () => {
                                                 <div>
                                                     <input
                                                         defaultValue={1}
-                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] min-w-[84px] py-1 px-2 bg-transparent'
+                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px]  py-1 px-2 bg-transparent'
                                                         min={1} max={10}
                                                         type="number"
                                                         name="beds"
