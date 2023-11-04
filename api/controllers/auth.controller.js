@@ -31,7 +31,6 @@ export const signin = async (req, res, next) => {
 
     const { password: pass, ...rest } = validUser._doc;
     const tooken = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
-
     res
       .cookie("access_token", tooken, { httpOnly: true, secure: true })
       .status(200)
@@ -49,9 +48,7 @@ export const googleSignIn = async (req, res, next) => {
 
     //====IF user exist in DB====//
     if (user) {
-      const tooken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "24h",
-      });
+      const tooken = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
       const { pass: password, ...rest } = user._doc;
       res
@@ -70,9 +67,7 @@ export const googleSignIn = async (req, res, next) => {
         avatar: photo,
       });
       const user = await newUser.save();
-      const tooken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "24h",
-      });
+      const tooken = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       const { pass: password, ...rest } = user._doc;
       res
         .cookie("access_token", tooken, { httpOnly: true, secure: true })
