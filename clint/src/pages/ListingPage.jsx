@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 
 const ListingPage = () => {
@@ -32,21 +32,22 @@ const ListingPage = () => {
         return (
             <div
                 className={className}
-                style={{ ...style, display: "block", background: "#00000000", left: '70px', zIndex: '999' }}
+                style={{ ...style, display: "block", background: "#000000", left: '0px', zIndex: '999' }}
                 onClick={onClick}
             />
         );
     }
     function SampleNextArrow(props) {
         const { className, style, onClick } = props;
-        console.log(props);
         return (
             <div
-                className={className}
-                style={{ ...style, display: "block", background: "#00000000", right: '70px', zIndex: '999'}}
+                style={{ ...style, display: "block", background: "#000000", right: '70px', zIndex: '999' }}
                 onClick={onClick}
-            />
-        );
+                className={`arrow ${className}`}
+            >
+                <i><AiOutlineArrowRight class="arrows" style={{ color: "#000" }} /></i>
+            </div>
+        )
     }
 
 
@@ -56,11 +57,12 @@ const ListingPage = () => {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />
+        nextArrow: <SampleNextArrow to="next" />,
+        prevArrow: <SamplePrevArrow to="prev" />,
+
     };
 
-    console.log(listings);
+
 
 
     return (
