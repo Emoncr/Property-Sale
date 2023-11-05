@@ -39,7 +39,7 @@ const ProfileOption = ({ user }) => {
                         <img className='rounded-full h-8 w-8 object-cover' src={user.avatar} alt="profile image" />
                     </div>
                 </label>
-                <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-md w-52 ">
+                <ul tabIndex={0} className="mt-3 z-[999999999] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-md w-52 ">
                     <li>
                         <Link to={'profile'} className="justify-between">
                             Profile

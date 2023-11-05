@@ -42,7 +42,9 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
+.slick-dots li{
+@apply bg-white rounded-full
+}
 
 
 
