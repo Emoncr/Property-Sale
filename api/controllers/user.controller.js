@@ -9,7 +9,10 @@ export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) return throwError(404, "User not found");
-    res.status(200).json(user);
+
+    const { password, ...rest } = user._doc;
+
+    res.status(200).json(rest);
   } catch (error) {
     next(error);
   }
@@ -51,7 +54,6 @@ export const updateUser = async (req, res, next) => {
 };
 
 //=====Handle User Delete=====//
-
 export const deleteUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)
     return next(throwError(401, "User Invalid"));
@@ -64,6 +66,7 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
+//=====Get User Created Post=====//
 export const userPosts = async (req, res, next) => {
   if (req.user.id !== req.params.id)
     return next(throwError(401, "You can see only your posts"));
