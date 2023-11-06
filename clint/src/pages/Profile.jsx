@@ -168,7 +168,6 @@ const Profile = () => {
           setUserPostLoading(false)
         }
         else {
-          console.log(data);
           setUserPost({
             ...userPosts,
             isPostExist: true,
@@ -193,7 +192,7 @@ const Profile = () => {
         method: 'DELETE',
       })
       const data = await res.json();
-      console.log(data);
+
       //===checking reqest success or not ===//
       if (data.success === false) {
         //===showing error in tostify====//
@@ -207,9 +206,11 @@ const Profile = () => {
           ...userPosts,
           posts: restPost
         })
+
         toast.success(data, {
           autoClose: 2000,
         })
+
       }
     } catch (error) {
       toast.error(error.message, {
@@ -327,7 +328,6 @@ const Profile = () => {
                   userPosts.isPostExist
                   &&
                   userPosts.posts.map(post => <PostCard key={post._id} postInfo={{ post, handlePostDelete }} />)
-
                 }
               </div>
           }
