@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -348,15 +348,32 @@ const ListingPage = () => {
 
                                                             {
                                                                 currentUser && currentUser.email ?
-                                                                    <button
-                                                                        // onClick={() => navigate(`/update_post/${params.id}`)}
-                                                                        className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
+                                                                    // <button
+                                                                    //     // onClick={() => navigate(`/update_post/${params.id}`)}
+                                                                    //     className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
-                                                                        <span className='flex items-center justify-center'>
-                                                                            <BsFillTelephoneFill className='mr-2 text-blue-600' />
-                                                                            Contact to Owner
-                                                                        </span>
-                                                                    </button>
+                                                                    //     <span className='flex items-center justify-center'>
+                                                                    //         <BsFillTelephoneFill className='mr-2 text-blue-600' />
+                                                                    //         Contact to Owner
+                                                                    //     </span>
+                                                                    // </button>
+                                                                    <div className="contant_owner_form mt-5">
+                                                                        <div className="contact_component">
+                                                                            <textarea
+                                                                                id='message'
+                                                                                type="text"
+                                                                                placeholder='Write your message...'
+                                                                                name='message'
+                                                                                className='form_input border-[1px] border-gray-400  focus:border-brand-blue h-32 rounded-md placeholder:text-sm mt-3'
+                                                                            />
+                                                                            <Link>
+                                                                                <button
+                                                                                    className='w-full px-2 py-3 text-lg font-heading text-white bg-brand-blue'>
+                                                                                    Send Messages
+                                                                                </button>
+                                                                            </Link>
+                                                                        </div>
+                                                                    </div>
                                                                     :
                                                                     <button
                                                                         onClick={() => navigate('/login')}
@@ -368,18 +385,9 @@ const ListingPage = () => {
                                                                         </span>
                                                                     </button>
                                                             }
-                                                            <div className="contant_owner_form mt-5">
-                                                                <textarea
-                                                                    id='message'
-                                                                    type="text"
-                                                                    placeholder='Write your message...'
-                                                                    name='message'
-                                                                    className='form_input border-[1px] border-gray-400  focus:border-brand-blue h-32 rounded-md placeholder:text-sm mt-3'
-                                                                />
-                                                            </div>
+
                                                         </div>
                                                     </div>
-
                                             }
                                         </div>
                                     </div>

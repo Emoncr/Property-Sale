@@ -3,8 +3,16 @@ import User from "../models/user.models.js";
 import { throwError } from "../utils/error.js";
 import bcrypt from "bcrypt";
 
-export const userController = (req, res) => {
-  res.send("user resgisterd from controller");
+export const getUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(throwError(401, "User Invalid"));
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return throwError(404, "User not found");
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
 };
 
 //=======update user api=======//
