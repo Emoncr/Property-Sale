@@ -4,10 +4,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { BsArrowRight, BsArrowLeft, BsArrowDown } from "react-icons/bs";
+import { BsArrowRight, BsArrowLeft, BsFillTelephoneFill, } from "react-icons/bs";
 import { BiSolidArea } from 'react-icons/bi'
-import { FaLocationArrow, FaBed, FaBath, FaAngleUp, FaAngleDown, FaShare } from "react-icons/fa"
+import { FaLocationArrow, FaBed, FaBath, FaAngleUp, FaAngleDown, FaShare, FaHeart, FaPhone } from "react-icons/fa"
 import Loading from '../components/Loading';
+import { useSelector } from 'react-redux';
 
 
 const ListingPage = () => {
@@ -18,11 +19,11 @@ const ListingPage = () => {
 
 
 
-    const { area, address, bath, bed, description, discountPrice, furnished, offer, parking, price, title, type } = listings;
+    const { area, address, bath, bed, description, discountPrice, furnished, offer, parking, price, title, type, _id, userRef } = listings;
 
     const navigate = useNavigate()
     const params = useParams();
-
+    const { currentUser } = useSelector(state => state.user)
 
 
 
@@ -286,65 +287,76 @@ const ListingPage = () => {
                                     </div>
                                     <div className="lg:col-span-5">
                                         <div className="bg-white md:p-12 p-6 rounded-md shadow-md">
-                                            {/* <div className="post_owner ">
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-5 gap-2 ">
-                                                    <div className="btn_container">
-                                                        <button
-                                                            onClick={() => navigate(`/update_post/${params.id}`)}
-                                                            className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
-                                                            Update Post
-                                                        </button>
-                                                    </div>
-                                                    <div className="contant_btn_container">
-                                                        <button
-                                                            onClick={() => handlePostDelete(params.id)}
-                                                            className='bg-red-600 hover:bg-red-600/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
-                                                            Delete Post
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div className="contant_btn_container mt-3">
-                                                    <button
-                                                        onClick={() => navigate(`/profile`)}
-                                                        className='bg-amber-700 hover:bg-amber-700/90 uppercase text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
-                                                        My All Posts
-                                                    </button>
-                                                </div>
-                                            </div> */}
-                                            <div className="visitor_view">
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-5 gap-2 ">
-                                                    <div className="btn_container">
-                                                        <button
-                                                            // onClick={() => navigate(`/update_post/${params.id}`)}
-                                                            className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
-                                                            <span className='flex items-center justify-center'>
-                                                                <FaShare className='mr-2' />
-                                                                Share
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div className="contant_btn_container">
-                                                        <button
-                                                            // onClick={() => navigate(`/update_post/${params.id}`)}
-                                                            className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
-                                                            <span className='flex items-center justify-center'>
-                                                                <FaShare className='mr-2' />
-                                                                Share
-                                                            </span>
-                                                        </button>
+                                            {
+                                                currentUser._id === _id
+                                                    ?
+                                                    <div className="post_owner ">
+                                                        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-5 gap-2 ">
+                                                            <div className="btn_container">
+                                                                <button
+                                                                    onClick={() => navigate(`/update_post/${params.id}`)}
+                                                                    className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
+                                                                    Update Post
+                                                                </button>
+                                                            </div>
+                                                            <div className="contant_btn_container">
+                                                                <button
+                                                                    onClick={() => handlePostDelete(params.id)}
+                                                                    className='bg-red-600 hover:bg-red-600/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
+                                                                    Delete Post
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div className="contant_btn_container mt-3">
+                                                            <button
+                                                                onClick={() => navigate(`/profile`)}
+                                                                className='bg-amber-700 hover:bg-amber-700/90 uppercase text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
+                                                                My All Posts
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className="btn_container mt-3">
-                                                    <button
-                                                        // onClick={() => navigate(`/update_post/${params.id}`)}
-                                                        className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
-                                                        Contact With Owner
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                    :
+                                                    <div className="visitor_view">
+                                                        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-5 gap-2 ">
+                                                            <div className="btn_container">
+                                                                <button
+                                                                    // onClick={() => navigate(`/update_post/${params.id}`)}
+                                                                    className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
+                                                                    <span className='flex items-center justify-center'>
+                                                                        <FaShare className='mr-2 text-green-600' />
+                                                                        Share
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="contant_btn_container">
+                                                                <button
+                                                                    // onClick={() => navigate(`/update_post/${params.id}`)}
+                                                                    className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
+
+                                                                    <span className='flex items-center justify-center'>
+                                                                        <FaHeart className='mr-2 text-red-600' />
+                                                                        Save
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div className="btn_container mt-3">
+                                                            <button
+                                                                // onClick={() => navigate(`/update_post/${params.id}`)}
+                                                                className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
+
+                                                                <span className='flex items-center justify-center'>
+                                                                    <BsFillTelephoneFill className='mr-2 text-blue-600' />
+                                                                    Contact to Owner
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                            }
                                         </div>
                                     </div>
                                 </div>
