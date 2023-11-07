@@ -15,7 +15,7 @@ body {
   @apply input w-full h-10  mx-auto  border-2 rounded-md border-brand-blue max-w-full  sm:max-w-sm focus:outline-0 text-sm font-semibold bg-transparent text-slate-900 placeholder:text-brand-blue placeholder:font-semibold px-3;
 }
 .search_btn {
-  @apply absolute  right-0 bg-brand-blue h-full w-10 sm:w-14 sm:max-w-[56px] rounded-e-md max-w-[40px] flex items-center justify-center hover:bg-brand-blue/[.90] duration-300;
+  @apply absolute  right-0 bg-brand-blue h-full w-10 sm:w-14 sm:max-w-[56px] rounded-e-md max-w-[40px] flex items-center justify-center hover:bg-brand-blue/80 duration-300;
 }
 
 /*=================Form styles start here =========== */
@@ -42,12 +42,9 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-.slick-dots li{
-@apply bg-white rounded-full
+.slick-dots li {
+  @apply bg-white rounded-full;
 }
-
-
-
 
 @tailwind base;
 @tailwind components;
