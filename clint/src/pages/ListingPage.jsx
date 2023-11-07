@@ -143,7 +143,7 @@ const ListingPage = () => {
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
                                     <div className="lg:col-span-7  ">
-                                        <div className='bg-white md:p-12 p-6 rounded-md shadow-md'>
+                                        <div className='bg-white md:p-12 p-6 rounded-md shadow-sm shadow-brand-blue'>
                                             <div className="property_info">
                                                 <p className='font-heading text-brand-blue'>
                                                     <span className='py-2 px-6 bg-brand-blue/40 rounded-full border border-brand-blue uppercase'>
@@ -151,7 +151,7 @@ const ListingPage = () => {
                                                     </span>
                                                 </p>
 
-                                                <h1 className='font-heading font-bold mt-5 md:mt-8 text-2xl sm:text-3xl text-brand-blue capitalize'>
+                                                <h1 className='font-heading font-bold mt-5 md:mt-8 text-2xl sm:text-3xl text-black capitalize'>
                                                     {title}
                                                 </h1>
                                                 <p className='font-content mt-3 font-medium text-lg flex items-center justify-left'>
@@ -202,7 +202,7 @@ const ListingPage = () => {
 
                                         {/* Feature Content Section */}
 
-                                        <div className="property_details mt-8 bg-white rounded-md shadow-md md:px-12 py-5 px-6">
+                                        <div className="property_details mt-8 bg-white rounded-md shadow-sm shadow-brand-blue md:px-12 py-5 px-6">
                                             <div
                                                 onClick={() => setIsFeatureActive(!isFeatureActive)}
                                                 className="feature_heading flex items-center justify-between cursor-pointer"
@@ -212,11 +212,11 @@ const ListingPage = () => {
                                                     isFeatureActive
                                                         ?
                                                         <i className='p-[5px] rounded-full bg-brand-blue/20 flex items-center justify-center'>
-                                                            <FaAngleUp className='text-xl' />
+                                                            <FaAngleUp className='text-xl text-brand-blue' />
                                                         </i>
                                                         :
                                                         <i className='p-[5px] rounded-full bg-brand-blue/20 flex items-center justify-center'>
-                                                            <FaAngleDown className='text-xl' />
+                                                            <FaAngleDown className='text-xl text-brand-blue' />
                                                         </i>
                                                 }
                                             </div>
@@ -285,7 +285,7 @@ const ListingPage = () => {
 
                                     </div>
                                     <div className="lg:col-span-5">
-                                        <div className="bg-white md:p-12 p-6 rounded-md shadow-md">
+                                        <div className="bg-white md:p-12 p-6 rounded-md shadow-sm shadow-brand-blue">
 
 
                                             {
