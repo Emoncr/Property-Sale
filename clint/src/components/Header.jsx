@@ -12,6 +12,7 @@ import Profile from './ProfileOption'
 const Header = () => {
     const [isActiveMoblie, setisActiveMoblie] = useState(false)
     const { currentUser } = useSelector((state) => state.user)
+    const [search, setSearch] = useState('')
 
     return (
         <div className="navbar pl-0 pr-0 pt-3 pb-3 bg-slate-300 flex items-center justify-between shadow-md">
