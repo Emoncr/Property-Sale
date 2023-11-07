@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import {  useNavigate, useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,6 +9,7 @@ import { BiSolidArea } from 'react-icons/bi'
 import { FaLocationArrow, FaBed, FaBath, FaAngleUp, FaAngleDown, FaShare, FaHeart, FaPhone, FaLock } from "react-icons/fa"
 import Loading from '../components/Loading';
 import { useSelector } from 'react-redux';
+import Contact from '../components/Contact';
 
 
 const ListingPage = () => {
@@ -24,7 +25,6 @@ const ListingPage = () => {
     const navigate = useNavigate()
     const params = useParams();
     const { currentUser } = useSelector(state => state.user)
-
 
 
 
@@ -46,9 +46,6 @@ const ListingPage = () => {
             }
         })()
     }, [])
-
-    console.log(listings);
-
 
     //====SLider Functions=====//
     function SamplePrevArrow({ onClick }) {
@@ -139,6 +136,8 @@ const ListingPage = () => {
                                 ))
                             }
                         </Slider>
+
+
                         <div className="container ">
                             <div className="property_details_container pt-4 sm:pt-12 ">
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -332,8 +331,7 @@ const ListingPage = () => {
                                                                 </button>
                                                             </div>
                                                             <div className="contant_btn_container">
-                                                                <button
-                                                                    // onClick={() => navigate(`/update_post/${params.id}`)}
+                                                                <button 
                                                                     className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
                                                                     <span className='flex items-center justify-center'>
@@ -348,15 +346,9 @@ const ListingPage = () => {
 
                                                             {
                                                                 currentUser && currentUser.email ?
-                                                                    <button
-                                                                        // onClick={() => navigate(`/update_post/${params.id}`)}
-                                                                        className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
-
-                                                                        <span className='flex items-center justify-center'>
-                                                                            <BsFillTelephoneFill className='mr-2 text-blue-600' />
-                                                                            Contact to Owner
-                                                                        </span>
-                                                                    </button>
+                                                                    <div className="contant_owner_form mt-5">
+                                                                        <Contact listing={listings} />
+                                                                    </div>
                                                                     :
                                                                     <button
                                                                         onClick={() => navigate('/login')}
@@ -368,18 +360,9 @@ const ListingPage = () => {
                                                                         </span>
                                                                     </button>
                                                             }
-                                                            <div className="contant_owner_form mt-5">
-                                                                <textarea
-                                                                    id='message'
-                                                                    type="text"
-                                                                    placeholder='Write your message...'
-                                                                    name='message'
-                                                                    className='form_input border-[1px] border-gray-400  focus:border-brand-blue h-32 rounded-md placeholder:text-sm mt-3'
-                                                                />
-                                                            </div>
+
                                                         </div>
                                                     </div>
-
                                             }
                                         </div>
                                     </div>
