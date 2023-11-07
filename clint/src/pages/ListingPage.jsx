@@ -331,8 +331,7 @@ const ListingPage = () => {
                                                                 </button>
                                                             </div>
                                                             <div className="contant_btn_container">
-                                                                <button
-                                                                    // onClick={() => navigate(`/update_post/${params.id}`)}
+                                                                <button 
                                                                     className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
                                                                     <span className='flex items-center justify-center'>
