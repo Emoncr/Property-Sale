@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { FaSearch } from 'react-icons/fa'
+import ListingCard from '../components/ListingCard'
 
 const Search = () => {
+
+    const [listings, setListings] = useState([])
+
+    const handleSearch = (e) => {
+        setListings({ ...listings, [e.target.name]: e.target.value })
+    }
+
+    useEffect(() => {
+        (async() => {
+            const res = await fetch('/api/posts')
+            const json = await res.json()
+            setListings(json)
+        })()
+    }, [])
+    console.log(listings);
+
+
+
+
     return (
         <main>
             <section>
@@ -95,8 +115,13 @@ const Search = () => {
 
                             </div>
                         </div>
-                        <div className="listing_container  md:col-span-9">
-                            <h3>fsda</h3>
+                        <div className="listing_container  md:col-span-9 pb-10 pt-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-5 gap-y-8">
+                                {
+                                    listings&& listings.map(listing=><ListingCard listing={listing} />)
+                                }
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
