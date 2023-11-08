@@ -9,6 +9,7 @@ import PrivateRoute from './components/PrivateRoute'
 import CreatePost from './pages/CreatePost'
 import UpdatePost from './pages/UpdatePost'
 import ListingPage from './pages/ListingPage'
+import Search from './pages/search'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
         <Route path='/listing/:id' element={<ListingPage />} />
+        <Route path='/search?' element={<Search />} />
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
           <Route path='/create_post' element={<CreatePost />} />

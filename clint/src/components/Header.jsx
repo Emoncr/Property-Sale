@@ -1,6 +1,6 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import { BsJustifyRight, BsSearch } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import MobileMenu from './mobileMenu'
 import { useSelector } from 'react-redux'
 import Profile from './ProfileOption'
@@ -12,7 +12,25 @@ import Profile from './ProfileOption'
 const Header = () => {
     const [isActiveMoblie, setisActiveMoblie] = useState(false)
     const { currentUser } = useSelector((state) => state.user)
-    const [search, setSearch] = useState('')
+    const [searchTerm, setSearchTerm] = useState('')
+    const navigate = useNavigate()
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('searchTerm', searchTerm);
+        const searchQuery = urlParams.toString()
+        navigate(`/search?${searchQuery}`)
+    }
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const searchQueryUrl = urlParams.get('searchTerm')
+        setSearchTerm(searchQueryUrl)
+    }, [location.search])
+
+   
+
 
     return (
         <div className="navbar pl-0 pr-0 pt-3 pb-3 bg-slate-300 flex items-center justify-between shadow-md">
@@ -25,12 +43,20 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className="form_contaienr max-w-[50%]  w-full  sm:max-w-full">
-                    <div className="form-control w-full max-w-full   sm:max-w-sm  flex flex-row mx-auto items-center justify-center relative">
-                        <input type="text" placeholder="Search..." className="search" />
-                        <button className='search_btn'>
-                            <i className='text-center text-white font-bold'><BsSearch /></i>
-                        </button>
-                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-control w-full max-w-full   sm:max-w-sm  flex flex-row mx-auto items-center justify-center relative">
+                            <input
+                                value={searchTerm}
+                                type="text"
+                                placeholder="Search..."
+                                className="search"
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <button type='submit' className='search_btn bg-brand-blue'>
+                                <i className='text-center text-white font-bold'><BsSearch /></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
                 {/*========= when user login ======== */}
