@@ -6,7 +6,7 @@ const ListingCard = ({ listing }) => {
 
     const { title, address, area, bath, bed, discountPrice, imgUrl, offer, price, type } = listing;
 
-    console.log(listing);
+
 
     return (
         <div className="listing_card bg-white shadow-lg shadow-black/10  hover:shadow-brand-blue/20 rounded-sm w-full hover:shadow-lg group sm:mr-auto sm:ml-0 mx-auto">

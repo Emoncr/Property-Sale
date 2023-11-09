@@ -29,7 +29,7 @@ export const signin = async (req, res, next) => {
     const isValidPassword = bcrypt.compareSync(password, validUser.password);
     if (!isValidPassword) return next(throwError(401, "Worng Credentials!"));
 
-    const { password: pass, ...rest } = validUser._doc;
+    const { password, ...rest } = validUser._doc;
     const tooken = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
     res
       .cookie("access_token", tooken, { httpOnly: true, secure: true })
@@ -50,7 +50,7 @@ export const googleSignIn = async (req, res, next) => {
     if (user) {
       const tooken = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
-      const { pass: password, ...rest } = user._doc;
+      const { password, ...rest } = user._doc;
       res
         .cookie("access_token", tooken, { httpOnly: true, secure: true })
         .status(200)
