@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {  useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -321,7 +321,7 @@ const ListingPage = () => {
                                                         <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-5 gap-2 ">
                                                             <div className="btn_container">
                                                                 <button
-                                                                    // onClick={() => navigate(`/update_post/${params.id}`)}
+                                                                    
                                                                     className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
                                                                     <span className='flex items-center justify-center'>
@@ -331,7 +331,7 @@ const ListingPage = () => {
                                                                 </button>
                                                             </div>
                                                             <div className="contant_btn_container">
-                                                                <button 
+                                                                <button
                                                                     className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
                                                                     <span className='flex items-center justify-center'>

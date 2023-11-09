@@ -36,7 +36,7 @@ const ProfileOption = ({ user }) => {
             <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar hover:outline-0 hover:border-0">
                     <div className="w-7 rounded-full">
-                        <img className='rounded-full h-8 w-8 object-cover' src={user.avatar} alt="profile image" />
+                        <img className='rounded-full border border-brand-blue/20 h-8 w-8 object-cover' src={user.avatar} alt="profile image" />
                     </div>
                 </label>
                 <ul tabIndex={0} className="mt-3 z-[999999999] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-md w-52 ">
