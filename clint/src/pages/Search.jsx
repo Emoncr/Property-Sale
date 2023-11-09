@@ -6,18 +6,18 @@ import ListingCard from '../components/ListingCard'
 const Search = () => {
 
     const [listings, setListings] = useState([])
-
+    const [searchTerm, setSearchTerm] = useState("")
     const handleSearch = (e) => {
         setListings({ ...listings, [e.target.name]: e.target.value })
     }
 
     useEffect(() => {
-        (async() => {
-            const res = await fetch('/api/posts')
+        (async () => {
+            const res = await fetch(`/api/posts?searchTerm=${searchTerm}`)
             const json = await res.json()
             setListings(json)
         })()
-    }, [])
+    }, [searchTerm])
     console.log(listings);
 
 
@@ -28,7 +28,7 @@ const Search = () => {
             <section>
                 <div >
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
-                        <div className="option_contaienr md:col-span-3 mt-1 bg-white lg:h-screen">
+                        <div className="option_contaienr md:col-span-3 mt-1 bg-white lg:max-h-screen lg:min-h-screen h-screen">
                             <div className="items_cotainer p-5 py-8 ">
                                 <form >
                                     <div className="form-control w-full max-w-full   sm:max-w-full relative">
@@ -36,6 +36,8 @@ const Search = () => {
                                             type="text"
                                             placeholder="Search..."
                                             className="search sm:max-w-full"
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            defaultValue={searchTerm}
                                         />
                                         <button type='submit' className='search_btn   bg-brand-blue'>
                                             <i className='text-center text-white font-bold'><BsSearch /></i>
@@ -118,9 +120,9 @@ const Search = () => {
                         <div className="listing_container  md:col-span-9 pb-10 pt-2">
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-5 gap-y-8">
                                 {
-                                    listings&& listings.map(listing=><ListingCard listing={listing} />)
+                                    listings && listings.map(listing => <ListingCard listing={listing} />)
                                 }
-                                
+
                             </div>
                         </div>
                     </div>
