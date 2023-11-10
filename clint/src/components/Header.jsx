@@ -2,8 +2,9 @@ import { React, useEffect, useState } from 'react'
 import { BsJustifyRight, BsSearch } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
 import MobileMenu from './mobileMenu'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Profile from './ProfileOption'
+import { setSearchQuery, setSearchTermState } from '../redux/search/searchSlice'
 
 
 
@@ -12,24 +13,29 @@ import Profile from './ProfileOption'
 const Header = () => {
     const [isActiveMoblie, setisActiveMoblie] = useState(false)
     const { currentUser } = useSelector((state) => state.user)
-    const [searchTerm, setSearchTerm] = useState('')
+    const { searchQueryState, searchTermState } = useSelector((state) => state.search)
+
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set('searchTerm', searchTerm);
-        const searchQuery = urlParams.toString()
+        urlParams.set('searchTerm', searchTermState);
+        const searchQuery = urlParams.toString();
+        dispatch(setSearchQuery(searchQuery))
         navigate(`/search?${searchQuery}`)
     }
+
+
     useEffect(() => {
         const urlParams = new URLSearchParams(location.search);
         const searchQueryUrl = urlParams.get('searchTerm')
-        setSearchTerm(searchQueryUrl)
+        dispatch(setSearchTermState(searchQueryUrl))
     }, [location.search])
 
-   
+
 
 
     return (
@@ -46,11 +52,11 @@ const Header = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="form-control w-full max-w-full   sm:max-w-sm  flex flex-row mx-auto items-center justify-center relative">
                             <input
-                                value={searchTerm}
                                 type="text"
                                 placeholder="Search..."
                                 className="search"
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={(e) => dispatch(setSearchTermState(e.target.value))}
+                                defaultValue={searchTermState}
                             />
                             <button type='submit' className='search_btn bg-brand-blue'>
                                 <i className='text-center text-white font-bold'><BsSearch /></i>
