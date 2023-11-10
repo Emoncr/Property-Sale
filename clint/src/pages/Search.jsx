@@ -7,49 +7,77 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setSearchQuery, setSearchTermState } from '../redux/search/searchSlice'
 
 const Search = () => {
-
     const [listings, setListings] = useState([])
-    const dispatch = useDispatch()
-
+    const [formState, setFormState] = useState({})
     const { searchQueryState, searchTermState } = useSelector(state => state.search)
-    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const urlParams = new URLSearchParams(window.location.search);
         urlParams.set('searchTerm', searchTermState);
+        urlParams.set('type', formState.type);
+        urlParams.set('parking', formState.parking);
+        urlParams.set('furnished', formState.furnished);
+        const searchQueryTerm = urlParams.get('searchTerm')
         const searchQuery = urlParams.toString();
-        dispatch(setSearchQuery(searchQuery))
-        navigate(`/search?${searchQuery}`)
+        if (searchQueryTerm) {
+            dispatch(setSearchQuery(searchQuery.slice((10 + searchQueryTerm.length + 1))))
+        }
+        else {
+            dispatch(setSearchQuery(searchQuery.slice((11))))
+        }
     }
 
     useEffect(() => {
         const urlParams = new URLSearchParams(location.search);
+        const searchQuery = urlParams.toString();
         const searchQueryTerm = urlParams.get('searchTerm')
+        //===Set Search Term State===//
         dispatch(setSearchTermState(searchQueryTerm))
-    }, [])
+
+
+        //===Set Search Query State WITHOUT SEARCH TERM====//
+        if (searchQueryTerm) {
+            dispatch(setSearchQuery(searchQuery.slice((10 + searchQueryTerm.length + 1))))
+        }
+        else {
+            dispatch(setSearchQuery(searchQuery.slice((11))))
+        }
+    }, [location.search])
 
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`/api/posts?${searchQueryState}`)
-            const json = await res.json()
-            setListings(json)
+            try {
+                const res = await fetch(`/api/posts?${searchTermState ? `searchTerm=${searchTermState}` : ""}${searchQueryState}`)
+                const json = await res.json()
+                setListings(json)
+            } catch (error) {
+                console.log(error);
+            }
         })()
     }, [searchQueryState, searchTermState])
 
 
-
+    const handleChange = (name, value) => {
+        setFormState({
+            ...formState,
+            [name]: value
+        })
+    }
+    console.log(`/api/posts?searchTerm=${searchTermState}${searchQueryState}`);
+    console.log(listings);
 
 
 
     return (
         <main>
-            <section>
+            <section >
                 <div >
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
-                        <div className="option_contaienr md:col-span-3 mt-1 bg-white lg:max-h-screen lg:min-h-screen h-screen">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:max-h-full lg:min-h-screen">
+                        <div className="option_contaienr md:col-span-3 mt-1 bg-white lg:max-h-full lg:min-h-screen">
                             <div className="items_cotainer p-5 py-8 ">
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-control w-full max-w-full   sm:max-w-full relative">
@@ -70,19 +98,34 @@ const Search = () => {
                                             <div className="control flex flex-row md:flex-col items-center md:items-start xl:flex-row xl:items-center justify-between mt-1">
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
-                                                        <input className='h-4 w-4 mr-1 accent-brand-blue' type="radio" name="type" />
+                                                        <input
+                                                            className='h-4 w-4 mr-1 accent-brand-blue' type="radio"
+                                                            name="type"
+                                                            value={"all"}
+                                                            onChange={(e) => handleChange(e.target.name, e.target.value)}
+                                                        />
                                                         All
                                                     </label>
                                                 </div>
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
-                                                        <input className='h-4 w-4 mr-1 accent-brand-blue' type="radio" name="type" />
+                                                        <input
+                                                            className='h-4 w-4 mr-1 accent-brand-blue' type="radio"
+                                                            name="type"
+                                                            value={"sale"}
+                                                            onChange={(e) => handleChange(e.target.name, e.target.value)}
+                                                        />
                                                         For Sale
                                                     </label>
                                                 </div>
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
-                                                        <input className='h-4 w-4 mr-1 accent-brand-blue' type="radio" name="type" />
+                                                        <input
+                                                            className='h-4 w-4 mr-1 accent-brand-blue' type="radio"
+                                                            name="type"
+                                                            value={"rent"}
+                                                            onChange={(e) => handleChange(e.target.name, e.target.value)}
+                                                        />
                                                         For Rent
                                                     </label>
                                                 </div>
@@ -95,13 +138,21 @@ const Search = () => {
                                                 <div className="control flex flex-row md:flex-col items-center md:items-start xl:flex-row xl:items-center justify-start mt-1">
                                                     <div className='mr-5'>
                                                         <label className="flex items-center justify-start text-lg font-heading">
-                                                            <input className='h-4 w-4 mr-1 accent-brand-blue' type="checkbox" name="parking" />
+                                                            <input
+                                                                className='h-4 w-4 mr-1 accent-brand-blue' type="checkbox"
+                                                                name="parking"
+                                                                onChange={(e) => handleChange(e.target.name, e.target.checked)}
+                                                            />
                                                             Parking
                                                         </label>
                                                     </div>
                                                     <div>
                                                         <label className="flex items-center justify-start text-lg font-heading">
-                                                            <input className='h-4 w-4 mr-1 accent-brand-blue' type="checkbox" name="furnished" />
+                                                            <input
+                                                                className='h-4 w-4 mr-1 accent-brand-blue' type="checkbox"
+                                                                name="furnished"
+                                                                onChange={(e) => handleChange(e.target.name, e.target.checked)}
+                                                            />
                                                             Furnished
                                                         </label>
                                                     </div>
@@ -112,7 +163,12 @@ const Search = () => {
                                             <div className="offer_container mt-8 ">
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
-                                                        <input className='h-4 w-4 mr-1  accent-brand-blue' type="checkbox" name="type" />
+                                                        <input
+                                                            className='h-4 w-4 mr-1  accent-brand-blue' type="checkbox"
+                                                            name="offer"
+                                                            value={true || false}
+                                                            onChange={(e) => handleChange(e.target.name, e.target.checked)}
+                                                        />
                                                         Available Offer
                                                     </label>
                                                 </div>
@@ -143,7 +199,6 @@ const Search = () => {
                                 {
                                     listings && listings.map(listing => <ListingCard key={listing._id} listing={listing} />)
                                 }
-
                             </div>
                         </div>
                     </div>

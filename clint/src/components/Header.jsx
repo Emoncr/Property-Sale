@@ -33,7 +33,7 @@ const Header = () => {
         const urlParams = new URLSearchParams(location.search);
         const searchQueryUrl = urlParams.get('searchTerm')
         dispatch(setSearchTermState(searchQueryUrl))
-    }, [])
+    }, [location.search])
 
 
 

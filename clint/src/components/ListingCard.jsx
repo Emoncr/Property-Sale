@@ -41,7 +41,7 @@ const ListingCard = ({ listing }) => {
 
 
 
-                        <div className="info_container mt-4 flex items-center ">
+                        <div className="info_container mt-4 flex items-center truncate">
                             <p
                                 className='font-content text-xs font-bold truncate flex items-center justify-start'>
                                 <FaBed className='mr-1 text-brand-blue' />
