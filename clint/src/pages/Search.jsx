@@ -2,63 +2,32 @@ import React, { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { FaSearch } from 'react-icons/fa'
 import ListingCard from '../components/ListingCard'
-import { useNavigate, } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSearchQuery, setSearchTermState } from '../redux/search/searchSlice'
+import { setSearchTermState } from '../redux/search/searchSlice'
+
 
 const Search = () => {
     const [listings, setListings] = useState([])
+    const { searchTermState } = useSelector(state => state.search)
     const [formState, setFormState] = useState({
-        searchTerm: '',
-        parking:false,
-        type:"all",
-        furnished:false,
-        offer:false
+        searchTerm: "",
+        parking: false,
+        type: "all",
+        furnished: false,
+        offer: false
     })
-    const { searchQueryState, searchTermState } = useSelector(state => state.search)
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-
     const handleSubmit = (e) => {
         e.preventDefault()
-        const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set('searchTerm', searchTermState);
-        urlParams.set('type', formState.type);
-        urlParams.set('parking', formState.parking);
-        urlParams.set('furnished', formState.furnished);
-        const searchQueryTerm = urlParams.get('searchTerm')
-        const searchQuery = urlParams.toString();
-        if (searchQueryTerm) {
-            dispatch(setSearchQuery(searchQuery.slice((10 + searchQueryTerm.length + 1))))
-        }
-        else {
-            dispatch(setSearchQuery(searchQuery.slice((11))))
-        }
-        navigate(`/search?${searchQuery}`)
+        dispatch(setSearchTermState(""))
     }
-
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchQuery = urlParams.toString();
-        const searchQueryTerm = urlParams.get('searchTerm')
-        //===Set Search Term State===//
-        dispatch(setSearchTermState(searchQueryTerm))
-
-
-        //===Set Search Query State WITHOUT SEARCH TERM====//
-        if (searchQueryTerm) {
-            dispatch(setSearchQuery(searchQuery.slice((10 + searchQueryTerm.length + 1))))
-        }
-        else {
-            dispatch(setSearchQuery(searchQuery.slice((11))))
-        }
-    }, [location.search])
 
 
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(`/api/posts?searchTerm=${searchTermState ? `${searchTermState}`:""}${searchQueryState}`)
+                const res = await fetch(`/api/posts?searchTerm=${searchTermState}&type=${formState.type}&parking=${formState.parking}&furnished=${formState.furnished}&offer=${formState.offer}`)
+
                 const json = await res.json()
                 if (json.success === false) {
                     console.log(json.message);
@@ -70,7 +39,8 @@ const Search = () => {
                 console.log(error);
             }
         })()
-    }, [searchQueryState, searchTermState])
+    }, [formState, searchTermState])
+
 
 
     const handleChange = (name, value) => {
@@ -79,8 +49,6 @@ const Search = () => {
             [name]: value
         })
     }
-
-    console.log(formState);
 
     return (
         <main>
@@ -95,8 +63,8 @@ const Search = () => {
                                             type="text"
                                             placeholder="Search..."
                                             className="search sm:max-w-full"
-                                            onChange={(e) => dispatch(setSearchTermState(e.target.value))}
-                                            defaultValue={searchTermState}
+                                            onChange={e => dispatch(setSearchTermState(e.target.value))}
+                                            value={searchTermState}
                                         />
                                         <button type='submit' className='search_btn   bg-brand-blue'>
                                             <i className='text-center text-white font-bold'><BsSearch /></i>
@@ -113,6 +81,7 @@ const Search = () => {
                                                             name="type"
                                                             value={"all"}
                                                             onChange={(e) => handleChange(e.target.name, e.target.value)}
+                                                            checked={formState.type === "all"}
                                                         />
                                                         All
                                                     </label>
@@ -176,7 +145,7 @@ const Search = () => {
                                                         <input
                                                             className='h-4 w-4 mr-1  accent-brand-blue' type="checkbox"
                                                             name="offer"
-                                                            value={true || false}
+                                                            checked={formState.offer}
                                                             onChange={(e) => handleChange(e.target.name, e.target.checked)}
                                                         />
                                                         Available Offer
@@ -194,7 +163,7 @@ const Search = () => {
                                             >
                                                 <span className='flex items-center justify-center font-heading text-lg'>
                                                     <FaSearch className='mr-1' />
-                                                    Search
+                                                    Clear Search
                                                 </span>
                                             </button>
                                         </div>
