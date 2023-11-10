@@ -8,10 +8,16 @@ import { setSearchQuery, setSearchTermState } from '../redux/search/searchSlice'
 
 const Search = () => {
     const [listings, setListings] = useState([])
-    const [formState, setFormState] = useState({})
+    const [formState, setFormState] = useState({
+        searchTerm: '',
+        parking:false,
+        type:"all",
+        furnished:false,
+        offer:false
+    })
     const { searchQueryState, searchTermState } = useSelector(state => state.search)
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -28,10 +34,11 @@ const Search = () => {
         else {
             dispatch(setSearchQuery(searchQuery.slice((11))))
         }
+        navigate(`/search?${searchQuery}`)
     }
 
     useEffect(() => {
-        const urlParams = new URLSearchParams(location.search);
+        const urlParams = new URLSearchParams(window.location.search);
         const searchQuery = urlParams.toString();
         const searchQueryTerm = urlParams.get('searchTerm')
         //===Set Search Term State===//
@@ -51,9 +58,14 @@ const Search = () => {
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(`/api/posts?${searchTermState ? `searchTerm=${searchTermState}` : ""}${searchQueryState}`)
+                const res = await fetch(`/api/posts?searchTerm=${searchTermState ? `${searchTermState}`:""}${searchQueryState}`)
                 const json = await res.json()
-                setListings(json)
+                if (json.success === false) {
+                    console.log(json.message);
+                }
+                else {
+                    setListings(json)
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -67,10 +79,8 @@ const Search = () => {
             [name]: value
         })
     }
-    console.log(`/api/posts?searchTerm=${searchTermState}${searchQueryState}`);
-    console.log(listings);
 
-
+    console.log(formState);
 
     return (
         <main>
@@ -179,6 +189,7 @@ const Search = () => {
                                         <div className="btn_cotainer w-full">
                                             <button
                                                 className='w-full mt-4 py-2 px-2 bg-brand-blue text-white rounded-sm hover:bg-brand-blue/90'
+
                                                 type='submit'
                                             >
                                                 <span className='flex items-center justify-center font-heading text-lg'>
