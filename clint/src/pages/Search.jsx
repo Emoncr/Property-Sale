@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
-import { FaSearch } from 'react-icons/fa'
+import { FaAngleDoubleLeft, FaAngleDoubleRight, FaSearch } from 'react-icons/fa'
 import ListingCard from '../components/ListingCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchTermState } from '../redux/search/searchSlice'
@@ -9,6 +9,10 @@ import { setSearchTermState } from '../redux/search/searchSlice'
 const Search = () => {
     const [listings, setListings] = useState([])
     const { searchTermState } = useSelector(state => state.search)
+    const [loading, setLoading] = useState(false)
+    const [pageCount, setPageCount] = useState(1)
+
+
     const [formState, setFormState] = useState({
         searchTerm: "",
         parking: false,
@@ -20,35 +24,47 @@ const Search = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(setSearchTermState(""))
+        setFormState({
+            searchTerm: "",
+            parking: false,
+            type: "all",
+            furnished: false,
+            offer: false
+        })
     }
 
 
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(`/api/posts?searchTerm=${searchTermState}&type=${formState.type}&parking=${formState.parking}&furnished=${formState.furnished}&offer=${formState.offer}`)
-
+                setLoading(true)
+                const res = await fetch(`/api/posts?searchTerm=${searchTermState}&type=${formState.type}&parking=${formState.parking}&furnished=${formState.furnished}&offer=${formState.offer}&page=${pageCount}`)
                 const json = await res.json()
                 if (json.success === false) {
-                    console.log(json.message);
+                    setLoading(false)
                 }
                 else {
                     setListings(json)
+                    setLoading(false)
                 }
             } catch (error) {
                 console.log(error);
+                setLoading(false)
             }
         })()
-    }, [formState, searchTermState])
+    }, [formState, searchTermState, pageCount])
 
 
 
     const handleChange = (name, value) => {
+        setPageCount(1)
         setFormState({
             ...formState,
             [name]: value
         })
     }
+
+
 
     return (
         <main>
@@ -121,6 +137,7 @@ const Search = () => {
                                                                 className='h-4 w-4 mr-1 accent-brand-blue' type="checkbox"
                                                                 name="parking"
                                                                 onChange={(e) => handleChange(e.target.name, e.target.checked)}
+                                                                checked={formState.parking}
                                                             />
                                                             Parking
                                                         </label>
@@ -131,6 +148,7 @@ const Search = () => {
                                                                 className='h-4 w-4 mr-1 accent-brand-blue' type="checkbox"
                                                                 name="furnished"
                                                                 onChange={(e) => handleChange(e.target.name, e.target.checked)}
+                                                                checked={formState.furnished}
                                                             />
                                                             Furnished
                                                         </label>
@@ -175,11 +193,57 @@ const Search = () => {
                             </div>
                         </div>
                         <div className="listing_container  md:col-span-9 pb-10 pt-2">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-5 gap-y-8">
-                                {
-                                    listings && listings.map(listing => <ListingCard key={listing._id} listing={listing} />)
-                                }
-                            </div>
+                            {
+                                loading
+                                    ?
+                                    <div className="loading_container mt-40 flex items-center justify-center flex-col">
+                                        <FaSearch className='font-xl text-brand-blue font-bold text-xl text-center' />
+                                        <p className='font-heading text-lg text-center text-brand-blue '>Searching...</p>
+                                    </div>
+                                    :
+
+                                    <div>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-5 gap-y-8">
+                                            {
+                                                listings && listings.map(listing => <ListingCard key={listing._id} listing={listing} />)
+                                            }
+
+                                        </div>
+                                        <div className="pageination_part mt-8 md:mt-14 w-full flex items-center justify-center">
+                                            <div className="join">
+
+
+                                                {/* prev Btn  */}
+                                                <button
+                                                    onClick={() => setPageCount(pageCount - 1)}
+                                                    disabled={pageCount <= 1 || loading}
+                                                    className="join-item btn bg-brand-blue text-white hover:bg-brand-blue/90 
+                                                    disabled:bg-[#d5d5d5] disabled:text-[#a0a0a0]
+                                                    "
+                                                >
+                                                    <FaAngleDoubleLeft />
+                                                </button>
+
+
+                                                <button
+                                                    className="join-item btn bg-brand-blue hover:bg-brand-blue cursor-default text-white"
+                                                >Page {pageCount}
+                                                </button>
+
+
+                                                {/* Next Btn  */}
+                                                <button
+                                                    onClick={() => setPageCount(pageCount + 1)}
+                                                    disabled={listings.length < 4 || loading}
+                                                    className="join-item btn bg-brand-blue text-white hover:bg-brand-blue/90
+                                                    disabled:bg-[#d5d5d5] disabled:text-[#a0a0a0]"
+                                                >
+                                                    <FaAngleDoubleRight />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            }
                         </div>
                     </div>
                 </div>

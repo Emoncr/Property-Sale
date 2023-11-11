@@ -130,7 +130,7 @@ const CreatePost = () => {
 
 
     return (
-        <main>
+        <main >
             <section>
                 <div className="container py-7 md:py-16 max-w-5xl">
                     <h1 className='text-center text-2xl font-heading font-bold text-black'>Create a Listing</h1>

@@ -289,7 +289,7 @@ const ListingPage = () => {
 
 
                                             {
-                                                currentUser && currentUser._id === _id
+                                                currentUser && currentUser._id === userRef
                                                     ?
                                                     <div className="post_owner ">
                                                         <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-5 gap-2 ">

@@ -222,9 +222,9 @@ const Profile = () => {
 
 
   return (
-    <section className='py-10'>
-      <div className="container !max-w-7xl mx-auto grid md:gap-12 temp lg:grid-cols-4  md:grid-cols-5 grid-cols-1 items-start">
-        <div className="profile_info p-5 bg-white border-[1px] w-full rounded-md shadow-brand md:col-span-2 lg:col-span-1   col-span-1 ">
+    <section >
+      <div className="max-w-7xl sm:max-w-full mx-auto grid md:gap-6 temp lg:grid-cols-4  md:grid-cols-5 grid-cols-1 items-start">
+        <div className="profile_info p-5 bg-white  w-full  md:col-span-2 lg:col-span-1  md:max-h-full md:min-h-screen h-full col-span-1 ">
 
 
 
@@ -314,7 +314,7 @@ const Profile = () => {
                 <p className='text-brand-blue text-center font-heading text-xl'>Loading your post…</p>
               </div>
               :
-              <div className="grid post_card grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 md:h-full overflow-scroll pb-10 scrollbar-hide ">
+              <div className="grid post_card grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 md:h-full overflow-scroll pb-10 px-4 scrollbar-hide md:pt-5">
 
                 {/* ADD NEW POST BUTTON  */}
                 <div className="cursor-pointer rounded-md  bg-white  shadow-lg hover:shadow-xl">

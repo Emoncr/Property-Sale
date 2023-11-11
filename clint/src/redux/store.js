@@ -4,17 +4,19 @@ import { persistReducer } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage";
 import searchSlice from "./search/searchSlice";
+import saveListingSlice from "./saveListing/saveListingSlice";
 
 //===== Redux Persist's Code ======//
 const rootReducer = combineReducers({
   user: userReducer,
   search: searchSlice,
+  savedListing: saveListingSlice,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "saveListings"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
