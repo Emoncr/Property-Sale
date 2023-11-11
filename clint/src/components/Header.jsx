@@ -36,7 +36,7 @@ const Header = () => {
             <div className="container flex items-center justify-between">
                 <div className="w-full mr-2 max-w-[100px] sm:max-w-[200px]">
                     <Link to={'/home'}>
-                        <h1 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-heading ">
+                        <h1 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-oswald font-bold ">
                             <span>Property Sell</span>
                         </h1>
                     </Link>

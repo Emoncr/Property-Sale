@@ -4,7 +4,6 @@ import { FaAngleDoubleLeft, FaAngleDoubleRight, FaSearch } from 'react-icons/fa'
 import ListingCard from '../components/ListingCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchTermState } from '../redux/search/searchSlice'
-import Loading from '../components/Loading'
 
 
 const Search = () => {
@@ -42,7 +41,6 @@ const Search = () => {
                 const res = await fetch(`/api/posts?searchTerm=${searchTermState}&type=${formState.type}&parking=${formState.parking}&furnished=${formState.furnished}&offer=${formState.offer}&page=${pageCount}`)
                 const json = await res.json()
                 if (json.success === false) {
-                    console.log(json.message);
                     setLoading(false)
                 }
                 else {
@@ -59,6 +57,7 @@ const Search = () => {
 
 
     const handleChange = (name, value) => {
+        setPageCount(1)
         setFormState({
             ...formState,
             [name]: value
@@ -66,8 +65,6 @@ const Search = () => {
     }
 
 
-    console.log(listings.length < 4 && "page nai");
-    // console.log(pageCount);
 
     return (
         <main>

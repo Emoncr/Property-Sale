@@ -1,11 +1,39 @@
 import React, { useState } from 'react'
 import { FaBath, FaBed, FaChartArea, FaHeart, FaLocationArrow } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import { handleLisingRemove, handleSave } from '../redux/saveListing/saveListingSlice';
 
 const ListingCard = ({ listing }) => {
     const [heart, setHeart] = useState(false);
+    const { saveListings } = useSelector(state => state.savedListing)
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const { title, address, area, bath, bed, discountPrice, imgUrl, offer, price, type, _id } = listing;
+
+
+    const handleSaveListings = (id) => {
+        const isSaved = saveListings.includes(saveListing => saveListing._id != id);
+        console.log(isSaved);
+        if (isSaved) {
+            dispatch(handleSave(listing))
+            setHeart(true)
+
+            console.log("save to listing not in");
+        }
+        else {
+            const restListing = saveListings.filter(savedListinsObj => savedListinsObj._id === id)
+            console.log(restListing);
+            dispatch(handleLisingRemove(restListing))
+            setHeart(false)
+        }
+    }
+
+
+    console.log(saveListings);
+
+
+
 
 
 
@@ -81,7 +109,7 @@ const ListingCard = ({ listing }) => {
                         </div>
                         <div className="footer_btn flex items-center justify-end mr-1">
                             <button
-                                onClick={() => setHeart(!heart)}
+                                onClick={() => handleSaveListings(_id)}
                                 className={`text-lg drop-shadow-sm duration-300  ${heart ? 'text-brand-blue' : "text-gray-300"}`}>
                                 <FaHeart />
                             </button>
