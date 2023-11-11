@@ -63,6 +63,9 @@ export const getListingPost = async (req, res, next) => {
     const offer = req.query.offer || "";
     const parking = req.query.parking || "";
     const furnished = req.query.furnished || "";
+    const page = req.query.page || 1;
+
+    console.log(page);
     const query = {
       title: { $regex: searchTerm, $options: "i" },
     };
@@ -80,9 +83,14 @@ export const getListingPost = async (req, res, next) => {
       query.furnished = true;
     }
 
+    const limit = 4;
+    const pageNumber = parseInt(page);
+    console.log(typeof(pageNumber));
+    const skip = (pageNumber - 1) * limit;
+
     console.log(query);
 
-    const listings = await Listing.find(query);
+    const listings = await Listing.find(query).skip(skip).limit(limit);
 
     res.status(200).json(listings);
   } catch (error) {

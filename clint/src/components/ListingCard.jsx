@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
 import { FaBath, FaBed, FaChartArea, FaHeart, FaLocationArrow } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
 const ListingCard = ({ listing }) => {
-    const [heart, setHeart] = useState(false)
-
-    const { title, address, area, bath, bed, discountPrice, imgUrl, offer, price, type } = listing;
+    const [heart, setHeart] = useState(false);
+    const navigate = useNavigate();
+    const { title, address, area, bath, bed, discountPrice, imgUrl, offer, price, type, _id } = listing;
 
 
 
     return (
         <div className="listing_card bg-white shadow-lg shadow-black/10  hover:shadow-brand-blue/20 rounded-sm w-full hover:shadow-lg group sm:mr-auto sm:ml-0 mx-auto">
             <div className="card-container">
-                <div className="image_container relative overflow-hidden">
+                <div 
+                className="image_container relative overflow-hidden cursor-pointer"
+                onClick={() => navigate(`/listing/${_id}`)}
+                >
                     <img
                         className='max-h-[150px] min-h-[150px] w-full object-cover rounded-t-sm hover:scale-105 duration-300'
                         src={imgUrl[0]} alt="property image"
@@ -30,7 +34,10 @@ const ListingCard = ({ listing }) => {
 
                 <div className="card_body  border-x border-b border-brand-blue/20 ">
 
-                    <div className="content-container p-3 pb-0">
+                    <div
+                        className="content-container p-3 pb-0 cursor-pointer"
+                        onClick={() => navigate(`/listing/${_id}`)}
+                    >
                         <h2 className="text-lg font-heading truncate uppercase duration-300 group-hover:text-brand-blue ">{title}</h2>
                         <p
                             className='font-content text-xs font-bold truncate flex items-center justify-start mt-1'>
