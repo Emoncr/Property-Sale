@@ -4,6 +4,7 @@ import { FaAngleDoubleLeft, FaAngleDoubleRight, FaSearch } from 'react-icons/fa'
 import ListingCard from '../components/ListingCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchTermState } from '../redux/search/searchSlice'
+import Footer from '../components/Footer'
 
 
 const Search = () => {
@@ -67,7 +68,7 @@ const Search = () => {
 
 
     return (
-        <main>
+        <>
             <section >
                 <div >
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:max-h-full lg:min-h-screen">
@@ -248,7 +249,10 @@ const Search = () => {
                     </div>
                 </div>
             </section>
-        </main>
+            <>
+                <Footer />
+            </>
+        </>
     )
 }
 
