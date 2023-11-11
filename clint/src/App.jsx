@@ -10,6 +10,7 @@ import CreatePost from './pages/CreatePost'
 import UpdatePost from './pages/UpdatePost'
 import ListingPage from './pages/ListingPage'
 import Search from './pages/search'
+import SaveListing from './pages/SaveListing'
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/listing/:id' element={<ListingPage />} />
         <Route path='/search?' element={<Search />} />
+        <Route path='/saved_listing' element={<SaveListing />} />
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
           <Route path='/create_post' element={<CreatePost />} />

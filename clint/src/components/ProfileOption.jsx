@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { signoutFailed, signoutSuccess } from '../redux/user/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
+import { clearSavedListing } from '../redux/saveListing/saveListingSlice';
 
 const ProfileOption = ({ user }) => {
     const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const ProfileOption = ({ user }) => {
             }
             else {
                 dispatch(signoutSuccess())
+                dispatch(clearSavedListing())
             }
         } catch (error) {
             dispatch(signoutFailed(error.message))
@@ -45,7 +47,11 @@ const ProfileOption = ({ user }) => {
                             Profile
                         </Link>
                     </li>
-                    <li><Link>Settings</Link></li>
+                    <li>
+                        <Link to={"/saved_listing"}>
+                            Saved Listings
+                        </Link>
+                    </li>
                     <li onClick={handleLogOut}><Link>Logout</Link></li>
                 </ul>
             </div>

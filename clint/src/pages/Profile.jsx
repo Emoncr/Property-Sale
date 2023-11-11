@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import PostCard from '../components/PostCard.jsx';
 import Loading from '../components/Loading.jsx';
+import { clearSavedListing } from '../redux/saveListing/saveListingSlice.js';
 
 
 
@@ -145,6 +146,7 @@ const Profile = () => {
       }
       else {
         dispatch(signoutSuccess())
+        dispatch(clearSavedListing())
       }
     } catch (error) {
       dispatch(signoutFailed(error.message))

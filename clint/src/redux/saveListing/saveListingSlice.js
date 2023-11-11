@@ -9,14 +9,18 @@ const saveSlice = createSlice({
   initialState,
   reducers: {
     handleSave: (state, action) => {
-      state.saveListings = [...state.saveListings, action.payload];
+      console.log(action.payload);
+      state.saveListings.push(action.payload);
     },
     handleLisingRemove: (state, action) => {
       state.saveListings = action.payload;
     },
+    clearSavedListing: (state) => {
+      state.saveListings = [];
+    },
   },
 });
 
-export const { handleSave, handleLisingRemove } = saveSlice.actions;
+export const { handleSave, handleLisingRemove,clearSavedListing } = saveSlice.actions;
 
 export default saveSlice.reducer;
