@@ -55,6 +55,14 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    // HANDLE lISTINS SAVED ITEMS
+    handleSave: (state, action) => {
+      state.savedListing.push(action.payload);
+    },
+    handleLisingRemove: (state, action) => {
+      state.savedListing = action.payload;
+    },
   },
 });
 
@@ -69,6 +77,8 @@ export const {
   userDeleteFail,
   signoutSuccess,
   signoutFailed,
+  handleSave,
+  handleLisingRemove,
 } = userSlice.actions;
 
 export default userSlice.reducer;

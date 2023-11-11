@@ -1,39 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaBath, FaBed, FaChartArea, FaHeart, FaLocationArrow } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
-import { handleLisingRemove, handleSave } from '../redux/saveListing/saveListingSlice';
+import { clearSavedListing, handleLisingRemove, handleSave } from '../redux/saveListing/saveListingSlice';
 
 const ListingCard = ({ listing }) => {
     const [heart, setHeart] = useState(false);
     const { saveListings } = useSelector(state => state.savedListing)
+    const { currentUser } = useSelector(state => state.user)
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const { title, address, area, bath, bed, discountPrice, imgUrl, offer, price, type, _id } = listing;
 
-
     const handleSaveListings = (id) => {
-        const isSaved = saveListings.includes(saveListing => saveListing._id != id);
-        console.log(isSaved);
+        const isSaved = saveListings.some(saveListing => saveListing._id === id);
         if (isSaved) {
-            dispatch(handleSave(listing))
-            setHeart(true)
+            const restListings = saveListings.filter(savedListing => savedListing._id !== id);
+            dispatch(handleLisingRemove(restListings));
+            setHeart(false);
+        } else {
+            const listingToAdd = listing
+            dispatch(handleSave(listingToAdd));
+            setHeart(true);
+        }
+    };
 
-            console.log("save to listing not in");
+
+
+    useEffect(() => {
+        if (currentUser) {
+            const isSaved = saveListings.some(saveListing => saveListing._id === _id);
+            if (isSaved) {
+                setHeart(true);
+            } else {
+                setHeart(false);
+            }
         }
         else {
-            const restListing = saveListings.filter(savedListinsObj => savedListinsObj._id === id)
-            console.log(restListing);
-            dispatch(handleLisingRemove(restListing))
-            setHeart(false)
+            dispatch(clearSavedListing())
         }
-    }
-
-
-    console.log(saveListings);
-
-
-
+    }, [])
 
 
 
@@ -110,7 +116,7 @@ const ListingCard = ({ listing }) => {
                         <div className="footer_btn flex items-center justify-end mr-1">
                             <button
                                 onClick={() => handleSaveListings(_id)}
-                                className={`text-lg drop-shadow-sm duration-300  ${heart ? 'text-brand-blue' : "text-gray-300"}`}>
+                                className={`text-lg drop-shadow-sm duration-300  ${heart ? 'text-brand-blue' : "text-gray-300"} `}>
                                 <FaHeart />
                             </button>
                         </div>
