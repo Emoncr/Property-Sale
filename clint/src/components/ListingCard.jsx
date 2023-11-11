@@ -12,16 +12,16 @@ const ListingCard = ({ listing }) => {
     return (
         <div className="listing_card bg-white shadow-lg shadow-black/10  hover:shadow-brand-blue/20 rounded-sm w-full hover:shadow-lg group sm:mr-auto sm:ml-0 mx-auto">
             <div className="card-container">
-                <div 
-                className="image_container relative overflow-hidden cursor-pointer"
-                onClick={() => navigate(`/listing/${_id}`)}
+                <div
+                    className="image_container relative overflow-hidden cursor-pointer"
+                    onClick={() => navigate(`/listing/${_id}`)}
                 >
                     <img
                         className='max-h-[150px] min-h-[150px] w-full object-cover rounded-t-sm hover:scale-105 duration-300'
                         src={imgUrl[0]} alt="property image"
                     />
-                    <div className="absolute bottom-2 left-2 bg-white py-1 px-2 ">
-                        <p className='text-xs text-brand-blue  font-heading uppercase rounded-sm shadow-sm'>{type}</p>
+                    <div className="absolute bottom-2 left-2 bg-brand-blue py-1 px-2 ">
+                        <p className='text-xs text-white  font-heading uppercase rounded-sm shadow-sm'>{type}</p>
                     </div>
                     {
                         offer && <div className="absolute top-2 right-0 bg-amber-400 py-1 px-2 ">
@@ -32,7 +32,7 @@ const ListingCard = ({ listing }) => {
 
 
 
-                <div className="card_body  border-x border-b border-brand-blue/20 ">
+                <div className="card_body group-hover:bg-brand-blue/5 duration-500  border-x border-b border-brand-blue/20 ">
 
                     <div
                         className="content-container p-3 pb-0 cursor-pointer"

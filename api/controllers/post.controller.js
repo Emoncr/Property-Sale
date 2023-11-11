@@ -83,7 +83,7 @@ export const getListingPost = async (req, res, next) => {
       query.furnished = true;
     }
 
-    const limit = 4;
+    const limit = 12;
     const pageNumber = parseInt(page);
     console.log(typeof(pageNumber));
     const skip = (pageNumber - 1) * limit;
