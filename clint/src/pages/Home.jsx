@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
+import SaleListing from '../components/SaleListing'
+import RentListing from '../components/RentListing'
+
+
+
 
 const Home = () => {
     const navigate = useNavigate()
+
+
+
+
+
+
+
 
 
     return (
@@ -40,7 +52,7 @@ const Home = () => {
                             </button>
 
                             <button
-
+                                onClick={() => navigate('/about')}
                                 className="block w-full rounded hover:bg-brand-blue px-12 py-3 text-sm font-heading uppercase hover:text-white shadow bg-white text-brand-blue duration-300 ease-in-out  sm:w-auto"
                             >
                                 Learn More
@@ -50,24 +62,50 @@ const Home = () => {
                 </div>
             </section>
 
-            <section>
+            {/* Sale Post Listings */}
+            <SaleListing />
+
+            {/* Anousment Section  */}
+            <section className='bg-brand-blue'>
                 <div
-                    className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8"
+                    className="mx-auto max-w-screen-xl  space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8"
                 >
-                    <div className="content">
-                        <h2 className='text-3xl font-bold sm:text-5xl font-heading  text-brand-blue sm:text-left  '>
-                            Explore Our Sale Post
-                        </h2>
-                        <p className='font-content font-medium text-sm sm:text-lg mt-3 max-w-3xl'>
-                            Step into our Sale Event and discover an array of incredible offers waiting for you! Unleash your shopping desires with discounts on a wide range of products. Embrace the savings—start shopping now!
-                        </p>
-                    </div>
+                    <div className="anoucement grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-3 ">
+                        <h2 className='font-oswald uppercase text-3xl text-center sm:text-left sm:text-3xl text-white  '>Ready to sell your property?</h2>
+                        <div className="btn_container flex items-center sm:justify-end justify-center">
+                            <button
+                                className="group relative inline-flex items-center overflow-hidden rounded bg-white font-heading  px-8 py-3 text-brand-blue "
+                                onClick={() => navigate('/create_post')}
+                            >
+                                <span className="absolute -end-full transition-all group-hover:end-4">
+                                    <svg
+                                        class="h-5 w-5 rtl:rotate-180"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                        />
+                                    </svg>
+                                </span>
 
-                    <div className="post_container mt-10">
-
+                                <span className="text-sm font-medium transition-all  group-hover:me-4">
+                                    Sell Now!
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
+
+            {/* Rent Post Listings */}
+            <RentListing />
+
 
 
             {/* // Footer section code here */}

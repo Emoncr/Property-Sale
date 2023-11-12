@@ -45,6 +45,12 @@ body {
 .slick-dots li {
   @apply bg-white rounded-full;
 }
+.slick-list {
+    @apply pb-11 sm:pb-16
+}
+.slick-slide {
+    padding:10px;
+}
 
 @tailwind base;
 @tailwind components;
