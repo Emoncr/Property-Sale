@@ -13,15 +13,20 @@ const ListingCard = ({ listing }) => {
     const { title, address, area, bath, bed, discountPrice, imgUrl, offer, price, type, _id } = listing;
 
     const handleSaveListings = (id) => {
-        const isSaved = saveListings.some(saveListing => saveListing._id === id);
-        if (isSaved) {
-            const restListings = saveListings.filter(savedListing => savedListing._id !== id);
-            dispatch(handleLisingRemove(restListings));
-            setHeart(false);
-        } else {
-            const listingToAdd = listing
-            dispatch(handleSave(listingToAdd));
-            setHeart(true);
+        if (currentUser && currentUser.email) {
+            const isSaved = saveListings.some(saveListing => saveListing._id === id);
+            if (isSaved) {
+                const restListings = saveListings.filter(savedListing => savedListing._id !== id);
+                dispatch(handleLisingRemove(restListings));
+                setHeart(false);
+            } else {
+                const listingToAdd = listing
+                dispatch(handleSave(listingToAdd));
+                setHeart(true);
+            }
+        }
+        else {
+            navigate('/login')
         }
     };
 
@@ -38,6 +43,7 @@ const ListingCard = ({ listing }) => {
         }
         else {
             dispatch(clearSavedListing())
+
         }
     }, [])
 
