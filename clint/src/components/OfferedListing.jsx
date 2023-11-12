@@ -9,10 +9,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const SaleListing = () => {
-    const [loading, setLoading] = useState(true)
-    const [saleListings, setSaleListings] = useState([])
 
+
+const OfferedListing = () => {
+    const [loading, setLoading] = useState(true)
+    const [offerListings, setOfferListings] = useState([])
     const navigate = useNavigate()
 
     //===Load Data ===//
@@ -20,13 +21,13 @@ const SaleListing = () => {
         (async () => {
             try {
                 setLoading(true)
-                const res = await fetch(`/api/posts?type=sale`)
+                const res = await fetch(`/api/posts?type=all&offer=true`)
                 const json = await res.json()
                 if (json.success === false) {
                     setLoading(false)
                 }
                 else {
-                    setSaleListings(json)
+                    setOfferListings(json)
                     setLoading(false)
                 }
             } catch (error) {
@@ -92,6 +93,8 @@ const SaleListing = () => {
         ]
     };
 
+
+
     return (
         < section >
             <div
@@ -99,10 +102,10 @@ const SaleListing = () => {
             >
                 <div className="content">
                     <h2 className='text-3xl font-bold sm:text-5xl font-heading  text-brand-blue sm:text-left '>
-                        Explore Our Sale Post
+                        Enjoy Our <span className='bg-amber-400 px-1 pb-1'>Exciting Discount</span>
                     </h2>
-                    <p className='font-content font-medium text-sm sm:text-lg mt-3 max-w-3xl'>
-                        Step into our Sale Event and discover an array of incredible offers waiting for you! Unleash your shopping desires with discounts on a wide range of products. Embrace the savings—start shopping now!
+                    <p className='font-content  font-medium text-sm sm:text-lg mt-4 max-w-3xl'>
+                        Find Your Perfect Home! Whether you want to rent or buy, we've got great deals for you. Discover comfortable rentals and awesome properties for sale. Your dream home is just a click away!
                     </p>
                 </div>
 
@@ -114,20 +117,17 @@ const SaleListing = () => {
                             <div className="slider_container">
                                 <Slider {...settings} className='z-10 relative gap-3'>
                                     {
-                                        saleListings && saleListings.map(listing => <ListingCard key={listing._id} listing={listing} />)
+                                        offerListings && offerListings.map(listing => <ListingCard key={listing._id} listing={listing} />)
                                     }
                                 </Slider>
                             </div>
                     }
                 </div>
 
-
-                
-
                 <div className="btn_container flex items-center justify-center">
                     <button
                         className="group relative inline-flex items-center overflow-hidden rounded bg-brand-blue px-8 py-3 text-white "
-                       onClick={()=>navigate('/search')}
+                        onClick={() => navigate('/search')}
                     >
                         <span className="absolute -end-full transition-all group-hover:end-4">
                             <svg
@@ -157,4 +157,4 @@ const SaleListing = () => {
     )
 }
 
-export default SaleListing
+export default OfferedListing
