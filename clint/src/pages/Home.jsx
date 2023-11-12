@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
 import SaleListing from '../components/SaleListing'
 import RentListing from '../components/RentListing'
+import OfferedListing from '../components/OfferedListing'
 
 
 
@@ -62,8 +63,9 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Sale Post Listings */}
-            <SaleListing />
+            {/* offer Post Listings */}
+            <OfferedListing />
+
 
             {/* Anousment Section  */}
             <section className='bg-brand-blue'>
@@ -71,7 +73,7 @@ const Home = () => {
                     className="mx-auto max-w-screen-xl  space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8"
                 >
                     <div className="anoucement grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-3 ">
-                        <h2 className='font-oswald uppercase text-3xl text-center sm:text-left sm:text-3xl text-white  '>Ready to sell your property?</h2>
+                        <h2 className='font-oswald uppercase text-3xl text-center sm:text-left sm:text-3xl text-white  font-bold'>Want to sell your property?</h2>
                         <div className="btn_container flex items-center sm:justify-end justify-center">
                             <button
                                 className="group relative inline-flex items-center overflow-hidden rounded bg-white font-heading  px-8 py-3 text-brand-blue "
@@ -95,7 +97,7 @@ const Home = () => {
                                 </span>
 
                                 <span className="text-sm font-medium transition-all  group-hover:me-4">
-                                    Sell Now!
+                                    Let's Sell Now!
                                 </span>
                             </button>
                         </div>
@@ -103,6 +105,48 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Sale Post Listings */}
+            <SaleListing />
+
+
+
+            {/* Anousment Section  */}
+            <section className='bg-brand-blue'>
+                <div
+                    className="mx-auto max-w-screen-xl  space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8"
+                >
+                    <div className="anoucement grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-3 ">
+                        <h2 className='font-oswald uppercase text-3xl text-center sm:text-left sm:text-3xl text-white  font-bold'>Ready to rent your dream property?</h2>
+                        <div className="btn_container flex items-center sm:justify-end justify-center">
+                            <button
+                                className="group relative inline-flex items-center overflow-hidden rounded bg-white font-heading  px-8 py-3 text-brand-blue "
+                                onClick={() => navigate('/create_post')}
+                            >
+                                <span className="absolute -end-full transition-all group-hover:end-4">
+                                    <svg
+                                        class="h-5 w-5 rtl:rotate-180"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                        />
+                                    </svg>
+                                </span>
+
+                                <span className="text-sm font-medium transition-all  group-hover:me-4">
+                                    Let's Take Rent!
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
             {/* Rent Post Listings */}
             <RentListing />
 

@@ -19,9 +19,6 @@ const Footer = () => {
                     <ul className="mt-8 flex justify-start gap-6 sm:mt-0 sm:justify-end">
                         <li>
                             <Link
-                                href="/"
-                                rel="noreferrer"
-                                target="_blank"
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Facebook</span>
@@ -43,9 +40,6 @@ const Footer = () => {
 
                         <li>
                             <Link
-                                href="/"
-                                rel="noreferrer"
-                                target="_blank"
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Instagram</span>
@@ -67,9 +61,6 @@ const Footer = () => {
 
                         <li>
                             <Link
-                                href="/"
-                                rel="noreferrer"
-                                target="_blank"
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Twitter</span>
@@ -89,9 +80,6 @@ const Footer = () => {
 
                         <li>
                             <Link
-                                href="/"
-                                rel="noreferrer"
-                                target="_blank"
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">GitHub</span>
@@ -113,9 +101,6 @@ const Footer = () => {
 
                         <li>
                             <Link
-                                href="/"
-                                rel="noreferrer"
-                                target="_blank"
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Dribbble</span>
@@ -145,31 +130,31 @@ const Footer = () => {
 
                         <ul className="mt-6 space-y-4 text-sm">
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     1on1 Coaching
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Company Review
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Accounts Review
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     HR Consulting
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     SEO Optimisation
                                 </Link>
                             </li>
@@ -181,19 +166,19 @@ const Footer = () => {
 
                         <ul className="mt-6 space-y-4 text-sm">
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     About
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Meet the Team
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Accounts Review
                                 </Link>
                             </li>
@@ -205,19 +190,19 @@ const Footer = () => {
 
                         <ul className="mt-6 space-y-4 text-sm">
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Contact
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     FAQs
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Live Chat
                                 </Link>
                             </li>
@@ -229,25 +214,25 @@ const Footer = () => {
 
                         <ul className="mt-6 space-y-4 text-sm">
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Accessibility
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Returns Policy
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Refund Policy
                                 </Link>
                             </li>
 
                             <li>
-                                <Link href="#" className="text-brand-blue duration-300 hover:text-white font-heading">
+                                <Link className="text-brand-blue duration-300 hover:text-white font-heading">
                                     Hiring Statistics
                                 </Link>
                             </li>
