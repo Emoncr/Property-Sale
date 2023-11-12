@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=KoHo:wght@700&family=Open+Sans:wght@400;500;600;700&display=swap");
 
+
 body {
   @apply bg-[#f1f5f1]  min-h-screen scroll-smooth ;
 }

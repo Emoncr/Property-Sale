@@ -11,6 +11,7 @@ const Footer = () => {
                     <div >
                         <Link to={'/home'}>
                             <h2 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-oswald font-bold ">
+                                <img className='w-8 h-8' src="https://img.icons8.com/sf-black-filled/64/313a67/home.png" alt="logo" />
                                 <span>Property Sell</span>
                             </h2>
                         </Link>
@@ -241,7 +242,7 @@ const Footer = () => {
                 </div>
 
                 <p className="text-xs text-brand-blue font-heading">
-                    &copy; 2022. Company Name. All rights reserved.
+                    &copy; 2023. PROPERTY SELL. All rights reserved.
                 </p>
             </div>
         </footer>
