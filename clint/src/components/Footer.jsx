@@ -10,7 +10,7 @@ const Footer = () => {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <div >
                         <Link to={'/home'}>
-                            <h2 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-oswald font-bold ">
+                            <h2 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-oswald font-bold flex items-center justify-start">
                                 <img className='w-8 h-8' src="https://img.icons8.com/sf-black-filled/64/313a67/home.png" alt="logo" />
                                 <span>Property Sell</span>
                             </h2>

@@ -5,6 +5,7 @@ import MobileMenu from './mobileMenu'
 import { useDispatch, useSelector } from 'react-redux'
 import Profile from './ProfileOption'
 import { setSearchTermState } from '../redux/search/searchSlice'
+import { FaSign, FaSignInAlt } from 'react-icons/fa'
 
 
 
@@ -34,14 +35,14 @@ const Header = () => {
 
     return (
         <>
-            <div className="navbar pl-0 pr-0 pt-3 pb-3 bg-slate-300 flex items-center justify-between shadow-md">
-                <div className="px-5 w-full !mx-auto grid grid-cols-12 gap-1">
+            <div className="navbar pl-0 pr-0 pt-3 pb-3 bg-slate-300 shadow-md">
 
+                <div className="px-5  max-w-screen-xl w-full !mx-auto grid grid-cols-12 gap-1">
                     {/* Logo container  */}
                     <div className="col-span-3 sm:col-span-4">
 
                         <h1 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-heading font-bold flex items-center justify-start">
-                            <Link to={'/home'}>
+                            <Link to={'/home'} className='flex items-center justify-start'>
                                 <img className='w-8 h-8' src="https://img.icons8.com/sf-black-filled/64/313a67/home.png" alt="logo" />
                                 <span className='hidden sm:block'>Property Sell</span>
                             </Link>
@@ -84,7 +85,9 @@ const Header = () => {
                                     <Profile user={currentUser} />
                                     :
                                     <li className='mr-6 capitalize'>
-                                        <Link to='/login'>Login</Link>
+                                        <Link to='/login' className='flex items-center justify-end'>
+                                            Login <FaSignInAlt className='ml-1 mt-[2px] text-brand-blue' />
+                                        </Link>
                                     </li>
                             }
 
@@ -93,7 +96,7 @@ const Header = () => {
                         <div className="nav_mobile flex items-center justify-center sm:hidden">
 
 
-                            
+
                             {/* User Profile Image  */}
                             {currentUser && <Profile user={currentUser} />}
                             <button
@@ -103,12 +106,13 @@ const Header = () => {
                                 <BsJustifyRight className='text-brand-blue' />
                             </button>
                         </div>
-                        {
-                            isActiveMoblie && <MobileMenu menuStatus={{ isActiveMoblie, setisActiveMoblie }} />
-                        }
+
                     </div>
                 </div>
             </div>
+            {
+                isActiveMoblie && <MobileMenu menuStatus={{ isActiveMoblie, setisActiveMoblie }} />
+            }
         </>
 
     )

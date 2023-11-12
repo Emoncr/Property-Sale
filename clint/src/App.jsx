@@ -24,12 +24,12 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
         <Route path='/listing/:id' element={<ListingPage />} />
-        <Route path='/search?' element={<Search/>} />
-        <Route path='/saved_listing' element={<SaveListing />} />
+        <Route path='/search?' element={<Search />} />
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
           <Route path='/create_post' element={<CreatePost />} />
           <Route path='/update_post/:id' element={<UpdatePost />} />
+          <Route path='/saved_listing' element={<SaveListing />} />
         </Route>
       </Routes>
     </BrowserRouter>
