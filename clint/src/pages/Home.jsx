@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
+import SaleListing from '../components/SaleListing'
+
+
+
 
 const Home = () => {
     const navigate = useNavigate()
+
+
+
+
+
+
+
 
 
     return (
@@ -40,7 +51,7 @@ const Home = () => {
                             </button>
 
                             <button
-
+                                onClick={() => navigate('/about')}
                                 className="block w-full rounded hover:bg-brand-blue px-12 py-3 text-sm font-heading uppercase hover:text-white shadow bg-white text-brand-blue duration-300 ease-in-out  sm:w-auto"
                             >
                                 Learn More
@@ -50,24 +61,12 @@ const Home = () => {
                 </div>
             </section>
 
-            <section>
-                <div
-                    className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8"
-                >
-                    <div className="content">
-                        <h2 className='text-3xl font-bold sm:text-5xl font-heading  text-brand-blue sm:text-left  '>
-                            Explore Our Sale Post
-                        </h2>
-                        <p className='font-content font-medium text-sm sm:text-lg mt-3 max-w-3xl'>
-                            Step into our Sale Event and discover an array of incredible offers waiting for you! Unleash your shopping desires with discounts on a wide range of products. Embrace the savings—start shopping now!
-                        </p>
-                    </div>
+            {/* Sale Post Listings */}
+            <SaleListing />
 
-                    <div className="post_container mt-10">
 
-                    </div>
-                </div>
-            </section>
+
+
 
 
             {/* // Footer section code here */}
