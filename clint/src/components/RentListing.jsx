@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const SaleListing = () => {
+const RentListing = () => {
     const [loading, setLoading] = useState(true)
     const [rentListings, setRentlisting] = useState([])
     const navigate = useNavigate()
@@ -97,11 +97,11 @@ const SaleListing = () => {
                 className="mx-auto max-w-screen-xl  space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8"
             >
                 <div className="content">
-                    <h2 className='text-3xl font-bold sm:text-5xl font-heading  text-brand-blue sm:text-left  '>
-                        Explore Our Sale Post
+                    <h2 className='text-3xl font-bold sm:text-5xl font-heading  text-brand-blue sm:text-left '>
+                        Explore Our Rental Listings
                     </h2>
-                    <p className='font-content font-medium text-sm sm:text-lg mt-3 max-w-3xl'>
-                        Step into our Sale Event and discover an array of incredible offers waiting for you! Unleash your shopping desires with discounts on a wide range of products. Embrace the savings—start shopping now!
+                    <p className='font-content  font-medium text-sm sm:text-lg mt-3 max-w-3xl'>
+                        Discover our Rental Showcase! Step into a world of diverse properties waiting for you. Embrace the possibilities of comfortable living spaces and find your perfect rental match. Start exploring your next home now!
                     </p>
                 </div>
 
@@ -123,7 +123,7 @@ const SaleListing = () => {
                 <div className="btn_container flex items-center justify-center">
                     <button
                         className="group relative inline-flex items-center overflow-hidden rounded bg-brand-blue px-8 py-3 text-white "
-                        onClick={navigate('/search')}
+                        onClick={() => navigate('/search')}
                     >
                         <span class="absolute -end-full transition-all group-hover:end-4">
                             <svg
@@ -153,4 +153,4 @@ const SaleListing = () => {
     )
 }
 
-export default rentListings
+export default RentListing

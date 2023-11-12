@@ -15,10 +15,29 @@ const SaveListing = () => {
                     <div className="heading_cotainer  border-b-2 pb-5 border-brand-blue flex items-center justify-center sm:justify-between flex-col sm:flex-row gap-3">
                         <h1 className='font-heading text-2xl text-left '>Your saved Listing</h1>
                         <button
-                            onClick={() => navigate("/search")}
-                            className='font-heading text-sm text-white bg-brand-blue px-5 py-2 rounded-sm flex items-center hover:bg-brand-blue/90 sm:w-auto  w-full justify-center '>
-                            <span className='mr-1'>Explore more</span>
-                            <FaArrowRight className=' mt-1 ' />
+                            className="group relative inline-flex items-center overflow-hidden rounded bg-brand-blue px-6 py-2 text-white "
+                            onClick={() => navigate('/search')}
+                        >
+                            <span className="absolute -end-full transition-all group-hover:end-4">
+                                <svg
+                                    class="h-5 w-5 rtl:rotate-180"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                    />
+                                </svg>
+                            </span>
+
+                            <span className="text-sm font-medium transition-all  group-hover:me-4">
+                                Explore More
+                            </span>
                         </button>
                     </div>
                     <div className="listings pt-5">

@@ -98,7 +98,7 @@ const SaleListing = () => {
                 className="mx-auto max-w-screen-xl  space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8"
             >
                 <div className="content">
-                    <h2 className='text-3xl font-bold sm:text-5xl font-heading  text-brand-blue sm:text-left  '>
+                    <h2 className='text-3xl font-bold sm:text-5xl font-heading  text-brand-blue sm:text-left '>
                         Explore Our Sale Post
                     </h2>
                     <p className='font-content font-medium text-sm sm:text-lg mt-3 max-w-3xl'>
@@ -124,7 +124,7 @@ const SaleListing = () => {
                 <div className="btn_container flex items-center justify-center">
                     <button
                         className="group relative inline-flex items-center overflow-hidden rounded bg-brand-blue px-8 py-3 text-white "
-                       onClick={navigate('/search')}
+                       onClick={()=>navigate('/search')}
                     >
                         <span className="absolute -end-full transition-all group-hover:end-4">
                             <svg
