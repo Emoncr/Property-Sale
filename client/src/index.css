@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=KoHo:wght@700&family=Open+Sans:wght@400;500;600;700&display=swap");
 
-
 body {
-  @apply bg-[#f1f5f1]  min-h-screen scroll-smooth ;
+  @apply bg-[#f1f5f1]  min-h-screen scroll-smooth;
 }
 
 #root {
@@ -47,10 +46,10 @@ body {
   @apply bg-white rounded-full;
 }
 .slick-list {
-    @apply pb-11 sm:pb-16
+  @apply pb-11 sm:pb-16;
 }
 .slick-slide {
-    padding:10px;
+  @apply p-3;
 }
 
 @tailwind base;
