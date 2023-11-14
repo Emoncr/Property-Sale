@@ -8,39 +8,55 @@ import cookieParser from "cookie-parser";
 import postRouter from "./routes/post.route.js";
 import path from "path";
 
-const __dirname = path.resolve();
 const app = express();
 app.use(express.json());
-app.use(cors());
 app.use(cookieParser());
 
-main().catch((err) => console.log(err));
-
-async function main() {
-  await mongoose.connect(process.env.MONGO);
-  console.log("database connected");
+if (process.env.NODE_ENV === "local") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+      credentials: true,
+    })
+  );
+} else {
+  app.use(
+    cors({
+      credentials: true,
+    })
+  );
 }
 
-app.listen(3000, () => {
-  console.log("server running at port 3000!");
+const __dirname = path.resolve();
+const PORT = process.env.PORT || 3000;
+
+// Connect to the database
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(process.env.MONGO);
+  console.log("Database connected");
+}
+
+// Starting the server
+app.listen(PORT, () => {
+  console.log(`Server running at port ${PORT}`);
 });
 
+// Routes
 app.use("/api/users", userRouter);
 app.use("/api/auth", auth);
 app.use("/api/posts", postRouter);
 
+// Serve static files and handle client-side routing
+if (process.env.NODE_ENV === "production") {
+  const staticFilesPath = path.join(__dirname, "client", "dist");
+  app.use(express.static(staticFilesPath));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(staticFilesPath, "index.html"));
+  });
+}
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-})
-
-
-
-
-
-// ======app middleware ========//
+// Handle middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
