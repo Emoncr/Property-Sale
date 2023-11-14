@@ -19,7 +19,7 @@ const Footer = () => {
 
                     <ul className="mt-8 flex justify-start gap-6 sm:mt-0 sm:justify-end">
                         <li>
-                            <Link
+                            <Link to={"https://www.facebook.com/biplobhasan.emon"} target='_blank'
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Facebook</span>
@@ -40,7 +40,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <Link
+                            <Link to={"https://www.instagram.com/biplob_hasan_emon/"} target='_blank'
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">Instagram</span>
@@ -80,7 +80,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <Link
+                            <Link to={"https://github.com/Emoncr"} target='_blank'
                                 className="text-brand-blue duration-300 hover:text-white font-heading"
                             >
                                 <span className="sr-only">GitHub</span>
