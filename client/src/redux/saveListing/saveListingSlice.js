@@ -9,7 +9,6 @@ const saveSlice = createSlice({
   initialState,
   reducers: {
     handleSave: (state, action) => {
-      console.log(action.payload);
       state.saveListings.push(action.payload);
     },
     handleLisingRemove: (state, action) => {

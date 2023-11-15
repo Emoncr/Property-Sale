@@ -69,7 +69,7 @@ const SingIn = () => {
                 {errors.email && <span className='text-red-700 font-semibold text-sm mb-2 mt-1'>This field is required</span>}
 
 
-                <input {...register("password", { required: true })} type="password" placeholder="Password" className="form_input mt-5" />
+                <input {...register("userPassword", { required: true })} type="password" placeholder="Password" className="form_input mt-5" />
                 {errors.password && <span className='text-red-700 font-semibold text-sm mb-2 mt-1'>This field is required</span>}
 
 
