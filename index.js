@@ -1,11 +1,16 @@
 import express from "express";
 import mongoose from "mongoose";
 import "dotenv/config";
-import userRouter from "./routes/user.route.js";
-import auth from "./routes/auth.route.js";
+// import userRouter from "./routes/user.route.js";
+import userRouter from "./api/routes/user.route.js";
+
+
+// import auth from "./routes/auth.route.js";
+import auth from "./api/routes/auth.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import postRouter from "./routes/post.route.js";
+// import postRouter from "./routes/post.route.js";
+import postRouter from "./api/routes/post.route.js";
 import path from "path";
 
 const app = express();
