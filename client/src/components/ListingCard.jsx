@@ -43,7 +43,6 @@ const ListingCard = ({ listing }) => {
         }
         else {
             dispatch(clearSavedListing())
-
         }
     }, [])
 

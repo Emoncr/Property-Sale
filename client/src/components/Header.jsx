@@ -1,11 +1,11 @@
 import { React, useState } from 'react'
-import { BsJustifyRight, BsSearch } from 'react-icons/bs'
+import { BsJustifyRight, BsMessenger, BsSearch } from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
 import MobileMenu from './mobileMenu'
 import { useDispatch, useSelector } from 'react-redux'
 import Profile from './ProfileOption'
 import { setSearchTermState } from '../redux/search/searchSlice'
-import { FaSign, FaSignInAlt } from 'react-icons/fa'
+import { FaSignInAlt } from 'react-icons/fa'
 
 
 
@@ -80,6 +80,11 @@ const Header = () => {
                             <li className='mr-6 capitalize'>
                                 <Link to='/about'>About</Link>
                             </li>
+                            <li className='mr-6 capitalize text-lg text-brand-blue'>
+                                <Link to={`${currentUser ? "/message" : "/login"}`}>
+                                    <BsMessenger />
+                                </Link>
+                            </li>
                             {
                                 currentUser ?
                                     <Profile user={currentUser} />
@@ -98,7 +103,12 @@ const Header = () => {
 
 
                             {/* User Profile Image  */}
-                            {currentUser && <Profile user={currentUser} />}
+                            {/* {currentUser && <Profile user={currentUser} />} */}
+
+                            <Link to={`${currentUser ? "/message" : "/login"}`} className='mr-1 text-lg  text-brand-blue'>
+                                <BsMessenger />
+                            </Link>
+
                             <button
                                 className="btn btn-ghost p-1 hover:bg-transparent text-lg"
                                 onClick={() => setisActiveMoblie(!isActiveMoblie)}
