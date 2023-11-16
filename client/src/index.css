@@ -45,10 +45,10 @@ body {
 .slick-dots li {
   @apply bg-white rounded-full;
 }
-.slick-list {
+.post_container .slick-list {
   @apply pb-11 sm:pb-16;
 }
-.slick-slide {
+.post_container .slick-slide {
   @apply p-3;
 }
 

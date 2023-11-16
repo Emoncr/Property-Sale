@@ -44,7 +44,7 @@ const Header = () => {
                         <h1 className="font-blach sm:text-xl text-sm text-left hover:bg-transparent uppercase text-brand-blue tracking-tighter w-full font-heading font-bold flex items-center justify-start">
                             <Link to={'/home'} className='flex items-center justify-start'>
                                 <img className='w-8 h-8' src="https://img.icons8.com/sf-black-filled/64/313a67/home.png" alt="logo" />
-                                <span className='hidden sm:block'>Property Sell</span>
+                                <span className='hidden sm:block'>Property Sale</span>
                             </Link>
                         </h1>
 

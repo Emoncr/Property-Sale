@@ -22,11 +22,14 @@ export const singup = async (req, res, next) => {
 
 // ========sing in route handling here =====//
 export const signin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, userPassword } = req.body;
   try {
     const validUser = await User.findOne({ email });
     if (!validUser) return next(throwError(404, "Worng Credentials!"));
-    const isValidPassword = bcrypt.compareSync(password, validUser.password);
+    const isValidPassword = bcrypt.compareSync(
+      userPassword,
+      validUser.password
+    );
     if (!isValidPassword) return next(throwError(401, "Worng Credentials!"));
 
     const { password, ...rest } = validUser._doc;
