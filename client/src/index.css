@@ -52,7 +52,12 @@ body {
   @apply p-3;
 }
 
-
+.chats_container {
+  height: calc(100vh - 75px);
+}
+.message_container {
+  height: calc(100vh - 200px);
+}
 
 @tailwind base;
 @tailwind components;

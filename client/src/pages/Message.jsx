@@ -14,7 +14,7 @@ const Message = () => {
         <>
             <section className="main_container">
                 <div className="chats_container custom_scrollbar grid grid-cols-12 ">
-                    <div className="chat_people_container bg-white col-span-3  py-4 sm:py-5 flex sm:items-start items-center justify-start flex-col gap-2 h-screen overflow-y-scroll ">
+                    <div className="chat_people_container bg-white col-span-3  py-4 sm:py-5 flex sm:items-start items-center justify-start flex-col gap-2 overflow-y-scroll ">
 
                         <h3 className='font-heading text-black px-2 mb-3 sm:px-3 text-sm sm:text-3xl'>Chats...</h3>
 
@@ -63,86 +63,6 @@ const Message = () => {
 
                         </div>
 
-                        <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/70 bg-gray-200 group w-full p-2 sm:p-3 duration-300  cursor-pointer">
-                            <img
-                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                                src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
-                                alt="user image" />
-                            <p className='hidden sm:block text-brand-blue font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>Biplob hasan Emon</p>
-
-                        </div>
-
-                        <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/70 bg-gray-200 group w-full p-2 sm:p-3 duration-300  cursor-pointer">
-                            <img
-                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                                src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
-                                alt="user image" />
-                            <p className='hidden sm:block text-brand-blue font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>Biplob hasan Emon</p>
-
-                        </div>
-
-                        <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/70 bg-gray-200 group w-full p-2 sm:p-3 duration-300  cursor-pointer">
-                            <img
-                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                                src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
-                                alt="user image" />
-                            <p className='hidden sm:block text-brand-blue font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>Biplob hasan Emon</p>
-
-                        </div>
-
-                        <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/70 bg-gray-200 group w-full p-2 sm:p-3 duration-300  cursor-pointer">
-                            <img
-                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                                src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
-                                alt="user image" />
-                            <p className='hidden sm:block text-brand-blue font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>Biplob hasan Emon</p>
-
-                        </div>
-
-                        <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/70 bg-gray-200 group w-full p-2 sm:p-3 duration-300  cursor-pointer">
-                            <img
-                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                                src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
-                                alt="user image" />
-                            <p className='hidden sm:block text-brand-blue font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>Biplob hasan Emon</p>
-
-                        </div>
-
-                        <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/70 bg-gray-200 group w-full p-2 sm:p-3 duration-300  cursor-pointer">
-                            <img
-                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                                src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
-                                alt="user image" />
-                            <p className='hidden sm:block text-brand-blue font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>Biplob hasan Emon</p>
-
-                        </div>
-
-                        <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/70 bg-gray-200 group w-full p-2 sm:p-3 duration-300  cursor-pointer">
-                            <img
-                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                                src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
-                                alt="user image" />
-                            <p className='hidden sm:block text-brand-blue font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>Biplob hasan Emon</p>
-
-                        </div>
-
-                        <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/70 bg-gray-200 group w-full p-2 sm:p-3 duration-300  cursor-pointer">
-                            <img
-                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                                src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
-                                alt="user image" />
-                            <p className='hidden sm:block text-brand-blue font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>Biplob hasan Emon</p>
-
-                        </div>
-
-                        <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/70 bg-gray-200 group w-full p-2 sm:p-3 duration-300  cursor-pointer">
-                            <img
-                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                                src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
-                                alt="user image" />
-                            <p className='hidden sm:block text-brand-blue font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>Biplob hasan Emon</p>
-
-                        </div>
 
 
 
@@ -203,23 +123,10 @@ const Message = () => {
 
 
                             <div className='textbar_message'>
-                                <div className="message_container h-[82vh] overflow-y-scroll px-5 py-0 ">
+                                <div className="message_container flex items-end flex-col justify-end overflow-y-scroll px-5 py-0 ">
                                     <h1 className='text-7xl'>hfhakh</h1>
                                     <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-                                    <h1 className='text-7xl'>hfhakh</h1>
-
                                 </div>
-
 
 
                                 <div className="textbar_container  w-full px-5 py-3 flex items-center gap-2">
