@@ -1,18 +1,22 @@
 import Conversation from "../models/conversation.models.js";
 import { throwError } from "../utils/error.js";
 
+// Get Conversation controller
 export const getConversation = async (req, res, next) => {
-  if (req.user.id != req.params.id)
+  if (req.user.id !== req.params.id)
     return next(throwError(401, "user is not valid"));
+
   try {
     const userConversation = await Conversation.find({
-      creatorId: req.params.id,
+      $or: [{ creatorId: req.params.id }, { participantId: req.params.id }],
     });
     res.status(200).json(userConversation);
   } catch (error) {
     next(error);
   }
 };
+
+// Post Conversation controller
 
 export const createConversation = async (req, res, next) => {
   if (req.user.id != req.body.creatorId)

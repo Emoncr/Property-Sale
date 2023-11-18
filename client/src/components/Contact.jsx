@@ -40,6 +40,8 @@ const Contact = ({ listing }) => {
         const conversationApiData = {
             creatorId: currentUser._id,
             participantId: listing.userRef,
+            chatPartner: ownerInfo,
+            chatCreator: currentUser
         }
 
         try {
@@ -50,7 +52,6 @@ const Contact = ({ listing }) => {
                 body: JSON.stringify(conversationApiData)
             });
             const json = await res.json();
-            console.log(json);
             //===checking reqest success or not ===//
             if (json.success === false) {
                 setResponseMsg("Message sending failed. Try again!")
@@ -86,9 +87,6 @@ const Contact = ({ listing }) => {
             setSending(false)
         }
     }
-
-
-    console.log(message);
 
 
 
