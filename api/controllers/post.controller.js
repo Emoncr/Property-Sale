@@ -58,7 +58,7 @@ export const singlePost = async (req, res, next) => {
 export const getListingPost = async (req, res, next) => {
   try {
     const searchTerm = req.query.searchTerm || "";
-    const type = req.query.type || "";
+    const type = req.query.type || ""; 
     const offer = req.query.offer || "";
     const parking = req.query.parking || "";
     const furnished = req.query.furnished || "";

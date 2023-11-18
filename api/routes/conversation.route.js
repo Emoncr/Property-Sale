@@ -7,7 +7,7 @@ import { verifyToken } from "../utils/varifyUser.js";
 
 const router = express.Router();
 
-router.get("/", getConversation);
+router.get("/:id", verifyToken,getConversation);
 
 router.post("/create", verifyToken, createConversation);
 

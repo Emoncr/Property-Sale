@@ -13,7 +13,7 @@ const messageSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    recevier: {
+    receiver: {
       type: String,
       required: true,
     },

@@ -1,8 +1,17 @@
 import Conversation from "../models/conversation.models.js";
 import { throwError } from "../utils/error.js";
 
-export const getConversation = (req, res, next) => {
-  res.send("listing from conversation");
+export const getConversation = async (req, res, next) => {
+  if (req.user.id != req.params.id)
+    return next(throwError(401, "user is not valid"));
+  try {
+    const userConversation = await Conversation.find({
+      creatorId: req.params.id,
+    });
+    res.status(200).json(userConversation);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const createConversation = async (req, res, next) => {
@@ -25,7 +34,7 @@ export const createConversation = async (req, res, next) => {
     if (conversations.length === 0) {
       const newConversation = Conversation(req.body);
       await newConversation.save();
-      res.status(201).json(newConversation);
+      res.status(201).json("conversation created succesfully");
     } else {
       res.status(403).json("conversation already exist");
     }
