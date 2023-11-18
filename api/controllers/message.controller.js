@@ -23,7 +23,7 @@ export const postMessage = async (req, res, next) => {
   try {
     const newMessage = new Message(req.body);
     await newMessage.save();
-    res.status(201).json("message created seccessfully");
+    res.status(201).json("Message sent seccessfully");
   } catch (error) {
     next(error);
   }

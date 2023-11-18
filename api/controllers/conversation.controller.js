@@ -29,8 +29,6 @@ export const createConversation = async (req, res, next) => {
         { participantId: req.body.participantId },
       ],
     });
-
-    console.log(conversations);
     if (conversations.length === 0) {
       const newConversation = Conversation(req.body);
       await newConversation.save();
