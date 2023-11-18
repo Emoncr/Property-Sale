@@ -6,7 +6,7 @@ const conversationSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    perticipantId: {
+    participantId: {
       type: String,
       required: true,
     },
@@ -14,6 +14,6 @@ const conversationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Conversations = mongoose.model("Conversations", conversationSchema);
+const Conversation = mongoose.model("Conversations", conversationSchema);
 
-export default Conversations
+export default Conversation
