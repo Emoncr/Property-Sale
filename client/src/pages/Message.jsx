@@ -10,15 +10,21 @@ import Conversations from '../components/Conversations';
 
 const Message = () => {
     const { currentUser } = useSelector(state => state.user)
-
-
     const [conversations, setConversation] = useState([])
+
+    const [trackConversation, setTrackConversation] = useState({
+        sender: "",
+        receiver: "",
+        conversationActive: null,
+    })
+
+
+
     useEffect(() => {
         (async () => {
             try {
                 const res = await fetch(`/api/conversation/${currentUser._id}`)
                 const getConversations = await res.json();
-                console.log(getConversations);
                 if (getConversations.success === false) {
                     console.log(getConversations.message);
                 }
@@ -41,14 +47,27 @@ const Message = () => {
                         <h3 className='font-heading text-black px-2 mb-3 sm:px-3 text-sm sm:text-3xl'>Chats...</h3>
                         {
                             conversations && conversations.map((conversation, index) =>
-                                <Conversations conversationInfo={conversation} key={index} />
+                                <Conversations
+                                    conversationInfo={
+                                        { conversation, trackConversation, setTrackConversation }
+                                    } key={index}
+                                />
                             )
                         }
-
-
                     </div>
 
-                    <Chat />
+                    {
+                        trackConversation.conversationActive
+                            ?
+                            <div className="conversation_container col-span-9 ">
+                                <Chat conversationInfo={{ trackConversation, setTrackConversation }} />
+                            </div>
+                            :
+                            <div className="conversation_container col-span-9 ">
+
+                                <p className='mt-20 text-sm sm:text-2xl text-center font-heading '>No Conversation is Selected 	&#128580;</p>
+                            </div>
+                    }
 
                 </div>
             </section>
