@@ -10,7 +10,7 @@ export const createPost = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+}; 
 
 export const deletePost = async (req, res, next) => {
   const isPostExist = await Listing.findById(req.params.id);
@@ -50,7 +50,7 @@ export const singlePost = async (req, res, next) => {
     res.status(200).json(post);
   } catch (error) {
     next(error);
-  }
+  } 
 };
 
 //====GET LISTING Post ====//
@@ -58,7 +58,7 @@ export const singlePost = async (req, res, next) => {
 export const getListingPost = async (req, res, next) => {
   try {
     const searchTerm = req.query.searchTerm || "";
-    const type = req.query.type || "";
+    const type = req.query.type || ""; 
     const offer = req.query.offer || "";
     const parking = req.query.parking || "";
     const furnished = req.query.furnished || "";

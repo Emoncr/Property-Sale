@@ -9,7 +9,7 @@ export default {
       fontFamily: {
         heading: ["KoHo", "sans-serif"],
         content: ["Open Sans", "sans-serif"],
-        oswald: ["Oswald", "sans-serif"]
+        oswald: ["Oswald", "sans-serif"],
       },
       colors: {
         "brand-blue": `#${themeColor}`,

@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { BsArrowRight, BsArrowLeft, BsFillTelephoneFill, } from "react-icons/bs";
+import { BsArrowRight, BsArrowLeft, } from "react-icons/bs";
 import { BiSolidArea } from 'react-icons/bi'
 import { FaLocationArrow, FaBed, FaBath, FaAngleUp, FaAngleDown, FaShare, FaHeart, FaPhone, FaLock } from "react-icons/fa"
 import Loading from '../components/Loading';
@@ -93,6 +93,9 @@ const ListingPage = () => {
                 method: 'DELETE',
             })
             const data = await res.json();
+
+
+            
             //===checking reqest success or not ===//
             if (data.success === false) {
                 //===showing error in tostify====//
@@ -321,7 +324,7 @@ const ListingPage = () => {
                                                         <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-5 gap-2 ">
                                                             <div className="btn_container">
                                                                 <button
-                                                                    
+
                                                                     className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
                                                                     <span className='flex items-center justify-center'>
@@ -347,7 +350,7 @@ const ListingPage = () => {
                                                             {
                                                                 currentUser && currentUser.email ?
                                                                     <div className="contant_owner_form mt-5">
-                                                                        <Contact listing={listings} />
+                                                                        <Contact listing={listings} loadingState={loading} />
                                                                     </div>
                                                                     :
                                                                     <button

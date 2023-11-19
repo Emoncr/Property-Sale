@@ -6,6 +6,9 @@ import auth from "./api/routes/auth.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import postRouter from "./api/routes/post.route.js";
+import messageRouter from "./api/routes/message.route.js";
+import conversationRoute from "./api/routes/conversation.route.js";
+
 import path from "path";
 import http from "http";
 import { Server } from "socket.io";
@@ -49,7 +52,8 @@ expressServer.listen(PORT, () => {
 app.use("/api/users", userRouter);
 app.use("/api/auth", auth);
 app.use("/api/posts", postRouter);
-app.use("/api/posts", postRouter);
+app.use("/api/message", messageRouter);
+app.use("/api/conversation", conversationRoute);
 
 //============== Deployment==============//
 
@@ -90,7 +94,7 @@ export const io = new Server(expressServer, {
 io.on("connection", (socket) => {
   console.log("socket io conneted successfully");
 
-   socket.on("hello", (arg) => {
+  socket.on("hello", (arg) => {
     console.log(arg); // world
   });
 
