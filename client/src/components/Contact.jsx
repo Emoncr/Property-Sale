@@ -41,7 +41,7 @@ const Contact = ({ listing }) => {
             creatorId: currentUser._id,
             participantId: listing.userRef,
             chatPartner: ownerInfo,
-            chatCreator: currentUser
+            chatCreator: currentUser 
         }
 
         try {

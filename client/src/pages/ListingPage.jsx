@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { BsArrowRight, BsArrowLeft, BsFillTelephoneFill, } from "react-icons/bs";
+import { BsArrowRight, BsArrowLeft, } from "react-icons/bs";
 import { BiSolidArea } from 'react-icons/bi'
 import { FaLocationArrow, FaBed, FaBath, FaAngleUp, FaAngleDown, FaShare, FaHeart, FaPhone, FaLock } from "react-icons/fa"
 import Loading from '../components/Loading';

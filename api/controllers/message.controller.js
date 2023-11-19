@@ -9,7 +9,10 @@ export const getMessage = async (req, res, next) => {
 
   try {
     const messages = await Message.find({
-      $and: [{ sender }, { receiver }],
+      $or: [
+        { $and: [{ sender }, { receiver }] },
+        { $and: [{ sender: receiver }, { receiver: sender }] },
+      ],
     });
     res.status(200).json(messages);
   } catch (error) {

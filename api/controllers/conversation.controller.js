@@ -28,11 +28,22 @@ export const createConversation = async (req, res, next) => {
   try {
     // check is new conversation or not
     const conversations = await Conversation.find({
-      $and: [
-        { creatorId: req.body.creatorId },
-        { participantId: req.body.participantId },
+      $or: [
+        {
+          $and: [
+            { creatorId: req.body.creatorId },
+            { participantId: req.body.participantId },
+          ],
+        },
+        {
+          $and: [
+            { creatorId: req.body.participantId },
+            { participantId: req.body.creatorId },
+          ],
+        },
       ],
     });
+
     if (conversations.length === 0) {
       const newConversation = Conversation(req.body);
       await newConversation.save();
