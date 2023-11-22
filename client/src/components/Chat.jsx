@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BsFillSendFill, BsImage } from "react-icons/bs";
 import { useSelector } from 'react-redux';
+import { json } from 'react-router-dom';
 
 
 
@@ -8,7 +9,11 @@ const Chat = ({ conversationInfo }) => {
 
     const { currentUser } = useSelector(state => state.user)
     const [messageText, setMessageText] = useState([])
-    const { trackConversation, setTrackConversation } = conversationInfo;
+    const [typedMessage, setTypedMessage] = useState("")
+    const [IsSendingError, setSendingError] = useState(false)
+
+
+    const { trackConversation } = conversationInfo;
     const { chatCreator, chatPartner } = trackConversation.conversation;
 
 
@@ -29,6 +34,50 @@ const Chat = ({ conversationInfo }) => {
             }
         })()
     }, [trackConversation])
+    
+
+
+
+
+
+
+
+
+    // Handle Message Sending //
+    const handleSendMsg = async (e) => {
+        e.preventDefault();
+        try {
+            const sendMsgToDB = await fetch("/api/message/create", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(
+                    {
+                        sender: currentUser._id,
+                        receiver: trackConversation.conversationActive,
+                        message: typedMessage,
+                    }
+                )
+            });
+            const response = await sendMsgToDB.json();
+            //===checking Message request success or not ===//
+            if (response.success === false) {
+                setSendingError(true)
+            }
+            else {
+                setSendingError(false)
+            }
+        } catch (error) {
+            setSendingError(true)
+            console.log(error);
+        }
+    }
+
+
+
+
+
+
+
 
 
 
@@ -38,10 +87,10 @@ const Chat = ({ conversationInfo }) => {
                 <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 gap-1 duration-300    ">
                     <img
                         className='h-8 w-8 sm:h-10 sm:w-10 rounded-full border border-brand-blue'
-                        src={chatPartner.avatar}
+                        src={chatPartner._id === currentUser._id ? chatCreator.avatar : chatPartner.avatar}
                         alt="user image" />
                     <p className=' sm:block text-black font-semibold font-heading text-sm truncate'>
-                        {chatPartner.username}
+                        {chatPartner._id === currentUser._id ? chatCreator.username : chatPartner.username}
                     </p>
 
                 </div>
@@ -80,7 +129,7 @@ const Chat = ({ conversationInfo }) => {
                                     <div className="User_chat flex items-center gap-2 mt-2 ">
                                         <img
                                             className='h-8 w-8 rounded-full'
-                                            src={chatPartner.avatar}
+                                            src={chatPartner._id === currentUser._id ? chatCreator.avatar : chatPartner.avatar}
                                             alt="chat partner image" />
                                         <p
                                             className='text-lg font-normal bg-blue-500 px-2 text-white py-1 rounded-md'>
@@ -90,25 +139,36 @@ const Chat = ({ conversationInfo }) => {
                                 </div>
                         )
                     }
-
+                    {
+                        IsSendingError && <p className='text-red-700 font-content font-semibold'>Message sending failed!</p>
+                    }
                 </div>
 
 
 
-                <div className="textbar_container  w-full px-5 py-3 flex items-center gap-2">
-                    <div className="attachment_container">
-                        <BsImage />
+                <form onSubmit={handleSendMsg}>
+                    <div className="textbar_container  w-full px-5 py-3 flex items-center gap-2">
+                        <div className="attachment_container">
+                            <BsImage />
+                        </div>
+                        <div className="input_container w-full">
+                            <input
+                                onChange={(e) => setTypedMessage(e.target.value)}
+                                defaultValue={typedMessage}
+                                type="text"
+                                placeholder="Aa"
+                                className="w-full px-4 py-1 rounded-full border  placeholder:font-content placeholder:text-sm caret-h-2  bg-[#F0F2F5] caret-brand-blue border-brand-blue focus:outline-none"
+                            />
+                        </div>
+                        <div className="send_btn ">
+                            <button
+                                type='submit'
+                                className='p-2 rounded-full hover:bg-gray-200 duration-300'>
+                                <BsFillSendFill className='text-brand-blue' />
+                            </button>
+                        </div>
                     </div>
-                    <div className="input_container w-full">
-                        <input type="text" placeholder="Aa" className="w-full px-4 py-1 rounded-full border  placeholder:font-content placeholder:text-sm caret-h-2  bg-[#F0F2F5] caret-brand-blue border-brand-blue focus:outline-none" />
-                    </div>
-                    <div className="send_btn ">
-                        <button className='p-2 rounded-full hover:bg-gray-200 duration-300'>
-                            <BsFillSendFill className='text-brand-blue' />
-                        </button>
-                    </div>
-
-                </div>
+                </form>
             </div>
         </div>
     )
