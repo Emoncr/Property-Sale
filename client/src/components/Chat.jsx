@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { BsFillSendFill, BsImage } from "react-icons/bs";
+import { useSelector } from 'react-redux';
 
 
 
 const Chat = ({ conversationInfo }) => {
-    const [messageText, setMessageText] = useState([])
 
+    const { currentUser } = useSelector(state => state.user)
+    const [messageText, setMessageText] = useState([])
     const { trackConversation, setTrackConversation } = conversationInfo;
-    console.log(trackConversation);
+    const { chatCreator, chatPartner } = trackConversation.conversation;
+
 
     useEffect(() => {
         (async () => {
@@ -28,7 +31,6 @@ const Chat = ({ conversationInfo }) => {
     }, [trackConversation])
 
 
-    console.log(messageText);
 
     return (
         <div className="conversation_container bg-white  ">
@@ -36,9 +38,11 @@ const Chat = ({ conversationInfo }) => {
                 <div className="chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 gap-1 duration-300    ">
                     <img
                         className='h-8 w-8 sm:h-10 sm:w-10 rounded-full border border-brand-blue'
-                        src="https://lh3.googleusercontent.com/a/ACg8ocLrm3vLXH0YaepS5lAPDLeQYh6emkaUGtXfRoH6cwPfUCE=s96-c"
+                        src={chatPartner.avatar}
                         alt="user image" />
-                    <p className=' sm:block text-black font-semibold font-heading text-sm truncate'>Biplob hasan Emon</p>
+                    <p className=' sm:block text-black font-semibold font-heading text-sm truncate'>
+                        {chatPartner.username}
+                    </p>
 
                 </div>
 
@@ -53,9 +57,42 @@ const Chat = ({ conversationInfo }) => {
 
 
             <div className='textbar_message'>
-                <div className="message_container flex items-end flex-col justify-end overflow-y-scroll px-5 py-0 ">
-                    <h1 className='text-7xl'>hfhakh</h1>
+                <div className="message_container flex items-end flex-col justify-end  overflow-y-scroll px-5 py-0 ">
+                    {
+                        messageText.map((msg, index) =>
+                            msg.sender === currentUser._id ?
+                                <div
+                                    key={index}
+                                    className={`flex ${currentUser._id === msg.sender ? "items-end" : "items-start"} w-full flex-col justify-end`}
+                                >
+                                    <div className="User_chat flex items-center gap-2 mt-2 ">
+                                        <p
+                                            className='text-lg font-normal bg-blue-900/80 px-2 text-white py-1 rounded-md'>
+                                            {msg.message}
+                                        </p>
+                                    </div>
+                                </div>
+                                :
+                                <div
+                                    key={index}
+                                    className={`flex ${currentUser._id === msg.sender ? "items-end" : "items-start"} w-full flex-col justify-end`}
+                                >
+                                    <div className="User_chat flex items-center gap-2 mt-2 ">
+                                        <img
+                                            className='h-8 w-8 rounded-full'
+                                            src={chatPartner.avatar}
+                                            alt="chat partner image" />
+                                        <p
+                                            className='text-lg font-normal bg-blue-500 px-2 text-white py-1 rounded-md'>
+                                            {msg.message}
+                                        </p>
+                                    </div>
+                                </div>
+                        )
+                    }
+
                 </div>
+
 
 
                 <div className="textbar_container  w-full px-5 py-3 flex items-center gap-2">

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 const Conversations = ({ conversationInfo }) => {
     const { conversation, trackConversation, setTrackConversation } = conversationInfo
 
-
+console.log(conversation);
     const { currentUser } = useSelector(state => state.user)
     return (
         <>
@@ -23,7 +23,7 @@ const Conversations = ({ conversationInfo }) => {
                                     conversation
                                 }
                             )
-                        }
+                        } 
                         className={`chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/90 active:bg-brand-blue  group w-full p-2 sm:p-3 duration-300  cursor-pointer ${trackConversation.conversationActive === conversation.chatCreator._id ? "bg-brand-blue text-white" : "bg-gray-200 text-brand-blue"}`}
                     >
                         <img
