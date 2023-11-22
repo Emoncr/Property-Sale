@@ -1,22 +1,40 @@
 import React, { useEffect, useState } from 'react'
-import { io } from "socket.io-client"
+import { Socket, io } from "socket.io-client"
 import Chat from '../components/Chat';
 import { useSelector } from 'react-redux';
 import Conversations from '../components/Conversations';
 
+const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3000';
 
+
+
+const socket = io(URL)
 
 
 
 const Message = () => {
     const { currentUser } = useSelector(state => state.user)
     const [conversations, setConversation] = useState([])
-
     const [trackConversation, setTrackConversation] = useState({
         sender: "",
         receiver: "",
         conversationActive: null,
     })
+
+    // useEffect(() => {
+    //     socket.on("Test", (data) => {
+    //         console.log(data);
+    //     })
+    //     socket.emit("getUser", trackConversation.sender)
+
+    //     socket.emit("chat with", trackConversation.receiver)
+
+
+    // }, [trackConversation])
+
+
+
+
 
 
 
@@ -36,7 +54,6 @@ const Message = () => {
             }
         })()
     }, [])
-
 
     return (
         <>

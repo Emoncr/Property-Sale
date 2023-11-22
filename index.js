@@ -93,10 +93,17 @@ export const io = new Server(expressServer, {
 
 io.on("connection", (socket) => {
   console.log("socket io conneted successfully");
+  // socket.join("bedRoom");
+  // io.to("bedRoom").emit("sleep", "hlw this is from bedroom");
 
-  socket.on("hello", (arg) => {
-    console.log(arg); // world
+  // getting userInfo
+  socket.on("getUser", (currentUser) => {
+    console.log(currentUser);
   });
+  socket.on("chat with", (room) => {
+    socket.join(room);
+    console.log("You are joined in", room);
 
-  socket.leave(`socket connection end with ${socket.id}`);
+    io.to(room).emit("Test", "hlw this is from Text room");
+  });
 });
