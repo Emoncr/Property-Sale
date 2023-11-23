@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BsFillSendFill, BsImage } from "react-icons/bs";
 import { useSelector } from 'react-redux';
-import { json } from 'react-router-dom';
 
 
 
@@ -34,7 +33,7 @@ const Chat = ({ conversationInfo }) => {
             }
         })()
     }, [trackConversation])
-    
+
 
 
 
@@ -106,7 +105,8 @@ const Chat = ({ conversationInfo }) => {
 
 
             <div className='textbar_message'>
-                <div className="message_container flex items-end flex-col justify-end  overflow-y-scroll px-5 py-0 ">
+                <div className="message_container grid grid-rows-1 items-end overflow-y-scroll px-5 py-0 ">
+                    
                     {
                         messageText.map((msg, index) =>
                             msg.sender === currentUser._id ?

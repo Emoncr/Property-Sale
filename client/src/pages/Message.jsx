@@ -85,7 +85,6 @@ const Message = () => {
                                 <p className='mt-20 text-sm sm:text-2xl text-center font-heading '>No Conversation is Selected 	&#128580;</p>
                             </div>
                     }
-
                 </div>
             </section>
 
