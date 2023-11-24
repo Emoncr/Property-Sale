@@ -1,36 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { Socket, io } from "socket.io-client"
 import Chat from '../components/Chat';
 import { useSelector } from 'react-redux';
 import Conversations from '../components/Conversations';
 
-const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3000';
 
-
-
-const socket = io(URL)
 
 
 
 const Message = () => {
     const { currentUser } = useSelector(state => state.user)
     const [conversations, setConversation] = useState([])
+    const [socketMessages, setSocketMessages] = useState([])
     const [trackConversation, setTrackConversation] = useState({
         sender: "",
         receiver: "",
         conversationActive: null,
     })
-
-    // useEffect(() => {
-    //     socket.on("Test", (data) => {
-    //         console.log(data);
-    //     })
-    //     socket.emit("getUser", trackConversation.sender)
-
-    //     socket.emit("chat with", trackConversation.receiver)
-
-
-    // }, [trackConversation])
 
 
 
@@ -66,7 +51,13 @@ const Message = () => {
                             conversations && conversations.map((conversation, index) =>
                                 <Conversations
                                     conversationInfo={
-                                        { conversation, trackConversation, setTrackConversation }
+                                        {
+                                            conversation,
+                                            trackConversation,
+                                            setTrackConversation,
+                                            socketMessages,
+                                            setSocketMessages,
+                                        }
                                     } key={index}
                                 />
                             )
@@ -77,7 +68,13 @@ const Message = () => {
                         trackConversation.conversationActive
                             ?
                             <div className="conversation_container col-span-9 ">
-                                <Chat conversationInfo={{ trackConversation, setTrackConversation }} />
+                                <Chat conversationInfo={{
+                                    trackConversation,
+                                    setTrackConversation,
+                                    socketMessages,
+                                    setSocketMessages,
+
+                                }} />
                             </div>
                             :
                             <div className="conversation_container col-span-9 ">
@@ -85,7 +82,6 @@ const Message = () => {
                                 <p className='mt-20 text-sm sm:text-2xl text-center font-heading '>No Conversation is Selected 	&#128580;</p>
                             </div>
                     }
-
                 </div>
             </section>
 

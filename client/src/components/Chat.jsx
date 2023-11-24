@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { BsFillSendFill, BsImage } from "react-icons/bs";
 import { useSelector } from 'react-redux';
-import { json } from 'react-router-dom';
+import { Socket, io } from "socket.io-client"
+
+
+
+const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3000';
+const socket = io(URL)
+
 
 
 
@@ -10,19 +16,29 @@ const Chat = ({ conversationInfo }) => {
     const { currentUser } = useSelector(state => state.user)
     const [messageText, setMessageText] = useState([])
     const [typedMessage, setTypedMessage] = useState("")
-    const [IsSendingError, setSendingError] = useState(false)
+    const [IsSendingError, setSendingError] = useState(false);
 
 
-    const { trackConversation } = conversationInfo;
+    const {
+        trackConversation,
+
+        socketMessages,
+        setSocketMessages,
+
+
+    } = conversationInfo;
+
+
     const { chatCreator, chatPartner } = trackConversation.conversation;
 
 
+
+    // Load User Messages
     useEffect(() => {
         (async () => {
             try {
                 const res = await fetch(`/api/message?sender=${trackConversation.sender}&receiver=${trackConversation.receiver}`)
                 const getMessages = await res.json();
-                console.log(getMessages);
                 if (getMessages.success === false) {
                     console.log(getMessages.message);
                 }
@@ -34,18 +50,38 @@ const Chat = ({ conversationInfo }) => {
             }
         })()
     }, [trackConversation])
-    
 
 
 
 
+    // Handle Socket Features Here
+    useEffect(() => {
+        console.log("effect calling");
+        socket.emit("join_room", trackConversation.chatId)
+    }, [trackConversation])
+
+    // Get Message from socket
+    useEffect(() => {
+        socket.on("receive_message", (socketMsg) => {
+            setSocketMessages([...socketMessages, { message: socketMsg, type: "received" }])
+        })
+    })
 
 
+    const sendMessageTOSocket = () => {
+        socket.emit('send_message', { chatId: trackConversation.chatId, message: typedMessage }); setSocketMessages([...socketMessages, { message: typedMessage, type: "send" }])
+        setTypedMessage("")
+    };
 
 
     // Handle Message Sending //
     const handleSendMsg = async (e) => {
         e.preventDefault();
+        sendMessageTOSocket();
+
+
+
+
         try {
             const sendMsgToDB = await fetch("/api/message/create", {
                 method: 'POST',
@@ -72,15 +108,6 @@ const Chat = ({ conversationInfo }) => {
         }
     }
 
-
-
-
-
-
-
-
-
-
     return (
         <div className="conversation_container bg-white  ">
             <div className="chat_person_container  grid grid-cols-2 bg-white shadow-sm items-center px-5 py-3 border-b border-">
@@ -106,7 +133,8 @@ const Chat = ({ conversationInfo }) => {
 
 
             <div className='textbar_message'>
-                <div className="message_container flex items-end flex-col justify-end  overflow-y-scroll px-5 py-0 ">
+                <div className="message_container grid grid-rows-1 items-end overflow-y-scroll px-5 py-0 ">
+
                     {
                         messageText.map((msg, index) =>
                             msg.sender === currentUser._id ?
@@ -114,12 +142,14 @@ const Chat = ({ conversationInfo }) => {
                                     key={index}
                                     className={`flex ${currentUser._id === msg.sender ? "items-end" : "items-start"} w-full flex-col justify-end`}
                                 >
-                                    <div className="User_chat flex items-center gap-2 mt-2 ">
+                                    <div className="User_chat  mt-2 ">
                                         <p
                                             className='text-lg font-normal bg-blue-900/80 px-2 text-white py-1 rounded-md'>
                                             {msg.message}
                                         </p>
+
                                     </div>
+
                                 </div>
                                 :
                                 <div
@@ -138,7 +168,62 @@ const Chat = ({ conversationInfo }) => {
                                     </div>
                                 </div>
                         )
+
                     }
+
+                    {
+                        socketMessages.length !== 0 && socketMessages.map((msg, index) =>
+                            msg.type === "send" ?
+                                <div
+                                    key={index}
+                                    className={`flex items-end w-full flex-col justify-end`}
+                                >
+                                    <div className="User_chat  mt-2 ">
+                                        <p
+                                            className='text-lg font-normal bg-blue-900/80 px-2 text-white py-1 rounded-md'>
+                                            {msg.message}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                                :
+                                <div
+                                    key={index}
+                                    className={`flex items-start w-full flex-col justify-end`}
+                                >
+                                    <div className="User_chat flex items-center gap-2 mt-2 ">
+                                        <img
+                                            className='h-8 w-8 rounded-full'
+                                            src={chatPartner._id === currentUser._id ? chatCreator.avatar : chatPartner.avatar}
+                                            alt="chat partner image" />
+                                        <p
+                                            className='text-lg font-normal bg-blue-500 px-2 text-white py-1 rounded-md'>
+                                            {msg.message}
+                                        </p>
+                                    </div>
+                                </div>
+                        )
+                    }
+                    {/* {
+                        socketReceivedMsg.length !== 0 && socketReceivedMsg.map((msg, index) =>
+                            <div
+                                key={index}
+                                className={`flex items-start w-full flex-col justify-end`}
+                            >
+                                <div className="User_chat flex items-center gap-2 mt-2 ">
+                                    <img
+                                        className='h-8 w-8 rounded-full'
+                                        src={chatPartner._id === currentUser._id ? chatCreator.avatar : chatPartner.avatar}
+                                        alt="chat partner image" />
+                                    <p
+                                        className='text-lg font-normal bg-blue-500 px-2 text-white py-1 rounded-md'>
+                                        {msg}
+                                    </p>
+                                </div>
+                            </div>
+                        )
+                    } */}
                     {
                         IsSendingError && <p className='text-red-700 font-content font-semibold'>Message sending failed!</p>
                     }
@@ -154,7 +239,7 @@ const Chat = ({ conversationInfo }) => {
                         <div className="input_container w-full">
                             <input
                                 onChange={(e) => setTypedMessage(e.target.value)}
-                                defaultValue={typedMessage}
+                                value={typedMessage}
                                 type="text"
                                 placeholder="Aa"
                                 className="w-full px-4 py-1 rounded-full border  placeholder:font-content placeholder:text-sm caret-h-2  bg-[#F0F2F5] caret-brand-blue border-brand-blue focus:outline-none"
@@ -170,7 +255,7 @@ const Chat = ({ conversationInfo }) => {
                     </div>
                 </form>
             </div>
-        </div>
+        </div >
     )
 }
 
