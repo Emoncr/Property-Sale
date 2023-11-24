@@ -19,14 +19,7 @@ const Chat = ({ conversationInfo }) => {
     const [IsSendingError, setSendingError] = useState(false);
 
 
-    const {
-        trackConversation,
-
-        socketMessages,
-        setSocketMessages,
-
-
-    } = conversationInfo;
+    const { trackConversation, socketMessages, setSocketMessages, } = conversationInfo;
 
 
     const { chatCreator, chatPartner } = trackConversation.conversation;
