@@ -92,18 +92,14 @@ export const io = new Server(expressServer, {
 });
 
 io.on("connection", (socket) => {
-  console.log("socket io conneted successfully");
-  // socket.join("bedRoom");
-  // io.to("bedRoom").emit("sleep", "hlw this is from bedroom");
+  console.log(`socket connected with ${socket.id}`);
 
-  // getting userInfo
-  socket.on("getUser", (currentUser) => {
-    console.log(currentUser);
+  socket.on("join_room", (chatId) => {
+    socket.join(chatId);
+    console.log(`user connected to room ${chatId}`);
   });
-  socket.on("chat with", (room) => {
-    socket.join(room);
-    console.log("You are joined in", room);
 
-    io.to(room).emit("Test", "hlw this is from Text room");
+  socket.on("send_message", (data) => {
+    socket.to(data.chatId).emit("receive_message", data.message);
   });
 });
