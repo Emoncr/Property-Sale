@@ -85,9 +85,17 @@ app.use((err, req, res, next) => {
 });
 
 //----------------------------Handling Socket.io ------------------------------//
+let clientCors;
+//Handling CORS origin
+if (process.env.NODE_ENV === "local") {
+  clientCors = "http://localhost:5173";
+} else {
+  clientCors = "https://property-sell.vercel.app";
+}
 export const io = new Server(expressServer, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: clientCors,
+    credentials: true,
   },
 });
 

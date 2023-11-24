@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Socket, io } from "socket.io-client"
 
 
-
+// const URL = process.env.NODE_ENV === 'local' && ;
 const socket = io("http://localhost:3000")
 
 
