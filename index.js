@@ -110,4 +110,8 @@ io.on("connection", (socket) => {
   socket.on("send_message", (data) => {
     socket.to(data.chatId).emit("receive_message", data.message);
   });
+
+  socket.on("disconnect", (data) => {
+    console.log(`user disconnected successfully ${socket.id}`);
+  });
 });

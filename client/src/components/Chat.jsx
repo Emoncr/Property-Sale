@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { BsFillSendFill, BsImage } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import { Socket, io } from "socket.io-client"
@@ -14,7 +14,7 @@ const Chat = ({ conversationInfo }) => {
     const [messageText, setMessageText] = useState([])
     const [typedMessage, setTypedMessage] = useState("")
     const [IsSendingError, setSendingError] = useState(false);
-
+    const scrollRef = useRef();
 
     const { trackConversation, socketMessages, setSocketMessages, } = conversationInfo;
     const { chatCreator, chatPartner } = trackConversation.conversation;
@@ -66,7 +66,6 @@ const Chat = ({ conversationInfo }) => {
         e.preventDefault();
         sendMessageTOSocket();
 
-
         try {
             const sendMsgToDB = await fetch("/api/message/create", {
                 method: 'POST',
@@ -92,6 +91,13 @@ const Chat = ({ conversationInfo }) => {
             console.log(error);
         }
     }
+
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [socketMessages, messageText])
+
+
 
     return (
         <div className="conversation_container bg-white  ">
@@ -129,6 +135,7 @@ const Chat = ({ conversationInfo }) => {
                                 >
                                     <div className="User_chat  mt-2 ">
                                         <p
+                                            ref={scrollRef}
                                             className='text-lg font-normal bg-blue-900/80 px-2 text-white py-1 rounded-md'>
                                             {msg.message}
                                         </p>
@@ -147,6 +154,7 @@ const Chat = ({ conversationInfo }) => {
                                             src={chatPartner._id === currentUser._id ? chatCreator.avatar : chatPartner.avatar}
                                             alt="chat partner image" />
                                         <p
+                                            ref={scrollRef}
                                             className='text-lg font-normal bg-blue-500 px-2 text-white py-1 rounded-md'>
                                             {msg.message}
                                         </p>
@@ -165,6 +173,7 @@ const Chat = ({ conversationInfo }) => {
                                 >
                                     <div className="User_chat  mt-2 ">
                                         <p
+                                            ref={scrollRef}
                                             className='text-lg font-normal bg-blue-900/80 px-2 text-white py-1 rounded-md'>
                                             {msg.message}
                                         </p>
@@ -190,25 +199,6 @@ const Chat = ({ conversationInfo }) => {
                                 </div>
                         )
                     }
-                    {/* {
-                        socketReceivedMsg.length !== 0 && socketReceivedMsg.map((msg, index) =>
-                            <div
-                                key={index}
-                                className={`flex items-start w-full flex-col justify-end`}
-                            >
-                                <div className="User_chat flex items-center gap-2 mt-2 ">
-                                    <img
-                                        className='h-8 w-8 rounded-full'
-                                        src={chatPartner._id === currentUser._id ? chatCreator.avatar : chatPartner.avatar}
-                                        alt="chat partner image" />
-                                    <p
-                                        className='text-lg font-normal bg-blue-500 px-2 text-white py-1 rounded-md'>
-                                        {msg}
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                    } */}
                     {
                         IsSendingError && <p className='text-red-700 font-content font-semibold'>Message sending failed!</p>
                     }
