@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { FaAngleDoubleLeft, FaAngleDoubleRight, FaSearch } from 'react-icons/fa'
 import ListingCard from '../components/ListingCard'
@@ -12,7 +12,7 @@ const Search = () => {
     const { searchTermState } = useSelector(state => state.search)
     const [loading, setLoading] = useState(false)
     const [pageCount, setPageCount] = useState(1)
-
+    const scrollRef = useRef();
 
     const [formState, setFormState] = useState({
         searchTerm: "",
@@ -65,18 +65,21 @@ const Search = () => {
         })
     }
 
-
+    useEffect(() => {
+        scrollRef.current.scrollIntoView({ behavior: "smooth"});
+    }, [])
 
     return (
         <>
-            <section >
-                <div >
+            <section  >
+                <div ref={scrollRef}>
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:max-h-full lg:min-h-screen">
                         <div className="option_contaienr md:col-span-3 mt-1 bg-white lg:max-h-full lg:min-h-screen">
                             <div className="items_cotainer p-5 py-8 ">
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-control w-full max-w-full   sm:max-w-full relative">
                                         <input
+                                           
                                             type="text"
                                             placeholder="Search..."
                                             className="search sm:max-w-full"
