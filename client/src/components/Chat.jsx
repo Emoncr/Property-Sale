@@ -1,27 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { BsFillSendFill, BsImage } from "react-icons/bs";
 import { useSelector } from 'react-redux';
-import { Socket, io } from "socket.io-client"
+import { io } from "socket.io-client"
+import { socket } from './Notification';
 
 
 // const URL = process.env.NODE_ENV === 'local' && ;
-const socket = io("http://localhost:3000")
+// const socket = io("http://localhost:3000")
+
 
 
 const Chat = ({ conversationInfo }) => {
-
     const { currentUser } = useSelector(state => state.user)
     const [messageText, setMessageText] = useState([])
     const [typedMessage, setTypedMessage] = useState("")
     const [IsSendingError, setSendingError] = useState(false);
+    const [notifyUser, setNotifyUser] = useState([])
     const scrollRef = useRef();
 
-    const { trackConversation, socketMessages, setSocketMessages, } = conversationInfo;
+
+    const { trackConversation, socketMessages, setSocketMessages } = conversationInfo;
     const { chatCreator, chatPartner } = trackConversation.conversation;
 
 
 
-    // Load User Messages
+    //----- Load User Messages
     useEffect(() => {
         (async () => {
             try {
@@ -41,55 +44,64 @@ const Chat = ({ conversationInfo }) => {
 
 
 
-
-    // Handle Socket Features Here
+    //====== Join Sockets Room Here =======//
     useEffect(() => {
         socket.emit("join_room", trackConversation.chatId)
     }, [trackConversation])
 
-    // Get Message from socket
+    //----- Get Message from socket
     useEffect(() => {
         socket.on("receive_message", (socketMsg) => {
-            setSocketMessages([...socketMessages, { message: socketMsg, type: "received" }])
+            setNotifyUser([...notifyUser, { notifyUserId: socketMsg.msgReceiver }])
+            setSocketMessages([...socketMessages, { message: socketMsg.message, type: "received", }])
         })
     })
 
 
+
     const sendMessageTOSocket = () => {
-        socket.emit('send_message', { chatId: trackConversation.chatId, message: typedMessage }); setSocketMessages([...socketMessages, { message: typedMessage, type: "send" }])
+        socket.emit('send_message', { chatId: trackConversation.chatId, message: typedMessage, msgReceiver: currentUser._id });
+        setSocketMessages([...socketMessages, { message: typedMessage, type: "send" }])
         setTypedMessage("")
     };
+
+    console.log(trackConversation);
+    // ===== Send Notification =======//
+
+    const sendNotification = () => {
+        socket.emit("send_notification", { chatId: trackConversation.chatId, message: typedMessage, from: currentUser._id, to: trackConversation.conversationActive })
+    }
 
 
     // Handle Message Sending //
     const handleSendMsg = async (e) => {
         e.preventDefault();
         sendMessageTOSocket();
-
-        try {
-            const sendMsgToDB = await fetch("/api/message/create", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(
-                    {
-                        sender: currentUser._id,
-                        receiver: trackConversation.conversationActive,
-                        message: typedMessage,
-                    }
-                )
-            });
-            const response = await sendMsgToDB.json();
-            //===checking Message request success or not ===//
-            if (response.success === false) {
-                setSendingError(true)
-            }
-            else {
-                setSendingError(false)
-            }
-        } catch (error) {
-            setSendingError(true)
-            console.log(error);
-        }
+        sendNotification();
+        // try {
+        //     const sendMsgToDB = await fetch("/api/message/create", {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify(
+        //             {
+        //                 sender: currentUser._id,
+        //                 receiver: trackConversation.conversationActive,
+        //                 message: typedMessage,
+        //             }
+        //         )
+        //     });
+        //     const response = await sendMsgToDB.json();
+        //     //===checking Message request success or not ===//
+        //     if (response.success === false) {
+        //         setSendingError(true)
+        //     }
+        //     else {
+        //         setSendingError(false)
+        //     }
+        // } catch (error) {
+        //     setSendingError(true)
+        //     console.log(error);
+        // }
     }
 
 
@@ -166,6 +178,7 @@ const Chat = ({ conversationInfo }) => {
 
                     {
                         socketMessages.length !== 0 && socketMessages.map((msg, index) =>
+
                             msg.type === "send" ?
                                 <div
                                     key={index}

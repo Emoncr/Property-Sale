@@ -20,9 +20,6 @@ const Message = () => {
 
 
 
-
-
-
     useEffect(() => {
         (async () => {
             try {
@@ -39,6 +36,13 @@ const Message = () => {
             }
         })()
     }, [])
+
+
+
+
+
+
+
 
     return (
         <>
