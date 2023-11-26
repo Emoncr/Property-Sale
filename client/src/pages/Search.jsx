@@ -66,8 +66,8 @@ const Search = () => {
     }
 
     useEffect(() => {
-        scrollRef.current.scrollIntoView({ behavior: "smooth"});
-    }, [])
+        scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }, [listings])
 
     return (
         <>
@@ -79,7 +79,7 @@ const Search = () => {
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-control w-full max-w-full   sm:max-w-full relative">
                                         <input
-                                           
+
                                             type="text"
                                             placeholder="Search..."
                                             className="search sm:max-w-full"

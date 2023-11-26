@@ -12,31 +12,35 @@ import ListingPage from './pages/ListingPage'
 import SaveListing from './pages/SaveListing'
 import Search from './pages/Search'
 import Message from './pages/Message'
+import Notification from './components/Notification'
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      {/* <Theme/> */}
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/listing/:id' element={<ListingPage />} />
-        <Route path='/search?' element={<Search />} />
+    <>
+      <Notification />
+      <BrowserRouter>
+        <Header />
+        {/* <Theme/> */}
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/listing/:id' element={<ListingPage />} />
+          <Route path='/search?' element={<Search />} />
 
-        {/* /---------Private Routes-----------/ */}
-        <Route element={<PrivateRoute />}>
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/create_post' element={<CreatePost />} />
-          <Route path='/update_post/:id' element={<UpdatePost />} />
-          <Route path='/saved_listing' element={<SaveListing />} />
-          <Route path='/message' element={<Message />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          {/* /---------Private Routes-----------/ */}
+          <Route element={<PrivateRoute />}>
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/create_post' element={<CreatePost />} />
+            <Route path='/update_post/:id' element={<UpdatePost />} />
+            <Route path='/saved_listing' element={<SaveListing />} />
+            <Route path='/message' element={<Message />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 

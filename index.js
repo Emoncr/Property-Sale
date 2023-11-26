@@ -102,13 +102,19 @@ export const io = new Server(expressServer, {
 io.on("connection", (socket) => {
   console.log(`socket connected with ${socket.id}`);
 
+  //========Join Notification Feature Here==========//
+  socket.on("send_notification", (data) => {
+    console.log(data);
+    socket.broadcast.emit(`${data.to}`, data);
+  });
+
+  //=======Messaging Feature Here ======//
   socket.on("join_room", (chatId) => {
     socket.join(chatId);
-    console.log(`user connected to room ${chatId}`);
   });
 
   socket.on("send_message", (data) => {
-    socket.to(data.chatId).emit("receive_message", data.message);
+    socket.to(data.chatId).emit("receive_message", data);
   });
 
   socket.on("disconnect", (data) => {
