@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { socket } from './Notification'
 
 const Conversations = ({ conversationInfo }) => {
     const { conversation,
@@ -10,7 +11,7 @@ const Conversations = ({ conversationInfo }) => {
 
     const { currentUser } = useSelector(state => state.user)
 
-
+    console.log(socket.connected);
 
 
     return (
@@ -41,6 +42,7 @@ const Conversations = ({ conversationInfo }) => {
                             src={conversation.chatCreator.avatar}
                             alt="user image" />
                         <p className='hidden sm:block  font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>{conversation.chatCreator.username}</p>
+                        <div>dot</div>
                     </div>
                     :
 
@@ -59,15 +61,21 @@ const Conversations = ({ conversationInfo }) => {
                             setSocketMessages([])
                         )
                         }
-                        className={`chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/90 active:bg-brand-blue group w-full p-2 sm:p-3 duration-300  cursor-pointer
+                        className={`chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/90 active:bg-brand-blue group w-full p-2 sm:p-3 duration-300  cursor-pointer 
                         ${trackConversation.conversationActive === conversation.chatPartner._id ? "bg-brand-blue text-white" : "bg-gray-200 text-brand-blue"}
                         `}
                     >
-                        <img
-                            className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
-                            src={conversation.chatPartner.avatar}
-                            alt="user image" />
+                        <div className='relative rounded-full'>
+                            <img
+                                className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out '
+                                src={conversation.chatPartner.avatar}
+                                alt="user image"
+                            />
+                            <div className='absolute h-3 w-3 bottom-0 right-0 rounded-full bg-green-600'></div>
+                        </div>
+
                         <p className='hidden sm:block  font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white '>{conversation.chatPartner.username}</p>
+
                     </div>
             }
 

@@ -1,12 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { BsFillSendFill, BsImage } from "react-icons/bs";
 import { useSelector } from 'react-redux';
-import { io } from "socket.io-client"
 import { socket } from './Notification';
-
-
-// const URL = process.env.NODE_ENV === 'local' && ;
-// const socket = io("http://localhost:3000")
 
 
 
@@ -78,30 +73,30 @@ const Chat = ({ conversationInfo }) => {
         e.preventDefault();
         sendMessageTOSocket();
         sendNotification();
-        // try {
-        //     const sendMsgToDB = await fetch("/api/message/create", {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify(
-        //             {
-        //                 sender: currentUser._id,
-        //                 receiver: trackConversation.conversationActive,
-        //                 message: typedMessage,
-        //             }
-        //         )
-        //     });
-        //     const response = await sendMsgToDB.json();
-        //     //===checking Message request success or not ===//
-        //     if (response.success === false) {
-        //         setSendingError(true)
-        //     }
-        //     else {
-        //         setSendingError(false)
-        //     }
-        // } catch (error) {
-        //     setSendingError(true)
-        //     console.log(error);
-        // }
+        try {
+            const sendMsgToDB = await fetch("/api/message/create", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(
+                    {
+                        sender: currentUser._id,
+                        receiver: trackConversation.conversationActive,
+                        message: typedMessage,
+                    }
+                )
+            });
+            const response = await sendMsgToDB.json();
+            //===checking Message request success or not ===//
+            if (response.success === false) {
+                setSendingError(true)
+            }
+            else {
+                setSendingError(false)
+            }
+        } catch (error) {
+            setSendingError(true)
+            console.log(error);
+        }
     }
 
 

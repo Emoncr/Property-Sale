@@ -102,7 +102,7 @@ export const io = new Server(expressServer, {
 io.on("connection", (socket) => {
   console.log(`socket connected with ${socket.id}`);
 
-  //========Join Notification Feature Here==========//
+  //======== Notification Feature Here==========//
   socket.on("send_notification", (data) => {
     console.log(data);
     socket.broadcast.emit(`${data.to}`, data);
