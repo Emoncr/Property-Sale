@@ -12,13 +12,13 @@ import ListingPage from './pages/ListingPage'
 import SaveListing from './pages/SaveListing'
 import Search from './pages/Search'
 import Message from './pages/Message'
-import Notification from './components/Notification'
+import SocketConnection from './components/SocketConnection'
 
 
 function App() {
   return (
     <>
-      <Notification />
+      <SocketConnection />
       <BrowserRouter>
         <Header />
         {/* <Theme/> */}
