@@ -44,19 +44,41 @@ const Chat = ({ conversationInfo }) => {
         socket.emit("join_room", trackConversation.chatId)
     }, [trackConversation])
 
+
     //----- Get Message from socket
     useEffect(() => {
         socket.on("receive_message", (socketMsg) => {
             setNotifyUser([...notifyUser, { notifyUserId: socketMsg.msgReceiver }])
-            setSocketMessages([...socketMessages, { message: socketMsg.message, type: "received", }])
+
+            setSocketMessages([...socketMessages,
+            {
+                message: socketMsg.message,
+                type: "received",
+                chatId: socketMsg.chatId
+            }
+            ])
         })
     })
 
 
 
+    //====== Send Message To Socket ========//
     const sendMessageTOSocket = () => {
-        socket.emit('send_message', { chatId: trackConversation.chatId, message: typedMessage, msgReceiver: currentUser._id });
-        setSocketMessages([...socketMessages, { message: typedMessage, type: "send" }])
+        socket.emit('send_message',
+            {
+                chatId: trackConversation.chatId,
+                message: typedMessage,
+
+            });
+
+
+        setSocketMessages([...socketMessages,
+        {
+            message: typedMessage,
+            type: "send",
+            chatId: trackConversation.chatId
+        }])
+
         setTypedMessage("")
     };
 
@@ -72,37 +94,36 @@ const Chat = ({ conversationInfo }) => {
         e.preventDefault();
         sendMessageTOSocket();
         sendNotification();
-        // try {
-        //     const sendMsgToDB = await fetch("/api/message/create", {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify(
-        //             {
-        //                 sender: currentUser._id,
-        //                 receiver: trackConversation.conversationActive,
-        //                 message: typedMessage,
-        //             }
-        //         )
-        //     });
-        //     const response = await sendMsgToDB.json();
-        //     //===checking Message request success or not ===//
-        //     if (response.success === false) {
-        //         setSendingError(true)
-        //     }
-        //     else {
-        //         setSendingError(false)
-        //     }
-        // } catch (error) {
-        //     setSendingError(true)
-        //     console.log(error);
-        // }
+        try {
+            const sendMsgToDB = await fetch("/api/message/create", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(
+                    {
+                        sender: currentUser._id,
+                        receiver: trackConversation.conversationActive,
+                        message: typedMessage,
+                    }
+                )
+            });
+            const response = await sendMsgToDB.json();
+            //===checking Message request success or not ===//
+            if (response.success === false) {
+                setSendingError(true)
+            }
+            else {
+                setSendingError(false)
+            }
+        } catch (error) {
+            setSendingError(true)
+            console.log(error);
+        }
     }
 
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [socketMessages, messageText])
-
 
 
     return (
@@ -171,39 +192,47 @@ const Chat = ({ conversationInfo }) => {
                     }
 
                     {
-                        socketMessages.length !== 0 && socketMessages.map((msg, index) =>
+                        socketMessages.length !== 0 && socketMessages.map((msg, index) => (
 
-                            msg.type === "send" ?
-                                <div
-                                    key={index}
-                                    className={`flex items-end w-full flex-col justify-end`}
-                                >
-                                    <div className="User_chat  mt-2 ">
-                                        <p
-                                            ref={scrollRef}
-                                            className='text-lg font-normal bg-blue-900/80 px-2 text-white py-1 rounded-md'>
-                                            {msg.message}
-                                        </p>
+                            console.log(msg),
+                            msg.chatId === trackConversation.chatId &&
+                            <div key={index}>
+                                {
+                                    msg.type === "send" ?
+                                        <div
+                                            key={index}
+                                            className={`flex items-end w-full flex-col justify-end`}
+                                        >
+                                            <div className="User_chat  mt-2 ">
+                                                <p
+                                                    ref={scrollRef}
+                                                    className='text-lg font-normal bg-blue-900/80 px-2 text-white py-1 rounded-md'>
+                                                    {msg.message}
+                                                </p>
 
-                                    </div>
+                                            </div>
 
-                                </div>
-                                :
-                                <div
-                                    key={index}
-                                    className={`flex items-start w-full flex-col justify-end`}
-                                >
-                                    <div className="User_chat flex items-center gap-2 mt-2 ">
-                                        <img
-                                            className='h-8 w-8 rounded-full'
-                                            src={chatPartner._id === currentUser._id ? chatCreator.avatar : chatPartner.avatar}
-                                            alt="chat partner image" />
-                                        <p
-                                            className='text-lg font-normal bg-blue-500 px-2 text-white py-1 rounded-md'>
-                                            {msg.message}
-                                        </p>
-                                    </div>
-                                </div>
+                                        </div>
+                                        :
+                                        <div
+                                            key={index}
+                                            className={`flex items-start w-full flex-col justify-end`}
+                                        >
+                                            <div className="User_chat flex items-center gap-2 mt-2 ">
+                                                <img
+                                                    className='h-8 w-8 rounded-full'
+                                                    src={chatPartner._id === currentUser._id ? chatCreator.avatar : chatPartner.avatar}
+                                                    alt="chat partner image" />
+                                                <p
+                                                    className='text-lg font-normal bg-blue-500 px-2 text-white py-1 rounded-md'>
+                                                    {msg.message}
+                                                </p>
+                                            </div>
+                                        </div>
+                                }
+                            </div>
+                        )
+
                         )
                     }
                     {
