@@ -193,8 +193,6 @@ const Chat = ({ conversationInfo }) => {
 
                     {
                         socketMessages.length !== 0 && socketMessages.map((msg, index) => (
-
-                            console.log(msg),
                             msg.chatId === trackConversation.chatId &&
                             <div key={index}>
                                 {
