@@ -13,26 +13,27 @@ const Conversations = ({ conversationInfo }) => {
 
     const { currentUser } = useSelector(state => state.user)
 
-    console.log(notification);
-    console.log(conversation);
+
+
+
+    //======== Received Notification From socket Server ========//
     socket.on(`${currentUser?._id}`, (data) => {
         if (trackConversation.conversationActive === data.from) {
-            setNotification([]);
-            console.log("active chat");
+            const restNotification = notification.filter(notify => notify.chatId === conversation._id);
+            setNotification(restNotification)
         } else {
             setNotification([...notification, data]);
         }
-
     })
 
     const isNotify = notification?.some(notify => notify.chatId === conversation._id);
+
+
 
     const handleNotificationClick = (conversationId) => {
         const restNotification = notification.filter(notify => notify.chatId !== conversationId);
         setNotification(restNotification)
     }
-
-
 
 
     return (
