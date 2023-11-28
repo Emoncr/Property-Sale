@@ -14,7 +14,7 @@ const Conversations = ({ conversationInfo }) => {
     const { currentUser } = useSelector(state => state.user)
 
 
-
+    console.log(notification);
 
     //======== Received Notification From socket Server ========//
     socket.on(`${currentUser?._id}`, (data) => {
@@ -27,8 +27,6 @@ const Conversations = ({ conversationInfo }) => {
     })
 
     const isNotify = notification?.some(notify => notify.chatId === conversation._id);
-
-
 
     const handleNotificationClick = (conversationId) => {
         const restNotification = notification.filter(notify => notify.chatId !== conversationId);

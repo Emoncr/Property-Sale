@@ -15,4 +15,6 @@ router.delete("/delete/:id", verifyToken, deletePost);
 router.post("/update/:id", verifyToken, updatePost);
 router.get("/:id", singlePost);
 router.get("/", getListingPost);
+
+
 export default router;

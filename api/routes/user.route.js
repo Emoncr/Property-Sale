@@ -13,4 +13,7 @@ router.get("/:id",  getUser);
 router.post("/update/:id", verifyToken, updateUser);
 router.delete("/delete/:id", verifyToken, deleteUser);
 router.get("/posts/:id", verifyToken, userPosts);
+
+
+
 export default router;
