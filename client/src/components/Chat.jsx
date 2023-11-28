@@ -82,9 +82,37 @@ const Chat = ({ conversationInfo }) => {
         setTypedMessage("")
     };
 
+
+    //==== Sending Notificaton to DB
+    const sendNotificationToDB = async () => {
+        try {
+            const sendNotification = await fetch("/api/notification/create", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(
+                    {
+                        notification: [{ chatId: trackConversation.chatId, message: typedMessage, from: currentUser._id, to: trackConversation.conversationActive }],
+
+                        chatID: trackConversation.chatId,
+
+                        notify_from: currentUser._id,
+
+                        notify_To: trackConversation.conversationActive,
+                    }
+                )
+            })
+            const response = await sendNotification.json()
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     // ===== Send Notification =======//
     const sendNotification = async () => {
         socket.emit("send_notification", { chatId: trackConversation.chatId, message: typedMessage, from: currentUser._id, to: trackConversation.conversationActive })
+        sendNotificationToDB()
     }
 
 

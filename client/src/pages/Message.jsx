@@ -20,6 +20,9 @@ const Message = () => {
     })
 
 
+    console.log(conversations);
+
+
 
     // Load Current user Conversations
     useEffect(() => {
@@ -40,46 +43,20 @@ const Message = () => {
     }, [])
 
 
-    // Checking Notification Logic
-
-    const sendNotificationToDB = async (notifyInfo) => {
-        try {
-            const sendNotification = await fetch("/api/notification/create", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(
-                    {
-                        notification: [notifyInfo],
-                        chatID: notifyInfo.chatId,
-                        notify_from: notifyInfo.from,
-                        notify_To: notifyInfo.to,
-                    }
-                )
-            })
-            const response = await sendNotification.json()
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-
-    console.log(trackConversation.conversationActive);
 
     //======== Received Notification From socket Server ========//
     socket.on(`${currentUser?._id}`, (data) => {
-        console.log("track", trackConversation.conversationActive);
-
-        console.log("data from", data.from);
         if (trackConversation.conversationActive === data.from) {
-
             const restNotification = notification.filter(notify => notify.chatId === conversation._id);
             setNotification(restNotification)
         } else {
             setNotification([...notification, data]);
-            // sendNotificationToDB(data)
         }
     })
+
+
+
+    //======= Getting Unseened messages from DB ========//
 
 
 
@@ -108,7 +85,7 @@ const Message = () => {
                                             notification,
                                             setNotification,
                                         }
-                                    } key={index}
+                                    } key={conversation._id}
                                 />
                             )
                         }
