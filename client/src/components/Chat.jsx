@@ -83,8 +83,7 @@ const Chat = ({ conversationInfo }) => {
     };
 
     // ===== Send Notification =======//
-
-    const sendNotification = () => {
+    const sendNotification = async () => {
         socket.emit("send_notification", { chatId: trackConversation.chatId, message: typedMessage, from: currentUser._id, to: trackConversation.conversationActive })
     }
 

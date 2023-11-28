@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Chat from '../components/Chat';
 import { useSelector } from 'react-redux';
 import Conversations from '../components/Conversations';
+import { socket } from '../components/SocketConnection';
 
 
 
@@ -11,6 +12,7 @@ const Message = () => {
     const { currentUser } = useSelector(state => state.user)
     const [conversations, setConversation] = useState([])
     const [socketMessages, setSocketMessages] = useState([])
+    const [notification, setNotification] = useState([])
     const [trackConversation, setTrackConversation] = useState({
         sender: "",
         receiver: "",
@@ -19,7 +21,7 @@ const Message = () => {
 
 
 
-
+    // Load Current user Conversations
     useEffect(() => {
         (async () => {
             try {
@@ -36,6 +38,48 @@ const Message = () => {
             }
         })()
     }, [])
+
+
+    // Checking Notification Logic
+
+    const sendNotificationToDB = async (notifyInfo) => {
+        try {
+            const sendNotification = await fetch("/api/notification/create", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(
+                    {
+                        notification: [notifyInfo],
+                        chatID: notifyInfo.chatId,
+                        notify_from: notifyInfo.from,
+                        notify_To: notifyInfo.to,
+                    }
+                )
+            })
+            const response = await sendNotification.json()
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    console.log(trackConversation.conversationActive);
+
+    //======== Received Notification From socket Server ========//
+    socket.on(`${currentUser?._id}`, (data) => {
+        console.log("track", trackConversation.conversationActive);
+
+        console.log("data from", data.from);
+        if (trackConversation.conversationActive === data.from) {
+
+            const restNotification = notification.filter(notify => notify.chatId === conversation._id);
+            setNotification(restNotification)
+        } else {
+            setNotification([...notification, data]);
+            // sendNotificationToDB(data)
+        }
+    })
 
 
 
@@ -61,6 +105,8 @@ const Message = () => {
                                             setTrackConversation,
                                             socketMessages,
                                             setSocketMessages,
+                                            notification,
+                                            setNotification,
                                         }
                                     } key={index}
                                 />

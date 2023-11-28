@@ -1,30 +1,18 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { socket } from './SocketConnection'
+import { useSelector } from 'react-redux'  
 
 const Conversations = ({ conversationInfo }) => {
-    const [notification, setNotification] = useState([])
-
     const { conversation,
         trackConversation,
         setTrackConversation,
         setSocketMessages,
+        notification, 
+        setNotification
     } = conversationInfo
 
     const { currentUser } = useSelector(state => state.user)
 
 
-    console.log(notification);
-
-    //======== Received Notification From socket Server ========//
-    socket.on(`${currentUser?._id}`, (data) => {
-        if (trackConversation.conversationActive === data.from) {
-            const restNotification = notification.filter(notify => notify.chatId === conversation._id);
-            setNotification(restNotification)
-        } else {
-            setNotification([...notification, data]);
-        }
-    })
 
     const isNotify = notification?.some(notify => notify.chatId === conversation._id);
 
