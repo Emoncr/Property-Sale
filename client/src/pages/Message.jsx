@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Chat from '../components/Chat';
 import { useSelector } from 'react-redux';
 import Conversations from '../components/Conversations';
+import { socket } from '../components/SocketConnection';
 
 
 
@@ -11,6 +12,7 @@ const Message = () => {
     const { currentUser } = useSelector(state => state.user)
     const [conversations, setConversation] = useState([])
     const [socketMessages, setSocketMessages] = useState([])
+    const [notification, setNotification] = useState([])
     const [trackConversation, setTrackConversation] = useState({
         sender: "",
         receiver: "",
@@ -18,8 +20,11 @@ const Message = () => {
     })
 
 
+    console.log(conversations);
 
 
+
+    // Load Current user Conversations
     useEffect(() => {
         (async () => {
             try {
@@ -36,6 +41,18 @@ const Message = () => {
             }
         })()
     }, [])
+
+
+
+    //======== Received Notification From socket Server ========//
+    socket.on(`${currentUser?._id}`, (data) => {
+        if (trackConversation.conversationActive === data.from) {
+            const restNotification = notification.filter(notify => notify.chatId === conversation._id);
+            setNotification(restNotification)
+        } else {
+            setNotification([...notification, data]);
+        }
+    })
 
 
 
@@ -61,8 +78,10 @@ const Message = () => {
                                             setTrackConversation,
                                             socketMessages,
                                             setSocketMessages,
+                                            notification,
+                                            setNotification,
                                         }
-                                    } key={index}
+                                    } key={conversation._id}
                                 />
                             )
                         }

@@ -15,6 +15,8 @@ import { FaSignInAlt } from 'react-icons/fa'
 const Header = () => {
     const [isActiveMoblie, setisActiveMoblie] = useState(false)
     const { currentUser } = useSelector((state) => state.user)
+    const { notifications } = useSelector(state => state.notification)
+    console.log("notification", notifications);
     const { searchTermState } = useSelector((state) => state.search)
     const [searchValue, setSearchValue] = useState("")
     const navigate = useNavigate()
@@ -82,7 +84,16 @@ const Header = () => {
                             </li>
                             <li className='mr-6 capitalize text-lg text-brand-blue'>
                                 <Link to={`${currentUser ? "/message" : "/login"}`}>
-                                    <BsMessenger />
+                                    <span className='relative'>
+                                        <BsMessenger className='z-10' />
+                                        {
+                                            notifications.length === 0
+                                                ?
+                                                <p className={`text-xs px-[2px] font-heading font-medium bg-lime-600 text-white absolute  top-[-13px] right-[-14px]  flex items-center justify-center rounded-sm`}>new</p>
+                                                :
+                                                <p className={`text-[11px] font-content font-medium bg-[#c00] text-white absolute  top-[-10px] h-4 ${notifications.length < 9 ? "w-3 right-[-8px]" : "w-4 right-[-10px]"} flex items-center justify-center rounded-sm`}>{notifications.length}</p>
+                                        }
+                                    </span>
                                 </Link>
                             </li>
                             {

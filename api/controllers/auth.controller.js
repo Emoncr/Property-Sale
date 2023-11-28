@@ -10,7 +10,7 @@ export const singup = async (req, res, next) => {
   const hashedPassword = bcrypt.hashSync(password, 10);
   const newUser = new User({ username, email, password: hashedPassword });
   try {
-    await newUser.save();
+    await newUser.save(); 
     res.status(201).json({
       success: true,
       message: "User created successfully",

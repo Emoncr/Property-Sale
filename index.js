@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import postRouter from "./api/routes/post.route.js";
 import messageRouter from "./api/routes/message.route.js";
 import conversationRoute from "./api/routes/conversation.route.js";
+import notificatonRoute from "./api/routes/notification.route.js";
 
 import path from "path";
 import http from "http";
@@ -54,6 +55,7 @@ app.use("/api/auth", auth);
 app.use("/api/posts", postRouter);
 app.use("/api/message", messageRouter);
 app.use("/api/conversation", conversationRoute);
+app.use("/api/notification", notificatonRoute);
 
 //============== Deployment==============//
 
@@ -99,14 +101,12 @@ export const io = new Server(expressServer, {
   },
 });
 
-
-
-
 io.on("connection", (socket) => {
   console.log(`socket connected with ${socket.id}`);
 
   //======== Notification Feature Here==========//
   socket.on("send_notification", (data) => {
+    console.log(data);
     socket.broadcast.emit(`${data.to}`, data);
   });
 
@@ -116,7 +116,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send_message", (data) => {
-console.log(data);
+    
     socket.to(data.chatId).emit("receive_message", data);
   });
 
