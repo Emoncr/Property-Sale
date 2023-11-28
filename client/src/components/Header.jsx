@@ -6,10 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Profile from './ProfileOption'
 import { setSearchTermState } from '../redux/search/searchSlice'
 import { FaSignInAlt } from 'react-icons/fa'
-
-
-
-
+import { MdOutlineClose } from "react-icons/md";
 
 
 const Header = () => {
@@ -124,7 +121,10 @@ const Header = () => {
                                 className="btn btn-ghost p-1 hover:bg-transparent text-lg"
                                 onClick={() => setisActiveMoblie(!isActiveMoblie)}
                             >
-                                <BsJustifyRight className='text-brand-blue' />
+                                {
+                                    isActiveMoblie ? <MdOutlineClose className='text-red-600 font-bold' /> : <BsJustifyRight className='text-brand-blue' />
+                                }
+
                             </button>
                         </div>
 
