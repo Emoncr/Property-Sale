@@ -56,10 +56,6 @@ const Message = () => {
 
 
 
-    //======= Getting Unseened messages from DB ========//
-
-
-
 
 
 

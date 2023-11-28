@@ -1,7 +1,6 @@
 import Notifications from "../models/notification.model.js";
 import { throwError } from "../utils/error.js";
 
-
 export const createNotification = async (req, res, next) => {
   try {
     const { notify_from } = req.body;
@@ -21,10 +20,10 @@ export const createNotification = async (req, res, next) => {
   }
 };
 
-
-
 //======= Get Notification=======//
 export const getNotification = async (req, res, next) => {
+  if (req.user.id != req.params.id)
+    return next(throwError(401, "User unauthorized!"));
   try {
     const notification = await Notifications.find({ notify_To: req.params.id });
     res.status(200).json(notification);

@@ -5,6 +5,6 @@ import { verifyToken } from "../utils/varifyUser.js";
 const router = express.Router();
 
 router.post("/create",  createNotification);
-router.get("/:id",  getNotification);
+router.get("/:id", verifyToken, getNotification);
 
 export default router;
