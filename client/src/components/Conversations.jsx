@@ -71,7 +71,7 @@ const Conversations = ({ conversationInfo }) => {
                                 </div>
                             </div>
                             <p className='hidden sm:block  font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>{conversation.chatCreator.username}</p>
-                            {isNotify && <p className='bg-red-600 hidden md:block font-heading px-2 py-[2px] rounded-md capitalize  text-xs text-white'>new!</p>}
+                            {isNotify && <p className=' hidden md:block font-heading px-2 py-[2px] rounded-md capitalize  text-xs text-white bg-red-600'>new!</p>}
 
                             {isNotify && <p className='text-red-600 md:hidden font-heading  rounded-md capitalize  text-lg '>!</p>}
                         </div>
