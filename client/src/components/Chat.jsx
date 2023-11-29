@@ -10,11 +10,10 @@ const Chat = ({ conversationInfo }) => {
     const [messageText, setMessageText] = useState([])
     const [typedMessage, setTypedMessage] = useState("")
     const [IsSendingError, setSendingError] = useState(false);
-    const [notifyUser, setNotifyUser] = useState([])
     const scrollRef = useRef();
+    const [socketMessages, setSocketMessages] = useState([])
 
-
-    const { trackConversation, socketMessages, setSocketMessages } = conversationInfo;
+    const { trackConversation} = conversationInfo;
     const { chatCreator, chatPartner } = trackConversation.conversation;
 
 
@@ -48,8 +47,6 @@ const Chat = ({ conversationInfo }) => {
     //----- Get Message from socket
     useEffect(() => {
         socket.on("receive_message", (socketMsg) => {
-            setNotifyUser([...notifyUser, { notifyUserId: socketMsg.msgReceiver }])
-
             setSocketMessages([...socketMessages,
             {
                 message: socketMsg.message,
@@ -60,6 +57,8 @@ const Chat = ({ conversationInfo }) => {
         })
     })
 
+    
+
 
 
     //====== Send Message To Socket ========//
@@ -68,7 +67,8 @@ const Chat = ({ conversationInfo }) => {
             {
                 chatId: trackConversation.chatId,
                 message: typedMessage,
-
+                from: currentUser._id,
+                to: trackConversation.conversationActive
             });
 
 
@@ -83,44 +83,15 @@ const Chat = ({ conversationInfo }) => {
     };
 
 
-    //==== Sending Notificaton to DB
-    const sendNotificationToDB = async () => {
-        try {
-            const sendNotification = await fetch("/api/notification/create", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(
-                    {
-                        notification: [{ chatId: trackConversation.chatId, message: typedMessage, from: currentUser._id, to: trackConversation.conversationActive }],
+ 
 
-                        chatID: trackConversation.chatId,
-
-                        notify_from: currentUser._id,
-
-                        notify_To: trackConversation.conversationActive,
-                    }
-                )
-            })
-            const response = await sendNotification.json()
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-
-    // ===== Send Notification =======//
-    const sendNotification = async () => {
-        socket.emit("send_notification", { chatId: trackConversation.chatId, message: typedMessage, from: currentUser._id, to: trackConversation.conversationActive })
-        sendNotificationToDB()
-    }
+ 
 
 
     // Handle Message Sending //
     const handleSendMsg = async (e) => {
         e.preventDefault();
         sendMessageTOSocket();
-        sendNotification();
         try {
             const sendMsgToDB = await fetch("/api/message/create", {
                 method: 'POST',

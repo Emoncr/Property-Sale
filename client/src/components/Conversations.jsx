@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteNotification } from '../redux/notifications/notificationSlice'
+import { deleteNotification, setConversationActive, setNotification, setSingleNotification, } from '../redux/notifications/notificationSlice'
+import { signal } from '@preact/signals-react'
+
+
+export const activeChatId = signal({
+    chatId: ""
+})
 
 const Conversations = ({ conversationInfo }) => {
     const { conversation,
         trackConversation,
         setTrackConversation,
-        setSocketMessages,
-        notification,
-        setNotification
     } = conversationInfo
+
+
 
     const { currentUser } = useSelector(state => state.user)
     const { notificationsDB } = useSelector(state => state.notification)
@@ -20,18 +25,21 @@ const Conversations = ({ conversationInfo }) => {
 
 
 
-    const isNotify = notification?.some(notify => notify.chatId === conversation._id);
+
+
+
+
+    const isNotify = notificationsDB?.some(notify => notify.chatId === conversation._id);
 
     const handleNotificationClick = (conversationId) => {
-        const restNotification = notification.filter(notify => notify.chatId !== conversationId);
-        setNotification(restNotification)
+        const restNotification = notificationsDB.filter(notify => notify.chatId !== conversationId);
+        // dispatch(setNotification(restNotification))
     }
-
 
 
     //===== Delete Notification From DB========//
     const notifyDeleteFromDB = async (notify_from) => {
-        const isNotifyExistDB = notificationsDB?.some(notify => notify.notify_from === notify_from);
+        const isNotifyExistDB = notificationsDB?.some(notify => notify.from === notify_from);
         if (isNotifyExistDB) {
             try {
                 const dltNotify = await fetch(`/api/notification/delete/${notify_from}`, {
@@ -41,7 +49,7 @@ const Conversations = ({ conversationInfo }) => {
 
                 if (res.success !== false) {
                     const restNotification = notificationsDB.filter(notify => notify.notify_from !== notify_from);
-                    dispatch(deleteNotification(restNotification))
+                    // dispatch(deleteNotification(restNotification))
                 }
             } catch (error) {
                 console.log(error.message);
@@ -59,7 +67,9 @@ const Conversations = ({ conversationInfo }) => {
                     <>
                         <div
                             onClick={() => (
+
                                 setTrackConversation(
+
                                     {
                                         ...trackConversation,
                                         conversationActive: conversation.chatCreator._id,
@@ -70,9 +80,11 @@ const Conversations = ({ conversationInfo }) => {
 
                                     }
                                 ),
-                                setSocketMessages([]),
+                                // setSocketMessages([]),
                                 handleNotificationClick(conversation._id),
-                                notifyDeleteFromDB(conversation.chatCreator._id)
+                                notifyDeleteFromDB(conversation.chatCreator._id),
+                                activeChatId.value.chatId = conversation._id
+
                             )
                             }
                             className={`chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/90 active:bg-brand-blue  group w-full p-2 sm:p-3 gap-1 duration-300  cursor-pointer ${trackConversation.conversationActive === conversation.chatCreator._id ? "bg-brand-blue text-white" : "bg-gray-200 text-brand-blue"}`}
@@ -105,9 +117,10 @@ const Conversations = ({ conversationInfo }) => {
                                     conversation,
                                     chatId: conversation._id
                                 }),
-                                setSocketMessages([]),
+                                // setSocketMessages([]),
                                 handleNotificationClick(conversation._id),
-                                notifyDeleteFromDB(conversation.chatPartner._id)
+                                notifyDeleteFromDB(conversation.chatPartner._id),
+                                activeChatId.value.chatId = conversation._id
                             )
                             }
                             className={`chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/90 active:bg-brand-blue group w-full p-2 sm:p-3 gap-1 duration-300  cursor-pointer 

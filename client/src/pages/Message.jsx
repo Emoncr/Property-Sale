@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import Chat from '../components/Chat';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Conversations from '../components/Conversations';
-import { socket } from '../components/SocketConnection';
-
-
+import { signal } from "@preact/signals-react";
 
 
 
 const Message = () => {
     const { currentUser } = useSelector(state => state.user)
     const [conversations, setConversation] = useState([])
-    const [socketMessages, setSocketMessages] = useState([])
-    const [notification, setNotification] = useState([])
+
+ 
+
     const [trackConversation, setTrackConversation] = useState({
         sender: "",
         receiver: "",
         conversationActive: null,
     })
 
-
-    console.log(conversations);
+    const dispatch = useDispatch()
+    const { notificationsDB } = useSelector(state => state.notification)
 
 
 
@@ -43,17 +42,15 @@ const Message = () => {
     }, [])
 
 
-
-    //======== Received Notification From socket Server ========//
-    socket.on(`${currentUser?._id}`, (data) => {
-        if (trackConversation.conversationActive === data.from) {
-            const restNotification = notification.filter(notify => notify.chatId === conversation._id);
-            setNotification(restNotification)
-        } else {
-            setNotification([...notification, data]);
-        }
-    })
-
+    // //======== Received Notification From socket Server ========//
+    // socket.on(`${currentUser?._id}`, (data) => {
+    //     if (trackConversation.conversationActive === data.from) {
+    //         const restNotification = notificationsDB.filter(notify => notify.chatId === trackConversation.chatId);
+    //         dispatch(setNotification(restNotification))
+    //     } else {
+    //         dispatch(setSingleNotification(data))
+    //     }
+    // })
 
 
 
@@ -69,19 +66,21 @@ const Message = () => {
 
                         <h3 className='font-heading  px-2 mb-3 sm:px-3 text-sm sm:text-3xl text-black'>Chats...</h3>
                         {
+
                             conversations && conversations.map((conversation, index) =>
+
                                 <Conversations
+                                    // conversationInfo={trackConv}
                                     conversationInfo={
                                         {
                                             conversation,
                                             trackConversation,
                                             setTrackConversation,
-                                            socketMessages,
-                                            setSocketMessages,
-                                            notification,
-                                            setNotification,
+                                            // socketMessages,
+                                            // setSocketMessages,
                                         }
-                                    } key={conversation._id}
+                                    }
+                                    key={conversation._id}
                                 />
                             )
                         }
@@ -94,8 +93,8 @@ const Message = () => {
                                 <Chat conversationInfo={{
                                     trackConversation,
                                     setTrackConversation,
-                                    socketMessages,
-                                    setSocketMessages,
+                                    // socketMessages,
+                                    // setSocketMessages,
 
                                 }} />
                             </div>

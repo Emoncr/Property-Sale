@@ -2,19 +2,19 @@ import { mongoose } from "mongoose";
 
 const notificationSchema = new mongoose.Schema(
   {
-    notification: {
-      type: Array,
-      required: true,
-    },
-    chatID: {
+    message: {
       type: String,
       required: true,
     },
-    notify_from: {
+    chatId: {
       type: String,
       required: true,
     },
-    notify_To: {
+    from: {
+      type: String,
+      required: true,
+    },
+    to: {
       type: String,
       required: true,
     },

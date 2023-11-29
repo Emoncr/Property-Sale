@@ -1,11 +1,12 @@
 import Notifications from "../models/notification.model.js";
 import { throwError } from "../utils/error.js";
 
+// ====== Create Notifications
 export const createNotification = async (req, res, next) => {
   try {
-    const { notify_from } = req.body;
+    const { from } = req.body;
 
-    const existingNotification = await Notifications.findOne({ notify_from });
+    const existingNotification = await Notifications.findOne({ from });
 
     if (existingNotification) {
       return next(throwError(403, "Notification already exists"));
@@ -25,7 +26,7 @@ export const getNotification = async (req, res, next) => {
   if (req.user.id != req.params.id)
     return next(throwError(401, "User unauthorized!"));
   try {
-    const notification = await Notifications.find({ notify_To: req.params.id });
+    const notification = await Notifications.find({ to: req.params.id });
     res.status(200).json(notification);
   } catch (error) {
     next(error);
@@ -37,7 +38,7 @@ export const getNotification = async (req, res, next) => {
 export const deleteNotification = async (req, res, next) => {
   try {
     const dltNotification = await Notifications.deleteOne({
-      notify_from: req.params.id,
+      from: req.params.id,
     });
     console.log(dltNotification);
     res.status(202).json("Notification deleteed successfully");
