@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'  
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteNotification } from '../redux/notifications/notificationSlice'
 
 const Conversations = ({ conversationInfo }) => {
     const { conversation,
         trackConversation,
         setTrackConversation,
         setSocketMessages,
-        notification, 
+        notification,
         setNotification
     } = conversationInfo
 
     const { currentUser } = useSelector(state => state.user)
+    const { notificationsDB } = useSelector(state => state.notification)
+
+    const dispatch = useDispatch()
+
+
 
 
 
@@ -19,6 +25,28 @@ const Conversations = ({ conversationInfo }) => {
     const handleNotificationClick = (conversationId) => {
         const restNotification = notification.filter(notify => notify.chatId !== conversationId);
         setNotification(restNotification)
+    }
+
+
+
+    //===== Delete Notification From DB========//
+    const notifyDeleteFromDB = async (notify_from) => {
+        const isNotifyExistDB = notificationsDB?.some(notify => notify.notify_from === notify_from);
+        if (isNotifyExistDB) {
+            try {
+                const dltNotify = await fetch(`/api/notification/delete/${notify_from}`, {
+                    method: 'DELETE'
+                })
+                const res = await dltNotify.json();
+
+                if (res.success !== false) {
+                    const restNotification = notificationsDB.filter(notify => notify.notify_from !== notify_from);
+                    dispatch(deleteNotification(restNotification))
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
     }
 
 
@@ -43,7 +71,8 @@ const Conversations = ({ conversationInfo }) => {
                                     }
                                 ),
                                 setSocketMessages([]),
-                                handleNotificationClick(conversation._id)
+                                handleNotificationClick(conversation._id),
+                                notifyDeleteFromDB(conversation.chatCreator._id)
                             )
                             }
                             className={`chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/90 active:bg-brand-blue  group w-full p-2 sm:p-3 gap-1 duration-300  cursor-pointer ${trackConversation.conversationActive === conversation.chatCreator._id ? "bg-brand-blue text-white" : "bg-gray-200 text-brand-blue"}`}
@@ -77,7 +106,8 @@ const Conversations = ({ conversationInfo }) => {
                                     chatId: conversation._id
                                 }),
                                 setSocketMessages([]),
-                                handleNotificationClick(conversation._id)
+                                handleNotificationClick(conversation._id),
+                                notifyDeleteFromDB(conversation.chatPartner._id)
                             )
                             }
                             className={`chat_user flex items-center justify-center sm:justify-start sm:flex-row sm:gap-4 hover:bg-brand-blue/90 active:bg-brand-blue group w-full p-2 sm:p-3 gap-1 duration-300  cursor-pointer 

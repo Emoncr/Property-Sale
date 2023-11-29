@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  notifications: [],
+  notificationsDB: [],
 };
 
 const notificationSlice = createSlice({
@@ -9,10 +9,10 @@ const notificationSlice = createSlice({
   initialState,
   reducers: {
     setNotification: (state, action) => {
-      state.notifications = action.payload;
+      state.notificationsDB = action.payload;
     },
     deleteNotification: (state, action) => {
-      state.notifications = action.payload;
+      state.notificationsDB = action.payload;
     },
   },
 });
