@@ -31,3 +31,17 @@ export const getNotification = async (req, res, next) => {
     next(error);
   }
 };
+
+//======== Delete Notificaton=========//
+
+export const deleteNotification = async (req, res, next) => {
+  try {
+    const dltNotification = await Notifications.deleteOne({
+      notify_from: req.params.id,
+    });
+    console.log(dltNotification);
+    res.status(202).json(dltNotification)
+  } catch (error) {
+    next(error);
+  }
+};
