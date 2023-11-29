@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   notificationsDB: [],
+  conversationActive: { chatId: "" },
 };
 
 const notificationSlice = createSlice({
@@ -14,10 +15,17 @@ const notificationSlice = createSlice({
     deleteNotification: (state, action) => {
       state.notificationsDB = action.payload;
     },
+    setSingleNotification: (state, action) => {
+      state.notificationsDB.push(action.payload);
+    },
   },
 });
 
-export const { setNotification, deleteNotification } =
-  notificationSlice.actions;
+export const {
+  setNotification,
+  deleteNotification,
+  setSingleNotification,
+  setConversationActive,
+} = notificationSlice.actions;
 
 export default notificationSlice.reducer;
