@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaBath, FaBed, FaChartArea, FaHeart, FaLocationArrow } from 'react-icons/fa'
+import { FaBath, FaBed, FaChartArea, FaBookmark  , FaLocationArrow, } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { clearSavedListing, handleLisingRemove, handleSave } from '../redux/saveListing/saveListingSlice';
@@ -122,7 +122,7 @@ const ListingCard = ({ listing }) => {
                             <button
                                 onClick={() => handleSaveListings(_id)}
                                 className={`text-lg drop-shadow-sm duration-300  ${heart ? 'text-brand-blue' : "text-gray-300"} `}>
-                                <FaHeart />
+                                <FaBookmark className='' />
                             </button>
                         </div>
                     </div>

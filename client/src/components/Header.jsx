@@ -9,12 +9,12 @@ import { FaSignInAlt } from 'react-icons/fa'
 import { MdOutlineClose } from "react-icons/md";
 
 
+
+
 const Header = () => {
     const [isActiveMoblie, setisActiveMoblie] = useState(false)
     const { currentUser } = useSelector((state) => state.user)
     const { notifications } = useSelector(state => state.notification)
-    console.log("notification", notifications);
-    const { searchTermState } = useSelector((state) => state.search)
     const [searchValue, setSearchValue] = useState("")
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -25,10 +25,6 @@ const Header = () => {
         navigate(`/search`)
         setSearchValue("")
     }
-
-
-
-
 
 
 
@@ -107,9 +103,6 @@ const Header = () => {
                         </ul>
 
                         <div className="nav_mobile flex items-center justify-center sm:hidden gap-1">
-
-
-
                             {/* User Profile Image  */}
                             {/* {currentUser && <Profile user={currentUser} />} */}
 
