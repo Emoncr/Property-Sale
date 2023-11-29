@@ -10,16 +10,22 @@ export const createPost = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}; 
+};
 
+//======handle post Delete========//
 export const deletePost = async (req, res, next) => {
   const isPostExist = await Listing.findById(req.params.id);
+
   if (!isPostExist) return next(throwError(404, "Post not found"));
+
   if (req.user.id != isPostExist.userRef)
     return next(throwError(400, "You can delete your own post"));
+
   try {
     await Listing.findByIdAndDelete(req.params.id);
+    
     res.status(200).json("Post delete successfully");
+
   } catch (error) {
     next(error);
   }
@@ -50,7 +56,7 @@ export const singlePost = async (req, res, next) => {
     res.status(200).json(post);
   } catch (error) {
     next(error);
-  } 
+  }
 };
 
 //====GET LISTING Post ====//
@@ -58,7 +64,7 @@ export const singlePost = async (req, res, next) => {
 export const getListingPost = async (req, res, next) => {
   try {
     const searchTerm = req.query.searchTerm || "";
-    const type = req.query.type || ""; 
+    const type = req.query.type || "";
     const offer = req.query.offer || "";
     const parking = req.query.parking || "";
     const furnished = req.query.furnished || "";
