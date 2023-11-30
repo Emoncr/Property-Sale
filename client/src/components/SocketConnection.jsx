@@ -14,7 +14,6 @@ export const notifySignal = signal({
 
 
 const SocketConnection = () => {
-
     const { currentUser } = useSelector(state => state.user)
     const dispatch = useDispatch();
 
@@ -23,17 +22,21 @@ const SocketConnection = () => {
     //======== Get Notification From DB =========//
     useEffect(() => {
         const loadPrevNotification = async () => {
-            const unseenNotificaton = await fetch(`/api/notification/${currentUser._id}`);
-            const res = await unseenNotificaton.json();
-            if (res.success === false) {
-                console.log(res);
-            }
-            else {
-                notifySignal.value.notifications = res;
-                dispatch(setNotification(res))
+            try {
+                const unseenNotificaton = await fetch(`/api/notification/${currentUser._id}`);
+                const res = await unseenNotificaton.json();
+                if (res.success === false) {
+                    console.log(res);
+                }
+                else {
+                    notifySignal.value.notifications = res;
+                    dispatch(setNotification(res))
+                }
+            } catch (error) {
+                console.log(error.message);
             }
         }
-        loadPrevNotification()
+        currentUser && loadPrevNotification()
     }, [])
 
 
