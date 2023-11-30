@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import Chat from '../components/Chat';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Conversations from '../components/Conversations';
-import { signal } from "@preact/signals-react";
-
-
 
 const Message = () => {
     const { currentUser } = useSelector(state => state.user)
     const [conversations, setConversation] = useState([])
-
- 
-
+    
     const [trackConversation, setTrackConversation] = useState({
         sender: "",
         receiver: "",
         conversationActive: null,
     })
 
-    const dispatch = useDispatch()
-    const { notificationsDB } = useSelector(state => state.notification)
+
+
+
+
 
 
 
@@ -42,15 +39,7 @@ const Message = () => {
     }, [])
 
 
-    // //======== Received Notification From socket Server ========//
-    // socket.on(`${currentUser?._id}`, (data) => {
-    //     if (trackConversation.conversationActive === data.from) {
-    //         const restNotification = notificationsDB.filter(notify => notify.chatId === trackConversation.chatId);
-    //         dispatch(setNotification(restNotification))
-    //     } else {
-    //         dispatch(setSingleNotification(data))
-    //     }
-    // })
+    
 
 
 

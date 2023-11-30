@@ -13,7 +13,7 @@ const notificationSlice = createSlice({
       state.notificationsDB = action.payload;
     },
     deleteNotification: (state, action) => {
-      state.notificationsDB = action.payload;
+      state.notificationsDB.pop(action.payload);
     },
     setSingleNotification: (state, action) => {
       state.notificationsDB.push(action.payload);

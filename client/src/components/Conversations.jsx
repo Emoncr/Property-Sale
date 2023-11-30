@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { signal } from '@preact/signals-react'
 import { notifySignal } from './SocketConnection'
+import { deleteNotification, setNotification } from '../redux/notifications/notificationSlice'
 
 export const activeChatId = signal({
     chatId: ""
@@ -13,48 +14,44 @@ const Conversations = ({ conversationInfo }) => {
         trackConversation,
         setTrackConversation,
     } = conversationInfo
-
+    const dispatch = useDispatch();
     let notifications = notifySignal.value.notifications;
 
     const { currentUser } = useSelector(state => state.user)
+    const { notificationsDB } = useSelector(state => state.notification)
 
 
 
-
-    console.log(notifications);
-
-    const isNotify = notifications.some(notify => notify.chatId === conversation._id);
+    const isNotify = notificationsDB.some(notify => notify.chatId === conversation._id);
 
     const handleNotificationClick = (conversationId) => {
-        // debugger
-        notifications.find(notify => {
-            if (notify.chatId === conversationId) {
-                notifications.pop(notify)
-            }
-        });
+        const notificationIndex = notifications.some(notify => notify.chatId === conversationId);
 
+        if (notificationIndex) {
+            const restNotifications = notifications.filter(notify => notify.chatId !== conversationId)
+            notifySignal.value.notifications = restNotifications;
+            dispatch(setNotification(restNotifications));
+        }
+    };
 
-    }
 
 
     //===== Delete Notification From DB========//
     const notifyDeleteFromDB = async (notify_from) => {
-        // const isNotifyExistDB = notifications?.some(notify => notify.from === notify_from);
-        // if (isNotifyExistDB) {
-        //     try {
-        //         const dltNotify = await fetch(`/api/notification/delete/${notify_from}`, {
-        //             method: 'DELETE'
-        //         })
-        //         const res = await dltNotify.json();
-
-        //         if (res.success !== false) {
-        //             const restNotification = notifications.filter(notify => notify.notify_from !== notify_from);
-        //             // dispatch(deleteNotification(restNotification))
-        //         }
-        //     } catch (error) {
-        //         console.log(error.message);
-        //     }
-        // }
+        const isNotifyExistDB = notifications.some(notify => notify.from === notify_from);
+        if (isNotifyExistDB) {
+            try {
+                const dltNotify = await fetch(`/api/notification/delete/${notify_from}`, {
+                    method: 'DELETE'
+                })
+                const res = await dltNotify.json();
+                if (res.success === false) {
+                    console.log(res);
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
     }
 
 
@@ -80,8 +77,8 @@ const Conversations = ({ conversationInfo }) => {
 
                                     }
                                 ),
-                                handleNotificationClick(conversation._id),
                                 notifyDeleteFromDB(conversation.chatCreator._id),
+                                handleNotificationClick(conversation._id),
                                 activeChatId.value.chatId = conversation._id
 
                             )
@@ -117,8 +114,8 @@ const Conversations = ({ conversationInfo }) => {
                                     chatId: conversation._id
                                 }),
                                 // setSocketMessages([]),
-                                handleNotificationClick(conversation._id),
                                 notifyDeleteFromDB(conversation.chatPartner._id),
+                                handleNotificationClick(conversation._id),
                                 activeChatId.value.chatId = conversation._id
                             )
                             }
