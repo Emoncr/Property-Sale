@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BsFillSendFill, BsImage } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import { socket } from './SocketConnection';
-
-
+import { MdDelete } from "react-icons/md";
 
 const Chat = ({ conversationInfo }) => {
     const { currentUser } = useSelector(state => state.user)
@@ -13,7 +12,7 @@ const Chat = ({ conversationInfo }) => {
     const scrollRef = useRef();
     const [socketMessages, setSocketMessages] = useState([])
 
-    const { trackConversation} = conversationInfo;
+    const { trackConversation } = conversationInfo;
     const { chatCreator, chatPartner } = trackConversation.conversation;
 
 
@@ -57,7 +56,7 @@ const Chat = ({ conversationInfo }) => {
         })
     })
 
-    
+
 
 
 
@@ -83,9 +82,9 @@ const Chat = ({ conversationInfo }) => {
     };
 
 
- 
 
- 
+
+
 
 
     // Handle Message Sending //
@@ -140,8 +139,11 @@ const Chat = ({ conversationInfo }) => {
 
 
                 <div className="show_user_listing flex items-center justify-end">
-                    <button className='font-heading  rounded-sm py-2 px-5 text-brand-blue'>
-                        !
+                    <button className='font-heading  text-sm py-2 px-5 text-red-700'>
+                        <span className='flex items-center'>
+                            <MdDelete className='text-red-700' />
+                            Delete
+                        </span>
                     </button>
                 </div>
             </div>
@@ -257,6 +259,7 @@ const Chat = ({ conversationInfo }) => {
                                 type='submit'
                                 className='p-2 rounded-full hover:bg-gray-200 duration-300'>
                                 <BsFillSendFill className='text-brand-blue' />
+
                             </button>
                         </div>
                     </div>

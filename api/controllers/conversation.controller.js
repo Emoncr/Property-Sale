@@ -55,3 +55,15 @@ export const createConversation = async (req, res, next) => {
     next(error);
   }
 };
+
+// ====== Delete Conversations ==========//
+
+export const deleteConversation = async (req, res, next) => {
+  const chatId = req.params.chatId;
+  try {
+    const deletedChat = await Conversation.findByIdAndDelete(chatId);
+    res.status(202).json(deletedChat);
+  } catch (error) {
+    next(error);
+  }
+};
