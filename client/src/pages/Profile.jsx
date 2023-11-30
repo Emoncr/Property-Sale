@@ -121,7 +121,7 @@ const Profile = () => {
         //===showing error in tostify====//
         toast.error(resData.message, {
           autoClose: 2000,
-        })
+        }) 
       }
       else {
         dispatch(userDeleteSuccess())

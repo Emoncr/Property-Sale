@@ -3,6 +3,11 @@ import { BsFillSendFill, BsImage } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import { socket } from './SocketConnection';
 import { MdDelete } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Chat = ({ conversationInfo }) => {
     const { currentUser } = useSelector(state => state.user)
@@ -12,10 +17,10 @@ const Chat = ({ conversationInfo }) => {
     const scrollRef = useRef();
     const [socketMessages, setSocketMessages] = useState([])
 
-    const { trackConversation } = conversationInfo;
-    const { chatCreator, chatPartner } = trackConversation.conversation;
+    const { trackConversation, setTrackConversation, conversations, setConversation, } = conversationInfo;
+    const { chatCreator, chatPartner, _id } = trackConversation.conversation;
 
-
+    const navigate = useNavigate()
 
     //----- Load User Messages
     useEffect(() => {
@@ -123,6 +128,65 @@ const Chat = ({ conversationInfo }) => {
     }, [socketMessages, messageText])
 
 
+
+
+
+    // //====== Handle Conversation delete =======//
+    // const handleConversationDelte = async () => {
+    //     debugger
+    //     try {
+    //         const deleteChat = await fetch(`/api/conversation/delete/${_id}`, {
+    //             method: 'DELETE'
+    //         });
+    //         const res = await deleteChat.json();
+    //         console.log(res);
+    //         if (res.success === false) {
+    //             toast.error(res.message, {
+    //                 autoClose: 2000,
+    //             })
+    //         }
+    //         else {
+    //             // navigate("/message")
+    //             const restConversation = conversations.filter(conversation => conversation._id !== _id)
+    //             setConversation(restConversation)
+    //         }
+    //     } catch (error) {
+    //         toast.error(error.message, {
+    //             autoClose: 2000,
+    //         })
+    //     }
+    // }
+    const handleConversationDelete = async () => {
+        try {
+            const deleteChat = await fetch(`/api/conversation/delete/${_id}`, {
+                method: 'DELETE'
+            });
+            if (deleteChat.ok) {
+                const restConversation = conversations.filter(conversation => conversation._id !== _id)
+                setConversation(restConversation)
+                setTrackConversation({
+                    ...trackConversation,
+                    conversationActive: "",
+                })
+            } else {
+                const errorRes = await deleteChat.json();
+                toast.error(errorRes.message, {
+                    autoClose: 2000,
+                });
+            }
+        } catch (error) {
+            toast.error(error.message, {
+                autoClose: 2000,
+            });
+        }
+    };
+
+
+
+
+
+
+
     return (
         <div className="conversation_container bg-white  ">
             <div className="chat_person_container  grid grid-cols-2 bg-white shadow-sm items-center px-5 py-3 border-b border-">
@@ -139,7 +203,9 @@ const Chat = ({ conversationInfo }) => {
 
 
                 <div className="show_user_listing flex items-center justify-end">
-                    <button className='font-heading  text-sm py-2 px-5 text-red-700'>
+                    <button
+                        onClick={handleConversationDelete}
+                        className='font-heading  text-sm py-2 px-5 text-red-700'>
                         <span className='flex items-center'>
                             <MdDelete className='text-red-700' />
                             Delete
@@ -265,6 +331,7 @@ const Chat = ({ conversationInfo }) => {
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </div >
     )
 }

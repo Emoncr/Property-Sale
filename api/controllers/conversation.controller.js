@@ -61,8 +61,8 @@ export const createConversation = async (req, res, next) => {
 export const deleteConversation = async (req, res, next) => {
   const chatId = req.params.chatId;
   try {
-    const deletedChat = await Conversation.findByIdAndDelete(chatId);
-    res.status(202).json(deletedChat);
+    await Conversation.findByIdAndDelete(chatId);
+    res.status(204).json("conversation deleted successfully"); 
   } catch (error) {
     next(error);
   }

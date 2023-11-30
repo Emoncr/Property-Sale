@@ -59,14 +59,11 @@ const Message = () => {
                             conversations && conversations.map((conversation, index) =>
 
                                 <Conversations
-                                    // conversationInfo={trackConv}
                                     conversationInfo={
                                         {
                                             conversation,
                                             trackConversation,
                                             setTrackConversation,
-                                            // socketMessages,
-                                            // setSocketMessages,
                                         }
                                     }
                                     key={conversation._id}
@@ -82,8 +79,8 @@ const Message = () => {
                                 <Chat conversationInfo={{
                                     trackConversation,
                                     setTrackConversation,
-                                    // socketMessages,
-                                    // setSocketMessages,
+                                    conversations, 
+                                    setConversation,
 
                                 }} />
                             </div>
