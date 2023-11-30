@@ -16,25 +16,27 @@ export const notifySignal = signal({
 const SocketConnection = () => {
 
     const { currentUser } = useSelector(state => state.user)
-    const { notificationsDB } = useSelector(state => state.notification)
     const dispatch = useDispatch();
 
 
 
-    //======= Getting Unseened messages from DB ========//
-    // useEffect(() => {
-    //     (async () => {
-    //         try {
-    //             const unseenNotificaton = await fetch(`/api/notification/${currentUser._id}`)
-    //             const res = await unseenNotificaton.json();
-    //             if (res.success !== false) {
-    //                 dispatch(setNotification(res))
-    //             }
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     })()
-    // }, [])
+    //======== Get Notification From DB =========//
+    useEffect(() => {
+        const loadPrevNotification = async () => {
+            const unseenNotificaton = await fetch(`/api/notification/${currentUser._id}`);
+            const res = await unseenNotificaton.json();
+            if (res.success === false) {
+                console.log(res);
+            }
+            else {
+                notifySignal.value.notifications = res;
+                dispatch(setNotification(res))
+            }
+        }
+        loadPrevNotification()
+    }, [])
+
+
 
 
     //=========== Store notificaions to DB =============//
@@ -46,12 +48,15 @@ const SocketConnection = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(notificationData)
             })
-            const response = await sendNotification.json()
-            console.log(response);
+            const response = await sendNotification.json();
+            if (response.success === false) {
+                console.log(response);
+            }
         } catch (error) {
             console.log(error);
         }
     }
+
 
 
     //----- Get Notification from socket and setNotification---------//
@@ -64,7 +69,7 @@ const SocketConnection = () => {
                     notifySignal.value.notifications.some(notify => notify.chatId === socketNotification.chatId)
 
                 if (!isNotificationExist) {
-                    notifySignal.value.notifications.push(socketNotification)
+                    notifySignal.value.notifications = [...notifySignal.value.notifications, socketNotification]
                     dispatch(setSingleNotification(socketNotification))
                     sendNotificationToDB(socketNotification)
                 }
