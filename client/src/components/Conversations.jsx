@@ -49,7 +49,7 @@ const Conversations = ({ conversationInfo }) => {
                     console.log(res);
                 }
             } catch (error) {
-                console.log(error.message);
+                console.log(error);
             }
         }
     }
