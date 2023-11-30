@@ -46,7 +46,7 @@ const Conversations = ({ conversationInfo }) => {
                 })
                 const res = await dltNotify.json();
                 if (res.success === false) {
-                    console.log(res);
+                    console.log(res.error);
                 }
             } catch (error) {
                 console.log(error);
