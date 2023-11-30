@@ -34,7 +34,7 @@ const UpdatePost = () => {
         mode: "onChange"
     });
 
-    //===Load Post Info here===//
+    //===Load Post informations here===//
     useEffect(() => {
         const getPostInfo = async () => {
 
