@@ -40,7 +40,6 @@ export const deleteNotification = async (req, res, next) => {
     const dltNotification = await Notifications.deleteOne({
       from: req.params.id,
     });
-    console.log(dltNotification);
     res.status(202).json("Notification deleteed successfully");
   } catch (error) {
     next(error);
