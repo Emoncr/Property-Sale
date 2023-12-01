@@ -39,13 +39,6 @@ const Message = () => {
     }, [])
 
 
-    
-
-
-
-
-
-
 
     return (
         <>
@@ -81,7 +74,6 @@ const Message = () => {
                                     setTrackConversation,
                                     conversations, 
                                     setConversation,
-
                                 }} />
                             </div>
                             :
