@@ -87,19 +87,23 @@ app.use((err, req, res, next) => {
 });
 
 //----------------------------Handling Socket.io ------------------------------//
-let clientCors;
+
 //Handling CORS origin
-if (process.env.NODE_ENV === "local") {
-  clientCors = "http://localhost:5173";
-} else {
-  clientCors = "https://property-sell.vercel.app";
-}
 export const io = new Server(expressServer, {
   cors: {
-    origin: clientCors,
+    origin: [
+      "http://localhost:5173",
+      "https://property-sell.vercel.app",
+      "https://property-sell-gjz462ec1-emoncr.vercel.app/",
+    ],
     credentials: true,
   },
 });
+
+
+
+
+
 
 io.on("connection", (socket) => {
   console.log(`socket connected with ${socket.id}`);
