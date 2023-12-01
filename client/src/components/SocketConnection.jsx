@@ -7,6 +7,7 @@ import { signal } from "@preact/signals-react"
 
 export const socket = io("http://localhost:3000")
 
+
 export const notifySignal = signal({
     notifications: []
 })
