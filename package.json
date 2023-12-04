@@ -7,11 +7,10 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "client_build": "npm run build --prefix client",
     "build": "npm install && npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Biplob Hasan Emon",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
