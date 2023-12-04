@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { signal } from '@preact/signals-react'
 import { notifySignal } from './SocketConnection'
-import { deleteNotification, setNotification } from '../redux/notifications/notificationSlice'
+import {  setNotification } from '../redux/notifications/notificationSlice'
 
 export const activeChatId = signal({
     chatId: ""
