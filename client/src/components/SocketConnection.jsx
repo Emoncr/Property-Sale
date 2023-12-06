@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { io } from "socket.io-client"
 import { setNotification, setSingleNotification } from "../redux/notifications/notificationSlice"
 import { activeChatId } from "./Conversations"
 import { signal } from "@preact/signals-react"
 
-export const socket = io("http://localhost:3000")
+export const socket = io("http://localhost:10000",{
+    transports: ["websocket"]
+})
 
 
 export const notifySignal = signal({
