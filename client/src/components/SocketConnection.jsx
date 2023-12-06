@@ -8,7 +8,11 @@ import { signal } from "@preact/signals-react"
 
 // const serverAddress = process.env.NODE_ENV === "production"
 
-export const socket = io("localhost:3000")
+export const socket = io("https://thunder-scarlet-wizard.glitch.me/", {
+    headers: {
+        "user-agent": "chrome"
+    }
+})
 
 
 export const notifySignal = signal({
