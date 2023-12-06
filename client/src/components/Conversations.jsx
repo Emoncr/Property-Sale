@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { signal } from '@preact/signals-react'
 import { notifySignal } from './SocketConnection'
-import {  setNotification } from '../redux/notifications/notificationSlice'
+import { setNotification } from '../redux/notifications/notificationSlice'
 
 export const activeChatId = signal({
     chatId: ""
@@ -31,7 +31,7 @@ const Conversations = ({ conversationInfo }) => {
             dispatch(setNotification(restNotifications));
         }
     };
- 
+
 
 
     //===== Delete Notification From DB========//
@@ -88,8 +88,8 @@ const Conversations = ({ conversationInfo }) => {
                                     className='h-8 w-8 sm:h-12 sm:w-12 rounded-full border-2 border-brand-blue duration-400 ease-in-out'
                                     src={conversation.chatCreator.avatar}
                                     alt="user image" />
-                                {/* <div className='absolute h-3 w-3 bottom-0 right-0 rounded-full bg-green-600 border-[.1px] border-black'>
-                                </div> */}
+                                <div className='absolute h-3 w-3 bottom-0 right-0 rounded-full bg-green-600 border-[.1px] border-black'>
+                                </div>
                             </div>
                             <p className='hidden sm:block  font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white'>{conversation.chatCreator.username}</p>
                             {isNotify && <p className=' hidden md:block font-heading px-2 py-[2px] rounded-md capitalize  text-xs text-white bg-red-600'>new!</p>}
@@ -127,7 +127,7 @@ const Conversations = ({ conversationInfo }) => {
                                     src={conversation.chatPartner.avatar}
                                     alt="user image"
                                 />
-                                {/* <div className='absolute h-3 w-3 bottom-0 right-0 rounded-full bg-green-600 border-[.1px] border-black'></div> */}
+                                <div className='absolute h-3 w-3 bottom-0 right-0 rounded-full bg-green-600 border-[.1px] border-black'></div>
                             </div>
 
                             <p className='hidden sm:block  font-semibold font-content text-sm truncate duration-400 ease-in-out group-hover:text-white '>{conversation.chatPartner.username}</p>

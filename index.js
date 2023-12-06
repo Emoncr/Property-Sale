@@ -110,7 +110,6 @@ io.on("connection", (socket) => {
 
   //=======Messaging Feature Here ======//
   socket.on("join_room", (chatId) => {
-    console.log(chatId);
     socket.join(chatId);
   });
 
