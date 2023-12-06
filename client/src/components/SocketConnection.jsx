@@ -1,12 +1,17 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { io } from "socket.io-client"
 import { setNotification, setSingleNotification } from "../redux/notifications/notificationSlice"
 import { activeChatId } from "./Conversations"
 import { signal } from "@preact/signals-react"
 
-export const socket = io("http://localhost:10000",{
-    transports: ["websocket"]
+
+// const serverAddress = process.env.NODE_ENV === "production"
+
+export const socket = io("wss://nutritious-fluttering-scribe.glitch.me/",{
+    headers: {
+        "user-agent": "chrome"
+    }
 })
 
 
