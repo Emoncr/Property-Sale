@@ -5,7 +5,7 @@ import ListingCard from '../components/ListingCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchTermState } from '../redux/search/searchSlice'
 import Footer from '../components/Footer'
-
+import { LuSearchX } from "react-icons/lu";
 
 const Search = () => {
     const [listings, setListings] = useState([])
@@ -207,45 +207,55 @@ const Search = () => {
                                     :
 
                                     <div>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-5 gap-y-8">
-                                            {
-                                                listings && listings.map(listing => <ListingCard key={listing._id} listing={listing} />)
-                                            }
+                                        {
+                                            listings.length !== 0 ?
+                                                <>
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-5 gap-y-8">
+                                                        {
+                                                            listings && listings.map(listing => <ListingCard key={listing._id} listing={listing} />)
+                                                        }
+                                                    </div>
+                                                    <div className="pageination_part mt-8 md:mt-14 w-full flex items-center justify-center">
+                                                        <div className="join">
 
-                                        </div>
-                                        <div className="pageination_part mt-8 md:mt-14 w-full flex items-center justify-center">
-                                            <div className="join">
 
-
-                                                {/* prev Btn  */}
-                                                <button
-                                                    onClick={() => setPageCount(pageCount - 1)}
-                                                    disabled={pageCount <= 1 || loading}
-                                                    className="join-item btn bg-brand-blue text-white hover:bg-brand-blue/90 
+                                                            {/* prev Btn  */}
+                                                            <button
+                                                                onClick={() => setPageCount(pageCount - 1)}
+                                                                disabled={pageCount <= 1 || loading}
+                                                                className="join-item btn bg-brand-blue text-white hover:bg-brand-blue/90 
                                                     disabled:bg-[#d5d5d5] disabled:text-[#a0a0a0]
                                                     "
-                                                >
-                                                    <FaAngleDoubleLeft />
-                                                </button>
+                                                            >
+                                                                <FaAngleDoubleLeft />
+                                                            </button>
 
 
-                                                <button
-                                                    className="join-item btn bg-brand-blue hover:bg-brand-blue cursor-default text-white"
-                                                >Page {pageCount}
-                                                </button>
+                                                            <button
+                                                                className="join-item btn bg-brand-blue hover:bg-brand-blue cursor-default text-white"
+                                                            >Page {pageCount}
+                                                            </button>
 
 
-                                                {/* Next Btn  */}
-                                                <button
-                                                    onClick={() => setPageCount(pageCount + 1)}
-                                                    disabled={listings.length < 4 || loading}
-                                                    className="join-item btn bg-brand-blue text-white hover:bg-brand-blue/90
+                                                            {/* Next Btn  */}
+                                                            <button
+                                                                onClick={() => setPageCount(pageCount + 1)}
+                                                                disabled={listings.length < 4 || loading}
+                                                                className="join-item btn bg-brand-blue text-white hover:bg-brand-blue/90
                                                     disabled:bg-[#d5d5d5] disabled:text-[#a0a0a0]"
-                                                >
-                                                    <FaAngleDoubleRight />
-                                                </button>
-                                            </div>
-                                        </div>
+                                                            >
+                                                                <FaAngleDoubleRight />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                                :
+                                                <div className=" mt-40 flex items-center justify-center flex-col">
+                                                    <LuSearchX className='font-3xl text-brand-blue font-bold text-xl text-center' />
+                                                    <p className='font-heading text-lg text-center text-brand-blue '>Sorry, Listings not found</p>
+                                                </div>
+
+                                        }
                                     </div>
                             }
                         </div>
