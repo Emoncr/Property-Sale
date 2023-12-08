@@ -6,10 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { BsArrowRight, BsArrowLeft, } from "react-icons/bs";
 import { BiSolidArea } from 'react-icons/bi'
-import { FaLocationArrow, FaBed, FaBath, FaAngleUp, FaAngleDown, FaShare, FaHeart, FaPhone, FaLock } from "react-icons/fa"
+import { FaLocationArrow, FaBed, FaBath, FaAngleUp, FaAngleDown, FaShare, FaLock, FaBookmark } from "react-icons/fa"
 import Loading from '../components/Loading';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Contact from '../components/Contact';
+import { handleLisingRemove, handleSave } from '../redux/saveListing/saveListingSlice';
 
 
 const ListingPage = () => {
@@ -17,8 +18,7 @@ const ListingPage = () => {
     const [listings, setListings] = useState({})
     const [isFeatureActive, setIsFeatureActive] = useState(false)
     const [loading, setLoading] = useState(false)
-
-
+    const [savedListing, setSavedListing] = useState(false)
 
     const { area, address, bath, bed, description, discountPrice, furnished, offer, parking, price, title, type, _id, userRef } = listings;
 
@@ -26,6 +26,9 @@ const ListingPage = () => {
     const params = useParams();
     const { currentUser } = useSelector(state => state.user)
 
+    const { saveListings } = useSelector(state => state.savedListing)
+
+    const dispatch = useDispatch()
 
 
     //====== Loading Post Data Here ======//
@@ -43,6 +46,11 @@ const ListingPage = () => {
             else {
                 setListings(json)
                 setLoading(false)
+                if (_id) {
+                    const isSaved = saveListings.some(saveListing => saveListing._id === _id);
+                    console.log(isSaved);
+                    isSaved && setSavedListing(true);
+                }
             }
         })()
     }, [])
@@ -128,6 +136,23 @@ const ListingPage = () => {
             })
         }
     }
+
+
+
+    const handleSaveListing = () => {
+        const isSaved = saveListings.some(saveListing => saveListing._id === _id);
+        if (isSaved) {
+            const restListings = saveListings.filter(savedListing => savedListing._id !== _id);
+            dispatch(handleLisingRemove(restListings));
+            setSavedListing(false);
+        } else {
+            const listingToAdd = listings
+            dispatch(handleSave(listingToAdd));
+            setSavedListing(true);
+        }
+    }
+
+
 
     return (
         <>
@@ -303,7 +328,6 @@ const ListingPage = () => {
                                     <div className="lg:col-span-5">
                                         <div className="bg-white md:p-12 p-6 rounded-md shadow-sm shadow-brand-blue">
 
-
                                             {
                                                 currentUser && currentUser._id === userRef
                                                     ?
@@ -348,11 +372,14 @@ const ListingPage = () => {
                                                             </div>
                                                             <div className="contant_btn_container">
                                                                 <button
+                                                                    onClick={handleSaveListing}
                                                                     className='bg-brand-blue hover:bg-brand-blue/90 text-white w-full px-2 py-3 text-lg font-heading rounded-sm'>
 
                                                                     <span className='flex items-center justify-center'>
-                                                                        <FaHeart className='mr-2 text-red-600' />
-                                                                        Save
+                                                                        <FaBookmark className={`mr-2 ${savedListing ? "text-green-600" : "text-white"} `} />
+                                                                        {
+                                                                            savedListing ? "Saved" : "Save"
+                                                                        }
                                                                     </span>
                                                                 </button>
                                                             </div>

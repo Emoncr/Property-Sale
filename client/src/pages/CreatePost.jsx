@@ -72,7 +72,6 @@ const CreatePost = () => {
                 },
                 (error) => {
                     reject('File uploaded Falied')
-
                 },
 
                 () => {
@@ -370,9 +369,9 @@ const CreatePost = () => {
                                             multiple accept='image/*' type="file"
                                             className={`file-input file:bg-brand-blue bg-red-00 ${loading ? "md:w-4/6" : 'md:w-4/5'} w-full`} />
                                         <button
-                                            disabled={loading}
+                                            disabled={loading || imageFile.length === 0}
                                             onClick={handleImageUpload}
-                                            type='button' className={`w-full text-green-600 text-sm py-2 border-2 border-green-600 rounded-md mt-2 uppercase font-heading  ${loading ? "md:w-2/6" : 'md:w-1/5'} md:h-[3rem] md:mt-0 duration-500 hover:shadow-lg disabled:border-yellow-500 disabled:text-yellow-500`}>
+                                            type='button' className={`w-full text-green-600 text-sm py-2 border-2 border-green-600 rounded-md mt-2 uppercase font-heading  ${loading ? "md:w-2/6" : 'md:w-1/5'} md:h-[3rem] md:mt-0 duration-500 hover:shadow-lg disabled:border-gray-500 disabled:text-gray-500`}>
                                             {
                                                 loading ? 'Uploading...' : 'Upload'
                                             }
