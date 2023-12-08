@@ -33,7 +33,7 @@ const Search = () => {
             offer: false
         })
     }
-
+    console.log(listings);
 
     useEffect(() => {
         (async () => {

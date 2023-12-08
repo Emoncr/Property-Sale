@@ -23,9 +23,8 @@ export const deletePost = async (req, res, next) => {
 
   try {
     await Listing.findByIdAndDelete(req.params.id);
-    
-    res.status(200).json("Post delete successfully");
 
+    res.status(200).json("Post delete successfully");
   } catch (error) {
     next(error);
   }
@@ -71,7 +70,10 @@ export const getListingPost = async (req, res, next) => {
     const page = req.query.page || 1;
 
     const query = {
-      title: { $regex: searchTerm, $options: "i" },
+      $or: [
+        { title: { $regex: searchTerm, $options: "i" } },
+        { address: { $regex: searchTerm, $options: "i" } },
+      ],
     };
 
     if (type !== "all") {
