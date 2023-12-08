@@ -41,11 +41,23 @@ const SaveListing = () => {
                         </button>
                     </div>
                     <div className="listings pt-5">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-5 gap-y-8">
-                            {
-                                saveListings && saveListings.map(listing => <ListingCard key={listing._id} listing={listing} />)
-                            }
-                        </div>
+                        {
+                            saveListings.length === 0 ?
+                                <div className='py-20'>
+
+                                    <p className='bg-white text-center text-sm sm:text-2xl font-heading font-bold flex flex-col items-center justify-center max-w-3xl mx-auto py-10 text-black px-5 rounded shadow-md'>
+                                        <span>Your saved listings are currently empty.</span>
+                                    </p>
+
+                                </div>
+                                :
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 px-5 gap-y-8 pb-20">
+                                    {
+                                        saveListings && saveListings.map(listing => <ListingCard key={listing._id} listing={listing} />)
+                                    }
+                                </div>
+                        }
+
                     </div>
                 </div>
             </section>
