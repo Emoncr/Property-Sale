@@ -110,7 +110,7 @@ const Home = () => {
                         <div className="btn_container flex items-center sm:justify-end justify-center">
                             <button
                                 className="group relative inline-flex items-center overflow-hidden rounded bg-white font-heading  px-8 py-3 text-brand-blue "
-                                onClick={() => navigate('/create_post')}
+                                onClick={() => navigate('/search')}
                             >
                                 <span className="absolute -end-full transition-all group-hover:end-4">
                                     <svg
