@@ -131,31 +131,7 @@ const Chat = ({ conversationInfo }) => {
 
 
 
-    // //====== Handle Conversation delete =======//
-    // const handleConversationDelte = async () => {
-    //     debugger
-    //     try {
-    //         const deleteChat = await fetch(`/api/conversation/delete/${_id}`, {
-    //             method: 'DELETE'
-    //         });
-    //         const res = await deleteChat.json();
-    //         console.log(res);
-    //         if (res.success === false) {
-    //             toast.error(res.message, {
-    //                 autoClose: 2000,
-    //             })
-    //         }
-    //         else {
-    //             // navigate("/message")
-    //             const restConversation = conversations.filter(conversation => conversation._id !== _id)
-    //             setConversation(restConversation)
-    //         }
-    //     } catch (error) {
-    //         toast.error(error.message, {
-    //             autoClose: 2000,
-    //         })
-    //     }
-    // }
+
     const handleConversationDelete = async () => {
         try {
             const deleteChat = await fetch(`/api/conversation/delete/${_id}`, {
