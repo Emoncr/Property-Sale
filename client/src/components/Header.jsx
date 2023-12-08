@@ -27,12 +27,11 @@ const Header = () => {
     }
 
 
-
     return (
         <>
             <div className="navbar pl-0 pr-0 pt-3 pb-3 bg-slate-300 shadow-md">
 
-                <div className="px-5  max-w-screen-xl w-full !mx-auto grid grid-cols-12 gap-1">
+                <div className="px-5  max-w-screen-2xl w-full !mx-auto grid grid-cols-12 gap-1">
                     {/* Logo container  */}
                     <div className="col-span-3 sm:col-span-4">
 
@@ -51,8 +50,8 @@ const Header = () => {
                             <div className="form-control w-full max-w-full   sm:max-w-sm  flex flex-row mx-auto items-center justify-center relative">
                                 <input
                                     type="text"
-                                    placeholder="Search..."
-                                    className="search"
+                                    placeholder="Explore by area, amenities, or keyword..."
+                                    className="search placeholder:text-gray-700"
                                     onChange={(e) => {
                                         dispatch(setSearchTermState(e.target.value)),
                                             setSearchValue(e.target.value)

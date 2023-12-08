@@ -73,6 +73,7 @@ export const getListingPost = async (req, res, next) => {
       $or: [
         { title: { $regex: searchTerm, $options: "i" } },
         { address: { $regex: searchTerm, $options: "i" } },
+        { description: { $regex: searchTerm, $options: "i" } },
       ],
     };
 
