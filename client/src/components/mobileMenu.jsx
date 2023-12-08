@@ -6,7 +6,6 @@ import { signoutFailed, signoutSuccess } from '../redux/user/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import { clearSavedListing } from '../redux/saveListing/saveListingSlice';
 
-
 const MobileMenu = ({ menuStatus }) => {
     const { currentUser } = useSelector(state => state.user)
     const { setisActiveMoblie, isActiveMoblie } = menuStatus;
@@ -42,8 +41,6 @@ const MobileMenu = ({ menuStatus }) => {
         >
 
 
-
-
             <ul className=' '>
                 <li
                     onClick={() => {
@@ -54,17 +51,6 @@ const MobileMenu = ({ menuStatus }) => {
                 >
                     <p className='flex items-center gap-2'>
                         <FaHome /> Home
-                    </p>
-                </li>
-                <li
-                    onClick={() => {
-                        navigate('/about'),
-                            setisActiveMoblie(!isActiveMoblie)
-                    }}
-                    className='p-2 cursor-pointer rounded-sm mb-3  font-heading hover:bg-brand-blue/40 duration-300'>
-                    <p to='/about'
-                        className='flex items-center gap-2'>
-                        <FaUsers /> About Us
                     </p>
                 </li>
                 {

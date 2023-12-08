@@ -53,10 +53,11 @@ const Message = () => {
                         conversations.length === 0 ?
                             <div>
 
-                                <p className='text-center text-sm sm:text-2xl mt-20 font-heading font-bold'>
-                                    Hey welcome! &#x1F604;</p>
-                                <p className='text-center text-sm sm:text-2xl mt-1 font-heading font-bold'>
-                                    This is a blank canvas waiting for your first conversation.</p>
+                                <p className='bg-white text-center text-sm sm:text-2xl mt-20 font-heading font-bold flex flex-col items-center justify-center max-w-3xl mx-auto py-10 text-black px-5 rounded shadow-md'>
+                                    <span> Hey welcome! &#x1F604;</span>
+                                    <span> This is a blank canvas waiting for your first conversation.</span>
+                                </p>
+
                             </div>
                             :
                             <div className="chats_container custom_scrollbar grid grid-cols-12 ">

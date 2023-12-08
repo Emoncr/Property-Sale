@@ -7,8 +7,7 @@ import Profile from './ProfileOption'
 import { setSearchTermState } from '../redux/search/searchSlice'
 import { FaSignInAlt } from 'react-icons/fa'
 import { MdOutlineClose } from "react-icons/md";
-
-
+import { FaHome } from "react-icons/fa";
 
 
 const Header = () => {
@@ -68,13 +67,13 @@ const Header = () => {
                     {/*========= when user login ======== */}
                     <div className="col-span-3 sm:col-span-5  md:col-span-4 flex items-center justify-end">
                         <ul className="hidden sm:ml-5 sm:flex items-center justify-end  pr-4 font-semibold text-brand-blue font-content ">
-                            <li className='mr-6 capitalize'>
-                                <Link to='/home'>Home</Link>
+                            <li className='mr-9 capitalize text-xl text-brand-blue'>
+                                <Link to='/home'>
+                                    <FaHome />
+                                </Link>
                             </li>
-                            <li className='mr-6 capitalize'>
-                                <Link to='/about'>About</Link>
-                            </li>
-                            <li className='mr-6 capitalize text-lg text-brand-blue'>
+
+                            <li className='mr-9 capitalize text-lg text-brand-blue  '>
                                 <Link to={`${currentUser ? "/message" : "/login"}`}>
                                     <span className='relative'>
                                         <BsMessenger className='z-10' />
@@ -92,9 +91,9 @@ const Header = () => {
                                 currentUser ?
                                     <Profile user={currentUser} />
                                     :
-                                    <li className='mr-6 capitalize'>
-                                        <Link to='/login' className='flex items-center justify-end'>
-                                            Login <FaSignInAlt className='ml-1 mt-[2px] text-brand-blue' />
+                                    <li className='mr-6'>
+                                        <Link to='/login' className=' text-white px-5 font-bold font-headi py-2 rounded uppercase bg-brand-blue text-sm hover:bg-white hover:text-brand-blue duration-300 hover:shadow-sm'>
+                                            Login
                                         </Link>
                                     </li>
                             }
