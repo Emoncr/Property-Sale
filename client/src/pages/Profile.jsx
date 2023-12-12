@@ -89,7 +89,7 @@ const Profile = () => {
 
         //===showing error in tostify====//
         toast.error(userData.message, {
-          autoClose: 2000,
+          autoClose: 5000,
         })
       }
       else {
