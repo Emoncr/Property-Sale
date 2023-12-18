@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Chat from '../components/Chat';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Conversations from '../components/Conversations';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { signoutSuccess } from '../redux/user/userSlice';
 
 
 const Message = () => {
@@ -17,7 +18,7 @@ const Message = () => {
         conversationActive: null,
     })
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
 
 
 
@@ -37,6 +38,7 @@ const Message = () => {
                         autoClose: 5000
                     })
                     setError(true)
+                    dispatch(signoutSuccess())
                 }
                 else {
                     setConversationLoading(false)

@@ -7,7 +7,7 @@ import { firebaseApp } from '../firebase.js'
 import { loddingStart, signoutFailed, signoutSuccess, userDeleteFail, userDeleteSuccess, userUpdateFailed, userUpdateSuccess } from '../redux/user/userSlice.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';  
+import { useNavigate } from 'react-router-dom';
 import PostCard from '../components/PostCard.jsx';
 import Loading from '../components/Loading.jsx';
 import { clearSavedListing } from '../redux/saveListing/saveListingSlice.js';
@@ -121,7 +121,7 @@ const Profile = () => {
         //===showing error in tostify====//
         toast.error(resData.message, {
           autoClose: 2000,
-        }) 
+        })
       }
       else {
         dispatch(userDeleteSuccess())
@@ -169,6 +169,7 @@ const Profile = () => {
             autoClose: 2000,
           });
           setUserPostLoading(false)
+          dispatch(signoutSuccess())
         }
         else {
           setUserPost({
