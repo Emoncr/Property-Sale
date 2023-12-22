@@ -111,11 +111,11 @@ const ListingCard = ({ listing }) => {
                     {/* PRICE CONTAINER SECTION  */}
                     <div className="listing_footer grid grid-cols-2 align-middle border-t border-brand-blue/40 mt-5 p-3 pb-4">
 
-                        <div className="price_container ">
+                        <div className="price_container truncate">
                             {offer ?
-                                <p className='text-xl font-content text-brand-blue font-bold  flex items-center justify-start'>${discountPrice} <s className='text-gray-400  text-xs mt-1 ml-1'>${price}</s> </p>
+                                <p className='text-xl font-content text-brand-blue font-bold  flex items-center justify-start truncate'>${discountPrice} <s className='text-gray-400  text-xs mt-1 ml-1'>${price}</s> </p>
 
-                                : <p className='text-xl font-content text-brand-blue font-bold  flex items-center justify-start'>${price}</p>
+                                : <p className='text-xl font-content text-brand-blue font-bold  flex items-center justify-start truncate'>${price}</p>
                             }
                         </div>
                         <div className="footer_btn flex items-center justify-end mr-1">
