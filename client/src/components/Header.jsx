@@ -5,9 +5,11 @@ import MobileMenu from './mobileMenu'
 import { useDispatch, useSelector } from 'react-redux'
 import Profile from './ProfileOption'
 import { setSearchTermState } from '../redux/search/searchSlice'
-import { FaSignInAlt } from 'react-icons/fa'
 import { MdOutlineClose } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
+
+
+
 
 
 const Header = () => {
@@ -85,6 +87,7 @@ const Header = () => {
                                                 <p className={`text-[11px] font-content font-medium bg-[#c00] text-white absolute  top-[-10px] h-4 ${notificationsDB.length < 9 ? "w-3 right-[-8px]" : "w-4 right-[-10px]"} flex items-center justify-center rounded-sm`}>{notificationsDB.length}</p>
                                         }
                                     </span>
+                                   
                                 </Link>
                             </li>
                             {
