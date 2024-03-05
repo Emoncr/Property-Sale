@@ -17,7 +17,6 @@ const Chat = ({ conversationInfo }) => {
     const scrollRef = useRef();
     const [socketMessages, setSocketMessages] = useState([])
     const [messageLoading, setMessageLoading] = useState(false)
-    // const [isApiCalled, setIsApiCalled] = useState(false);
 
 
     const { trackConversation, setTrackConversation, conversations, setConversation, } = conversationInfo;
@@ -30,8 +29,6 @@ const Chat = ({ conversationInfo }) => {
 
         (async () => {
             try {
-                console.log("Load message .....");
-
                 setMessageLoading(true)
                 const res = await fetch(`/api/message?sender=${trackConversation.sender}&receiver=${trackConversation.receiver}`)
                 const getMessages = await res.json();
@@ -75,7 +72,7 @@ const Chat = ({ conversationInfo }) => {
         })
     })
 
-    console.log(socketMessages);
+
 
 
 

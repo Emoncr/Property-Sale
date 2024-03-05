@@ -17,7 +17,6 @@ const Conversations = ({ conversationInfo }) => {
 
     const { currentUser } = useSelector(state => state.user)
     const { notificationsDB } = useSelector(state => state.notification)
-    // console.log("conversation info from database", conversationInfo);
 
 
     const isNotify = notificationsDB.some(notify => notify.chatId === conversation._id);

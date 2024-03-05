@@ -6,6 +6,7 @@ import { activeChatId } from "./Conversations"
 import { signal } from "@preact/signals-react"
 
 
+
 //production
 // const Node_Env = "local"
 export const socket = io("https://thunder-scarlet-wizard.glitch.me/", {
@@ -24,6 +25,11 @@ export const notifySignal = signal({
 const SocketConnection = () => {
     const { currentUser } = useSelector(state => state.user)
     const dispatch = useDispatch();
+
+
+
+
+
 
 
     //======== Get Notification From DB =========//
@@ -72,9 +78,13 @@ const SocketConnection = () => {
     //----- Get Notification from socket and setNotification---------//
     useEffect(() => {
         socket.on(`${currentUser?._id}`, (socketNotification) => {
+            const currentPath = window.location.pathname;
+
+            if (currentPath !== "/message") {
+                activeChatId.value.chatId = ""
+            }
 
             if (socketNotification.chatId !== activeChatId.value.chatId) {
-
                 const isNotificationExist =
                     notifySignal.value.notifications.some(notify => notify.chatId === socketNotification.chatId)
 
@@ -86,6 +96,10 @@ const SocketConnection = () => {
             }
         })
     })
+
+
+
+
 
 
     return (

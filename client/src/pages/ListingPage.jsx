@@ -48,7 +48,7 @@ const ListingPage = () => {
                 setLoading(false)
                 if (_id) {
                     const isSaved = saveListings.some(saveListing => saveListing._id === _id);
-                    console.log(isSaved);
+                  
                     isSaved && setSavedListing(true);
                 }
             }
@@ -126,7 +126,7 @@ const ListingPage = () => {
         const url = window.location.href;
         try {
             await navigator.clipboard.writeText(url)
-            console.log("success");
+    
             toast.success("URL coppied !", {
                 autoClose: 1000,
             })
