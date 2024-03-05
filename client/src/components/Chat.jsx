@@ -3,7 +3,7 @@ import { BsFillSendFill, BsImage } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import { socket } from './SocketConnection';
 import { MdDelete } from "react-icons/md";
-import { useNavigate } from 'react-router-dom';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,6 +18,7 @@ const Chat = ({ conversationInfo }) => {
     const [socketMessages, setSocketMessages] = useState([])
     const [messageLoading, setMessageLoading] = useState(false)
 
+
     const { trackConversation, setTrackConversation, conversations, setConversation, } = conversationInfo;
     const { chatCreator, chatPartner, _id } = trackConversation.conversation;
 
@@ -25,6 +26,7 @@ const Chat = ({ conversationInfo }) => {
 
     //----- Load User Messages
     useEffect(() => {
+
         (async () => {
             try {
                 setMessageLoading(true)
@@ -37,7 +39,9 @@ const Chat = ({ conversationInfo }) => {
                 }
                 else {
                     setMessageLoading(false)
+                    setSocketMessages([])
                     setMessageText(getMessages)
+
                 }
             } catch (error) {
                 setMessageLoading(false)
@@ -57,6 +61,7 @@ const Chat = ({ conversationInfo }) => {
     //----- Get Message from socket
     useEffect(() => {
         socket.on("receive_message", (socketMsg) => {
+
             setSocketMessages([...socketMessages,
             {
                 message: socketMsg.message,

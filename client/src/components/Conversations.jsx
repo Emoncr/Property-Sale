@@ -19,7 +19,6 @@ const Conversations = ({ conversationInfo }) => {
     const { notificationsDB } = useSelector(state => state.notification)
 
 
-
     const isNotify = notificationsDB.some(notify => notify.chatId === conversation._id);
 
     const handleNotificationClick = (conversationId) => {

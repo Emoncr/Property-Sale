@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Chat from '../components/Chat';
 import { useDispatch, useSelector } from 'react-redux';
-import Conversations from '../components/Conversations';
+import Conversations, { activeChatId } from '../components/Conversations';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
@@ -23,12 +23,21 @@ const Message = () => {
 
 
 
+    //============ Making null active chat ID For notification ============//
+    useEffect(() => {
+        const currentPath = window.location.pathname;
+        if (currentPath === "/message") {
+            activeChatId.value.chatId = ""
+        }
+    }, [])
+
 
 
     // Load Current user Conversations
     useEffect(() => {
         (async () => {
             try {
+ 
                 setConversationLoading(true)
                 const res = await fetch(`/api/conversation/${currentUser._id}`)
                 const getConversations = await res.json();

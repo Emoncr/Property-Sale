@@ -22,10 +22,10 @@ const Home = () => {
                     className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
                 >
                     <div className="max-w-xl text-center sm:text-left">
-                        <h1 className="text-3xl font-extrabold sm:text-5xl font-heading  text-white sm:text-left">
+                        <h1 className="text-3xl font-extrabold sm:text-5xl xl:text-6xl font-heading  text-white sm:text-left">
                             Let us find your
 
-                            <strong className="block font-extrabold bg-white mt-2 text-brand-blue max-w-xs mx-auto sm:ml-0 sm:mr-auto sm:max-w-md font-oswald uppercase sm:text-left">
+                            <strong className="block font-extrabold bg-white mt-2 text-brand-blue max-w-xs mx-auto sm:ml-0 sm:mr-auto sm:max-w-md font-oswald uppercase sm:text-left xl:max-w-3xl">
                                 Forever Home.
                             </strong>
                         </h1>
