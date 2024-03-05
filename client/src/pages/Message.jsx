@@ -29,6 +29,7 @@ const Message = () => {
     useEffect(() => {
         (async () => {
             try {
+                console.log("Conversation message is load api");
                 setConversationLoading(true)
                 const res = await fetch(`/api/conversation/${currentUser._id}`)
                 const getConversations = await res.json();
