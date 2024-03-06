@@ -14,7 +14,10 @@ import path from "path";
 import http from "http";
 import { Server } from "socket.io";
 
+/* Create the Express app instance */
 const app = express();
+
+/* Add middleware for request parsing and cookies */
 app.use(express.json());
 app.use(cookieParser());
 
@@ -44,6 +47,7 @@ async function main() {
   await mongoose.connect(process.env.MONGO);
   console.log("Database connected");
 }
+
 // Starting the server
 expressServer.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`);
@@ -99,11 +103,6 @@ export const io = new Server(expressServer, {
     credentials: true,
   },
 });
-
-
-
-
-
 
 io.on("connection", (socket) => {
   console.log(`socket connected with ${socket.id}`);
