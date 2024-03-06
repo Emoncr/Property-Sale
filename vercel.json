@@ -1,11 +1,6 @@
+
 {
   "version": 2,
-  "functions": {
-    "./index.js": {
-      "runtime": "node@16",
-      "timeout": 30 
-    }
-  },
   "builds": [
     {
       "src": "./index.js",
