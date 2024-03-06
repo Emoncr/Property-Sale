@@ -1,5 +1,11 @@
 {
   "version": 2,
+  "functions": {
+    "api/index.js": {
+      "runtime": "node@16",
+      "timeout": 30 
+    }
+  },
   "builds": [
     {
       "src": "./index.js",
@@ -9,11 +15,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "./index.js",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
+      "dest": "./index.js"
     }
   ]
 }
