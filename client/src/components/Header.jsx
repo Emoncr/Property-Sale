@@ -11,7 +11,6 @@ import { FaHome } from "react-icons/fa";
 
 
 
-
 const Header = () => {
     const [isActiveMoblie, setisActiveMoblie] = useState(false)
     const { currentUser } = useSelector((state) => state.user)
