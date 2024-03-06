@@ -1,16 +1,16 @@
-// api/index.js
 
 import express from "express";
 import mongoose from "mongoose";
 import "dotenv/config";
-import userRouter from "./routes/user.route.js";
-import auth from "./routes/auth.route.js";
+import userRouter from "./api/routes/user.route.js";
+import auth from "./api/routes/auth.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import postRouter from "./routes/post.route.js";
-import messageRouter from "./routes/message.route.js";
-import conversationRoute from "./routes/conversation.route.js";
-import notificatonRoute from "./routes/notification.route.js";
+import postRouter from "./api/routes/post.route.js";
+import messageRouter from "./api/routes/message.route.js";
+import conversationRoute from "./api/routes/conversation.route.js";
+import notificatonRoute from "./api/routes/notification.route.js";
+
 import path from "path";
 import http from "http";
 import { Server } from "socket.io";
@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 const expressServer = http.createServer(app);
 
-// Handling CORS origin
+//Handling CORS origin
 if (process.env.NODE_ENV === "local") {
   app.use(
     cors({
@@ -41,7 +41,6 @@ const PORT = process.env.PORT || 3000;
 
 // Connect to the database
 main().catch((err) => console.log(err));
-
 async function main() {
   await mongoose.connect(process.env.MONGO);
   console.log("Database connected");
@@ -60,13 +59,12 @@ app.use("/api/message", messageRouter);
 app.use("/api/conversation", conversationRoute);
 app.use("/api/notification", notificatonRoute);
 
-// ============== Deployment ==============
+//============== Deployment==============//
 
-const __filename = new URL(import.meta.url).pathname;
-const __dirname = path.dirname(__filename);
+const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
-  const staticFilesPath = path.join(__dirname, "../client/dist");
+  const staticFilesPath = path.join(__dirname, "client", "dist");
   app.use(express.static(staticFilesPath));
   app.get("*", (req, res) => {
     res.sendFile(path.join(staticFilesPath, "index.html"));
@@ -77,7 +75,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// ============== Deployment ==============
+//============== Deployment==============//
 
 // Handle middleware
 app.use((err, req, res, next) => {
@@ -90,8 +88,15 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ---------------------------- Handling Socket.io ------------------------------
 
+
+
+
+
+
+//----------------------------Handling Socket.io ------------------------------//
+
+//Handling CORS origin
 export const io = new Server(expressServer, {
   cors: {
     origin: [
@@ -103,10 +108,15 @@ export const io = new Server(expressServer, {
   },
 });
 
+
+
+
+
+
 io.on("connection", (socket) => {
   console.log(`socket connected with ${socket.id}`);
 
-  // ======= Messaging Feature Here ======
+  //=======Messaging Feature Here ======//
   socket.on("join_room", (chatId) => {
     socket.join(chatId);
   });
@@ -120,3 +130,14 @@ io.on("connection", (socket) => {
     console.log(`user disconnected successfully ${socket.id}`);
   });
 });
+
+
+
+
+
+
+
+
+
+
+
