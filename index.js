@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const expressServer = http.createServer(app);
+export default ()=>expressServer;
 
 //Handling CORS origin
 if (process.env.NODE_ENV === "local") {
@@ -91,7 +92,6 @@ app.use((err, req, res, next) => {
 });
 
 
-export default ()=>expressServer;
 
 
 
