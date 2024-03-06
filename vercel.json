@@ -1,7 +1,7 @@
 {
   "version": 2,
   "functions": {
-    "api/index.js": {
+    "./index.js": {
       "runtime": "node@16",
       "timeout": 30 
     }
