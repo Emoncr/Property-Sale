@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon api/index.js",  
-    "start": "node api/index.js",  
-    "build": "npm install && npm run build"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "build": "npm install && build"
   },
   "keywords": [],
   "author": "Biplob Hasan Emon",
