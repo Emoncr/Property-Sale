@@ -32,7 +32,9 @@ if (process.env.NODE_ENV === "local") {
 } else {
   app.use(
     cors({
+      origin:"*",
       credentials: true,
+      methods:["GET","POST","PUT","PATCH","DELETE"]
     })
   );
 }
