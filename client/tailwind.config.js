@@ -20,6 +20,6 @@ export default {
       },
     },
   },
-  darkMode: "class",
+  darkMode: "media",
   plugins: [require("daisyui"), "prettier-plugin-tailwindcss"],
 };
