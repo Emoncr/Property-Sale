@@ -96,11 +96,20 @@ const Search = () => {
                                             <div className="control flex flex-row md:flex-col items-center md:items-start xl:flex-row xl:items-center justify-between mt-1">
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
-                                                        <input
+                                                        {/* <input
                                                             className=" w-4 h-4 mr-1 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue accent-brand-blue dark:bg-transparent"
                                                             type="radio"
                                                             name="type"
                                                             value={"all"}
+                                                            onChange={(e) => handleChange(e.target.name, e.target.value)}
+                                                            checked={formState.type === "all"}
+                                                        /> */}
+
+                                                        <input
+                                                            className="radio w-4 h-4 mr-1 bg-transparent border border-solid border-gray-400 rounded-full checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue"
+                                                            type="radio"
+                                                            name="type"
+                                                            value="all"
                                                             onChange={(e) => handleChange(e.target.name, e.target.value)}
                                                             checked={formState.type === "all"}
                                                         />
@@ -110,7 +119,7 @@ const Search = () => {
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
                                                         <input
-                                                            className=" w-4 h-4 mr-1 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue accent-brand-blue dark:bg-transparent"
+                                                            className="radio w-4 h-4 mr-1 bg-transparent border border-solid border-gray-400 rounded-full checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue"
                                                             type="radio"
                                                             name="type"
                                                             value={"sale"}
@@ -120,10 +129,9 @@ const Search = () => {
                                                     </label>
                                                 </div>
                                                 <div>
-                                                    <label className="flex items-center justify-start text-lg font-heading">
+                                                    <label className="flex items-center justify-start text-lg font-heading ">
                                                         <input
-                                                            className=" w-4 h-4 mr-1 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue accent-brand-blue dark:bg-transparent"
-
+                                                            className="radio w-4 h-4 mr-1 bg-transparent border border-solid border-gray-400 rounded-full checked:border-brand-blue dark:checked:border-brand-blue dark:checked:bg-white checked:bg-brand-blue "
                                                             type="radio"
                                                             name="type"
                                                             value={"rent"}

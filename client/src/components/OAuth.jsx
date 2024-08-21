@@ -63,7 +63,7 @@ const OAuth = () => {
                         <img className="absolute left-0 w-5" alt="google logo" src="https://www.svgrepo.com/show/475656/google-color.svg" />
 
                         <span
-                            className="block w-max font-semibold tracking-wide text-gray-700 dark:text-white text-sm transition duration-300 group-hover:text-brand-blue sm:text-base">Continue
+                            className="block w-max font-semibold tracking-wide text-gray-700  text-sm transition duration-300 group-hover:text-brand-blue sm:text-base">Continue
                             with Google
                         </span>
                     </div>
