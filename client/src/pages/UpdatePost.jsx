@@ -240,7 +240,7 @@ const UpdatePost = () => {
                                                                 id='sale'
                                                                 required
                                                                 value='sale'
-                                                                className="radio w-5 h-5 checked:bg-brand-blue"
+                                                                className="radio w-5 h-5 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue"
                                                                 {...register('type')}
 
                                                             />
@@ -256,7 +256,7 @@ const UpdatePost = () => {
                                                                 id="rent"
                                                                 value="rent"
                                                                 required
-                                                                className="radio w-5 h-5 checked:bg-brand-blue"
+                                                                className="radio w-5 h-5 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue"
                                                                 {...register('type')}
                                                             />
                                                             <span className="label-text font-medium">For Rent</span>

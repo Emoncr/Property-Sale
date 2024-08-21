@@ -188,7 +188,7 @@ const CreatePost = () => {
                                                         id='sale'
                                                         required
                                                         value={'sale'}
-                                                        className="radio w-5 h-5  checked:bg-brand-blue"
+                                                        className="radio w-5 h-5 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue"
                                                         {...register('type')}
                                                     />
 
@@ -204,7 +204,7 @@ const CreatePost = () => {
                                                         id='rent'
                                                         value={'rent'}
                                                         required
-                                                        className="radio w-5 h-5 checked:bg-brand-blue"
+                                                        className="radio w-5 h-5 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue"
                                                         {...register('type')}
                                                     />
                                                     <span className="label-text font-medium">For Rent</span>
@@ -220,7 +220,7 @@ const CreatePost = () => {
                                                 <div>
                                                     <input
                                                         defaultValue={550}
-                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] py-1 px-2 bg-transparent'
+                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] py-1 px-2 bg-white'
                                                         type="number"
                                                         name="area"
                                                         id="area"
@@ -237,7 +237,7 @@ const CreatePost = () => {
                                                 <div>
                                                     <input
                                                         defaultValue={1}
-                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px]  py-1 px-2 bg-transparent'
+                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px]  py-1 px-2 bg-white'
                                                         min={1} max={10}
                                                         type="number"
                                                         name="beds"
@@ -253,7 +253,7 @@ const CreatePost = () => {
                                                 <div>
                                                     <input
                                                         defaultValue={1}
-                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] py-1 px-2 bg-transparent'
+                                                        className='border-2 focus:border-brand-blue rounded-md max-w-[84px] min-w-[84px] py-1 px-2 bg-white'
                                                         min={1} max={10}
                                                         type="number"
                                                         name="beds"
@@ -314,7 +314,7 @@ const CreatePost = () => {
                                                         id='price'
                                                         type="number"
                                                         name="price"
-                                                        className="bg-slate-100 p-2 rounded-md text-grey-darkest border-2 focus:border-brand-blue font-bold text-red-700 text-lg max-w-[200px]"
+                                                        className="bg-white p-2 rounded-md text-grey-darkest border-2 focus:border-brand-blue font-bold text-red-700 text-lg max-w-[200px]"
                                                         {...register('price', { required: 'This feild is required*' })}
                                                     />
 
@@ -367,7 +367,7 @@ const CreatePost = () => {
                                             onChange={(e) => setImageFile(e.target.files)}
                                             required
                                             multiple accept='image/*' type="file"
-                                            className={`file-input file:bg-brand-blue bg-red-00 ${loading ? "md:w-4/6" : 'md:w-4/5'} w-full`} />
+                                            className={`file-input file:bg-brand-blue dark:bg-white bg-red-00 ${loading ? "md:w-4/6" : 'md:w-4/5'} w-full`} />
                                         <button
                                             disabled={loading || imageFile.length === 0}
                                             onClick={handleImageUpload}

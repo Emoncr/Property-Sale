@@ -244,8 +244,7 @@ const Profile = () => {
                     id="profile_image"
                     ref={fileRef}
                   />
-
-                  <img src={formData.avatar || currentUser.avatar} onClick={() => fileRef.current.click()} className='h-24 w-24 mb-3 rounded-full border-[1px]  border-brand-blue' alt="profile image" />
+                  <img src={formData.avatar || currentUser.avatar} onClick={() => fileRef.current.click()} className='h-24 w-24 object-cover mb-3 rounded-full border-[1px]  border-brand-blue' alt="profile image" />
                   <i className='h-6 w-6 rounded-full flex items-center justify-center bg-brand-blue text-white absolute bottom-3 right-0'><AiFillEdit /></i>
                 </div>
 
