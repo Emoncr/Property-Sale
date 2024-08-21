@@ -20,7 +20,7 @@ body {
 
 /*=================Form styles start here =========== */
 .form_input {
-  @apply py-2 border-0 border-b-[1px] border-slate-300 placeholder:font-content placeholder:font-medium placeholder:text-sm  focus:border-brand-blue focus:outline-none px-2 w-full text-sm text-slate-900 font-content font-semibold;
+  @apply py-2 border-0 border-b-[1px] border-slate-300 placeholder:font-content placeholder:font-medium placeholder:text-sm  focus:border-brand-blue focus:outline-none px-2 w-full text-sm text-slate-900 font-content font-semibold bg-white;
 }
 
 /*========tostify design==========*/
@@ -57,6 +57,31 @@ body {
 }
 .message_container {
   height: calc(100vh - 200px);
+}
+
+/* Universal Styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-[#1f2937];
+}
+p,
+label,
+li,
+span {
+  @apply text-[#1f2937];
+}
+.label-text {
+  @apply !text-[#1f2937];
+}
+button > span {
+  @apply text-white;
+}
+input {
+  @apply !text-[#1f2937];
 }
 
 @tailwind base;

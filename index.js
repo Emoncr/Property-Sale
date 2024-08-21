@@ -105,6 +105,8 @@ export const io = new Server(expressServer, {
       "http://localhost:5173",
       "https://property-sell.vercel.app",
       "https://property-sell-gjz462ec1-emoncr.vercel.app/",
+      "http://localhost:3000",
+      "https://property-sell.onrender.com"
     ],
     credentials: true,
   },
@@ -136,7 +138,7 @@ io.on("connection", (socket) => {
 
 
 
-export default ()=>expressServer;
+
 
 
 

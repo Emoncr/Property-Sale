@@ -97,7 +97,8 @@ const Search = () => {
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
                                                         <input
-                                                            className='h-4 w-4 mr-1 accent-brand-blue' type="radio"
+                                                            className=" w-4 h-4 mr-1 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue accent-brand-blue dark:bg-transparent"
+                                                            type="radio"
                                                             name="type"
                                                             value={"all"}
                                                             onChange={(e) => handleChange(e.target.name, e.target.value)}
@@ -109,7 +110,8 @@ const Search = () => {
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
                                                         <input
-                                                            className='h-4 w-4 mr-1 accent-brand-blue' type="radio"
+                                                            className=" w-4 h-4 mr-1 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue accent-brand-blue dark:bg-transparent"
+                                                            type="radio"
                                                             name="type"
                                                             value={"sale"}
                                                             onChange={(e) => handleChange(e.target.name, e.target.value)}
@@ -120,7 +122,9 @@ const Search = () => {
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
                                                         <input
-                                                            className='h-4 w-4 mr-1 accent-brand-blue' type="radio"
+                                                            className=" w-4 h-4 mr-1 bg-transparent border border-solid border-gray-400  checked:bg-brand-blue checked:border-brand-blue dark:checked:bg-white dark:checked:border-brand-blue accent-brand-blue dark:bg-transparent"
+
+                                                            type="radio"
                                                             name="type"
                                                             value={"rent"}
                                                             onChange={(e) => handleChange(e.target.name, e.target.value)}
@@ -138,7 +142,8 @@ const Search = () => {
                                                     <div className='mr-5'>
                                                         <label className="flex items-center justify-start text-lg font-heading">
                                                             <input
-                                                                className='h-4 w-4 mr-1 accent-brand-blue' type="checkbox"
+                                                                className="checkbox w-[18px] h-[18px] mr-1 border-gray-400 rounded-md checked:bg-brand-blue"
+                                                                type="checkbox"
                                                                 name="parking"
                                                                 onChange={(e) => handleChange(e.target.name, e.target.checked)}
                                                                 checked={formState.parking}
@@ -149,7 +154,8 @@ const Search = () => {
                                                     <div>
                                                         <label className="flex items-center justify-start text-lg font-heading">
                                                             <input
-                                                                className='h-4 w-4 mr-1 accent-brand-blue' type="checkbox"
+                                                                className="checkbox w-[18px] h-[18px] mr-1 border-gray-400 rounded-md checked:bg-brand-blue"
+                                                                type="checkbox"
                                                                 name="furnished"
                                                                 onChange={(e) => handleChange(e.target.name, e.target.checked)}
                                                                 checked={formState.furnished}
@@ -165,7 +171,8 @@ const Search = () => {
                                                 <div>
                                                     <label className="flex items-center justify-start text-lg font-heading">
                                                         <input
-                                                            className='h-4 w-4 mr-1  accent-brand-blue' type="checkbox"
+                                                            className="checkbox w-[18px] h-[18px] mr-1 border-gray-400 rounded-md checked:bg-brand-blue"
+                                                            type="checkbox"
                                                             name="offer"
                                                             checked={formState.offer}
                                                             onChange={(e) => handleChange(e.target.name, e.target.checked)}

@@ -42,19 +42,19 @@ const ProfileOption = ({ user }) => {
                         <img className='rounded-full border border-brand-blue/20 h-8 w-8 object-cover' src={user.avatar} alt="profile image" />
                     </div>
                 </label>
-                <ul tabIndex={0} className="mt-3 z-[999999999] font-heading p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-md w-52 ">
+                <ul tabIndex={0} className="mt-3 z-[999999999] bg-[#fff] font-heading p-2 shadow menu menu-sm dropdown-content rounded-md w-52 ">
                     <li>
-                        <Link to={'/profile'} className="justify-start text-brand-blue">
+                        <Link to={'/profile'} className="justify-start text-brand-blue hover:text-brand-blue">
                             <FaUser className='text-brand-blue' /> Profile
                         </Link>
                     </li>
                     <li>
-                        <Link to={"/saved_listing"}>
+                        <Link to={"/saved_listing"} className='hover:text-brand-blue'>
                             <FaBookmark className='text-amber-500' /> Saved Listings
                         </Link>
                     </li>
                     <li onClick={handleLogOut}>
-                        <Link>
+                        <Link className='hover:text-brand-blue'>
                             <FaSignOutAlt className='text-red-500' /> Logout
                         </Link>
                     </li>
