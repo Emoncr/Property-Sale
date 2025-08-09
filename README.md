@@ -1,3 +1,7 @@
+Hi There ! 
+
+This is a real estate application 
+=======
 LIVE_URL: https://property-sell.vercel.app/
 
 Excited to announce the completion of my latest project, 'Property Sale'! 🏡 Built on MERN stack with real-time chat functionality using Socket.io. A platform where you can buy, sell, or rent properties.
