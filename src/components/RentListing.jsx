@@ -7,6 +7,7 @@ import { BsArrowRight, BsArrowLeft, } from "react-icons/bs";
 import SkletonLoading from './SkletonLoading';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 
 const RentListing = () => {
@@ -19,7 +20,7 @@ const RentListing = () => {
         (async () => {
             try {
                 setLoading(true)
-                const res = await fetch(`/api/posts?type=rent`)
+                const res = await  fetch(`${API_BASE}/api/posts?type=rent`)
                 const json = await res.json()
                 if (json.success === false) {
                     setLoading(false)

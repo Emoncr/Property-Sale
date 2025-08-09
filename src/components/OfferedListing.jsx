@@ -7,6 +7,7 @@ import { BsArrowRight, BsArrowLeft, } from "react-icons/bs";
 import SkletonLoading from './SkletonLoading';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 
 
@@ -21,7 +22,7 @@ const OfferedListing = () => {
         (async () => {
             try {
                 setLoading(true)
-                const res = await fetch(`/api/posts?type=all&offer=true`)
+                const res = await  fetch(`${API_BASE}/api/posts?type=all&offer=true`)
                 const json = await res.json()
                 if (json.success === false) {
                     setLoading(false)

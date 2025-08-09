@@ -5,13 +5,14 @@ import { signoutFailed, signoutSuccess } from '../redux/user/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import { clearSavedListing } from '../redux/saveListing/saveListingSlice';
 import { FaBookmark, FaSignOutAlt, FaUser } from 'react-icons/fa';
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 const ProfileOption = ({ user }) => {
     const dispatch = useDispatch();
 
     const handleLogOut = async () => {
         try {
-            const res = await fetch('api/auth/signout');
+            const res = await  fetch(`${API_BASE}/api/auth/signout`);
             const data = await res.json();
             if (data.success === false) {
                 useDispatch(signoutFailed(data.message))

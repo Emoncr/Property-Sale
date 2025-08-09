@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import { BsArrowRight, BsArrowLeft, } from "react-icons/bs";
 import SkletonLoading from './SkletonLoading';
 import { useNavigate } from 'react-router-dom';
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 
 
@@ -20,7 +21,7 @@ const SaleListing = () => {
         (async () => {
             try {
                 setLoading(true)
-                const res = await fetch(`/api/posts?type=sale`)
+                const res = await  fetch(`${API_BASE}/api/posts?type=sale`)
                 const json = await res.json()
                 if (json.success === false) {
                     setLoading(false)
