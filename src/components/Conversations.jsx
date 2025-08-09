@@ -3,6 +3,7 @@ import { signal } from '@preact/signals-react'
 import { notifySignal } from './SocketConnection'
 import { setNotification } from '../redux/notifications/notificationSlice'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 export const activeChatId = signal({
     chatId: ""
 })
@@ -38,7 +39,7 @@ const Conversations = ({ conversationInfo }) => {
         const isNotifyExistDB = notifications.some(notify => notify.from === notify_from);
         if (isNotifyExistDB) {
             try {
-                const dltNotify = await fetch(`/api/notification/delete/${notify_from}`, {
+                const dltNotify = await  fetch(`${API_BASE}/api/notification/delete/${notify_from}`, {
                     method: 'DELETE'
                 })
                 const res = await dltNotify.json();

@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 
 const OAuth = () => {
@@ -20,7 +21,7 @@ const OAuth = () => {
             const { displayName, email, photoURL } = result.user;
 
             //=====Fetch The Data To Backend====//
-            const res = await fetch('/api/auth/google', {
+            const res = await  fetch(`${API_BASE}/api/auth/google`, {
                 method: "POST",
                 headers: {
                     "Content-Type": 'application/json'

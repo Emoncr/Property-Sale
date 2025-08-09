@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://property-sale-backend.onrender.com",
+        target: "http://localhost:3000",
         changeOrigin: true,
         secure: false,
       },

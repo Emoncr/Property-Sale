@@ -5,6 +5,7 @@ import Conversations, { activeChatId } from '../components/Conversations';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 
 const Message = () => {
@@ -39,7 +40,7 @@ const Message = () => {
             try {
  
                 setConversationLoading(true)
-                const res = await fetch(`/api/conversation/${currentUser._id}`)
+                const res = await  fetch(`${API_BASE}/api/conversation/${currentUser._id}`)
                 const getConversations = await res.json();
                 if (getConversations.success === false) {
                     setConversationLoading(false)
