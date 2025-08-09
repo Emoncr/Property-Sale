@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 
 
@@ -18,7 +19,7 @@ const Singup = ({ userState }) => {
     //======handling form submting function =====//
     const onSubmit = async (formData) => {
         setLoading(true)
-        const res = await fetch('/api/auth/signup', {
+        const res = await fetch(`${API_BASE}/api/auth/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

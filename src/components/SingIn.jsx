@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loddingStart, signinSuccess, signinFailed } from '../redux/user/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 
 const SingIn = () => {
@@ -25,7 +26,7 @@ const SingIn = () => {
     const onSubmit = async (formData) => {
         dispatch(loddingStart())
         try {
-            const res = await fetch('/api/auth/signin', {
+            const res = await  fetch(`${API_BASE}/api/auth/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
